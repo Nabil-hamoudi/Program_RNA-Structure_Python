@@ -1,3 +1,3 @@
-def creation_matrices():
+def create_matrices():
   """docstring"""
   pass
