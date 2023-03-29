@@ -9,7 +9,7 @@ def matrix_whx(i, j, k, l):
         exit(1)
 
     if whx[j][l][k][i] is not None:
-        return whx[j][l][k][l]
+        return whx[j][l][k][i]
     
     # initialization of the optimal score
     best_score = float('inf')
