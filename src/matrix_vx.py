@@ -30,5 +30,7 @@ def matrix_vx(i, j):
             for k in range(i, l+1):
                 if score := (Pi_wave + M_wave + Gwi + matrix_whx(i+1, r, k, l) + matrix_whx(k+1, j-1, l-1, r+1)) < best_score: best_score = score
 
-
+    # Addition of the best value in the matrix
+    vx[j][i] = best_score
+   
     return best_score
