@@ -2,6 +2,7 @@
 # import matrix_wxi
 # import matrix_whx
 
+# zhx(i, j : k, k + 1) = vx(i, j) Vk, i<=k<=j
 
 def matrix_zhx(i, j, k, l):
     """docstring"""
