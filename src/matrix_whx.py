@@ -1,6 +1,10 @@
 from parameters import *
-# matrix whx
+from matrix_vhx import matrix_vhx
+from matrix_zhx import matrix_zhx
+from matrix_yhx import matrix_yhx
+from matrix_whi import matrix_whi
 
+# matrix whx
 
 def matrix_whx(i, j, k, l):
     """return the value of the gap matrix whx at the given indices"""
