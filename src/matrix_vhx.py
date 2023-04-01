@@ -1,6 +1,7 @@
 from parameters import *
-# matrix vhx
+from matrix_whx import matrix_whx
 
+# matrix vhx
 
 def matrix_vhx(i, j, k, l)
     """Return the value of the gap matrix vhx at the given indices"""
@@ -20,7 +21,7 @@ def matrix_vhx(i, j, k, l)
 
     # search for a better score
     if score := parameters["EIS2_wave"](i, j, k, l) < best_score: best_score = score
-    if score := (2 * parameters["P_wave"] + M_wave + matrix_whx(i+1; j-1, k-1, l+1)) < best_score: best_score =
+    if score := (2 * parameters["P_wave"] + parameters["M_wave"] + matrix_whx(i+1; j-1, k-1, l+1)) < best_score: best_score =
     score
 
 
