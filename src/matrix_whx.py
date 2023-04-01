@@ -1,6 +1,8 @@
 # matrix whx
 ## TODO ## import
 
+# whx(i, j : k, k + 1) = wx(i, j) Vk, i<=k<=j
+
 def matrix_whx(i, j, k, l):
     """docstring"""
     # check indices
