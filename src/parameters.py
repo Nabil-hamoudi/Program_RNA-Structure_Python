@@ -1,5 +1,4 @@
-# parameters : table 2
-# EIS1, EIS2 and Coaxial Stacking --> functions
+# parameters : table 2 & 3
 
 # dictionnary --> key = parameter, value = score
 parameters = {
@@ -159,14 +158,14 @@ def dangle_L(i, k, j):
     if i == 'U' and k == 'U' and j == 'A': return -0.2
 
 
-def dangle_Ri():
+def dangle_Ri(i, j, k):
     """return the scoring parameter for 3' base dangling off a multiloop pair"""
-    return dangle_R + 0.4
+    return dangle_R(i, j, k) + 0.4
 
 
-def dangle_Li():
+def dangle_Li(i, j, k):
     """return the scoring parameter for 5' base dangling off a multiloop pair"""
-    return dangle_L + 0.4
+    return dangle_L(i, k, j) + 0.4
 
 
 def dangle_R_wave(i, j, k):
