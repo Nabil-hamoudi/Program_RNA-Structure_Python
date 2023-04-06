@@ -148,6 +148,12 @@ def EIS2_wave(i, j, k, l):
 def coaxial_stacking(i, j, k, l):
     """compute and return the coaxial stacking score"""
     
+    global sequence
+    i = sequence[i]
+    j = sequence[j]
+    k = sequence[k]
+    l = sequence[l]
+
     #######
     # --> #
     # i k #
@@ -198,6 +204,11 @@ def dangle_R(i, j, k):
     """return the free-energy for unpaired 3' terminal nucleotides"""
     # page 9/16 --> R^j i, j-1 where j = i, i = j, j-1 = k
 
+    global sequence
+    i = sequence[i]
+    j = sequence[j]
+    k = sequence[k]
+
     #######
     # --> #
     # k i #
@@ -212,7 +223,7 @@ def dangle_R(i, j, k):
     if i == 'C' and k == 'A' and j == 'U': return -0.5
     if i == 'G' and k == 'A' and j == 'U': return -0.8
     if i == 'U' and k == 'A' and j == 'U': return -0.6
-    
+
     if i == 'A' and k == 'C' and j == 'G': return -1.7
     if i == 'C' and k == 'C' and j == 'G': return -0.8
     if i == 'G' and k == 'C' and j == 'G': return -1.7
@@ -222,7 +233,7 @@ def dangle_R(i, j, k):
     if i == 'C' and k == 'G' and j == 'C': return -0.4
     if i == 'G' and k == 'G' and j == 'C': return -1.3
     if i == 'U' and k == 'G' and j == 'C': return -0.6
-    
+
     if i == 'A' and k == 'U' and j == 'A': return -0.7
     if i == 'C' and k == 'U' and j == 'A': return -0.1
     if i == 'G' and k == 'U' and j == 'A': return -0.7
@@ -232,7 +243,13 @@ def dangle_R(i, j, k):
 def dangle_L(i, k, j):
     """return the free-energy for unpaired 5' terminal nucleotides """
    # page 9/16 --> L^i i+1, j where i = i, i+1 = k, j = j
-   #######
+   
+   global sequence
+    i = sequence[i]
+    j = sequence[j]
+    k = sequence[k]
+   
+    #######
     # --> #
     # i k #
     #   | #
