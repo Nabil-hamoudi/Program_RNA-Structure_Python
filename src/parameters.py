@@ -142,7 +142,7 @@ def EIS2(i, j, k, l):
 
 def EIS2_wave(i, j, k, l):
     """scoring function for an irreducible surface of order 2 in pseudoknot"""
-    return EIS2_wave(i, j, k, l) * 0.83
+    return EIS2(i, j, k, l) * 0.83
 
 
 def coaxial_stacking(i, j, k, l):
