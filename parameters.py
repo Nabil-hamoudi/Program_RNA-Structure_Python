@@ -130,8 +130,10 @@ def EIS1(i, j):
 
     if delta_j_i > 2:
         return coaxial_stacking(i, j, i+1, j-1) + harpin_loop_energy[delta_j_i]
-
-    return float("inf")
+    elif delta_j_i > 30:
+        return coaxial_stacking(i, j, i+1, j-1) + 8.9
+    else:
+        return float("inf")
 
 def EIS2(i, j, k, l):
     """scoring function for an irreducible surface of order 2"""
