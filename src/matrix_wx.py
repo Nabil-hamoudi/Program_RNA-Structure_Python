@@ -1,6 +1,6 @@
 # Besoin d'avoir accès à la taille de la séquence d'ARN
-import matrix_vx
-import matrix_whx
+from matrix_vx import matrix_vx
+from matrix_whx import matrix_whx
 from parameters import *
 
 
