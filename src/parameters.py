@@ -126,6 +126,7 @@ internal_loop_energy = {
 
 def EIS1(i, j):
     """scoring function for an irreducible surface of order 1"""
+    # compute number of nucleotides between j and i
     delta_j_i = j - i - 1
 
     if delta_j_i > 30:
