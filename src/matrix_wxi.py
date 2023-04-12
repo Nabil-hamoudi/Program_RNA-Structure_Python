@@ -35,19 +35,13 @@ def matrix_wxi(i, j):
     for r in range(i, j+1):
         for l in range(i, r+1):
             for k in range(i, l+1):
-                if score := (parameters["Gwi"] + matrix_whx(i,r, k,l) + matrix_whx(k+1, j, l-1, r+1)) < best_score: best_score = score
-
+                if score := (parameters["Gwi"] + matrix_whx(i,r, k,l) + 
+                             matrix_whx(k+1, j, l-1, r+1)) < best_score: best_score = score
 
     # Coaxial OUT OF pseudoknot (11)
     for k in range(i, j+1):
         if score := (matrix_vx(i, k) + matrix_vx(k+1, j) + 
                      coaxial_stacking(k, i, k+1, j)) < best_score: best_score = score
-
-    # Coaxial IN pseudoknot (11)
-    for k in range(i, j+1):
-        if score := (matrix_vx(i, k) + matrix_vx(k+1, j) + 
-                     coaxial_stacking_wave(k, i, k+1, j)) < best_score: best_score = score
-
 
     # Dangle (12)
     if score := (dangle_Li(i, i+1, j) + matrix_vx(i+1, j)) < best_score: best_score = score
