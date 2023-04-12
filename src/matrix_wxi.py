@@ -1,6 +1,6 @@
 from parameters import *
-import matrix_vx
-import matrix_whx
+from matrix_vx import matrix_vx
+from matrix_whx import matrix_whx
 
 
 def matrix_wxi(i, j):
