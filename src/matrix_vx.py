@@ -12,12 +12,14 @@ def matrix_vx(i, j):
     Entry: i and j: int as i <= j
     Exit: best score value
     """
+
+    # Function input check
     if (i > j):
         raise IndexError("Invalid index, i must be smaller or equal to j.")
 
+    # Box already calculated ? 
     if vx[j][i] is not None:
         return vx[j][i]
-
 
     # #############################
     # Beginning Recursions
