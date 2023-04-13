@@ -21,9 +21,9 @@ def matrix_yhx(i, j, k, l):
     if score := (parameters["P_wave"] + matrix_vhx(i, j, k, l)) < best_score: best_score = score
 
     # dangles
-    if score := (parameters["L_wave"](i, j-1, i+1) + parameters["R_wave"](j, j-1, i+1) + parameters["P_wave"] + matrix_vhx(i+1, j-1, k, l)) < best_score: best_score = score
-    if score := (parameters["L_wave"](i, j, i+1) + parameters["P_wave"] + matrix_vhx(i+1, j, k, l)) < best_score: best_score = score
-    if score := (parameters["R_wave"](j, j-1, i) + parameters["P_wave"] + matrix_vhx(i, j-1, k, l)) < best_score: best_score = score
+    if score := (parameters["L_wave"](i, i+1, j-1) + parameters["R_wave"](j, i+1, j-1) + parameters["P_wave"] + matrix_vhx(i+1, j-1, k, l)) < best_score: best_score = score
+    if score := (parameters["L_wave"](i, i+1, j) + parameters["P_wave"] + matrix_vhx(i+1, j, k, l)) < best_score: best_score = score
+    if score := (parameters["R_wave"](j, i, j-1) + parameters["P_wave"] + matrix_vhx(i, j-1, k, l)) < best_score: best_score = score
 
     # single-stranded
     if score := (parameters["Q_wave"] + matrix_yhx(i + 1, j, k, l)) < best_score: best_score = score
