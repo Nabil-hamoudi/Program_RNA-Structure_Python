@@ -1,6 +1,6 @@
-from matrix_vx import matrix_vx
-from matrix_whx import matrix_whx
-from matrix_yhx import matrix_yhx
+import matrix_vx
+import matrix_whx
+import matrix_yhx
 from parameters import *
 
 
