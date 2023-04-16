@@ -14,14 +14,15 @@ def create_matrices(n):
     return {"vx" : vx, "wx" : wx, "wxi" : wxi, "vhx" : vhx, "whx" : whx, "yhx" : yhx, "zhx" : zhx}
 
 
-def fill_matrices():
+def fill_matrices(matrix):
     """fill the matrices with the initialization conditions"""
-    n = len(vx)
+    n = len(matrix["vx"])
 
     # initialization for vx and wx
     for i in range(n):
-        vx[i][i] = float('inf')
-        wx[i][i] = 0
+        matrix["vx"][i][i] = float('inf')
+        matrix["wx"][i][i] = 0
+        matrix["wxi"][i][i] = 0
 
     #initialization for vhx, whx, yhx, zhx
     for j in range(n):
@@ -29,23 +30,23 @@ def fill_matrices():
             for i in range(k+1):
 
                 #vhx
-                vhx[j][k][k][i] = float('inf')
+                matrix["vhx"][j][k][k][i] = float('inf')
                 
                 #yhx
-                yhx[j][k][k][i] = float('inf')
+                matrix["yhx"][j][k][k][i] = float('inf')
                 
                 # whx
-                whx[j][k][k][i] = wx[j][i]
-                whx[j][j][i][i] = float('inf')
+                matrix["whx"][j][k][k][i] = matrix ["wx"][j][i]
+                matrix["whx"][j][j][i][i] = float('inf')
                 #k+1 must be lower than j
                 if k+1 <= j:
-                    whx[j][k+1][k][i] = wx[j][i]
+                    matrix["whx"][j][k+1][k][i] = matrix["wx"][j][i]
                 
                 #zhx
-                zhx[j][k][k][i] = vx[j][i]
+                matrix["zhx"][j][k][k][i] = matrix["vx"][j][i]
                 #k+1 must be lower than j 
                 if k+1 <= j:
-                    zhx[j][k+1][k][i] = vx[j][i]
+                    matrix["zhx"][j][k+1][k][i] = matrix["vx"][j][i]
                 
 
                 
