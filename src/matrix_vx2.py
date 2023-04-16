@@ -37,7 +37,7 @@ def matrix_vx(i, j):
                      + matrix_wxi.matrix_wxi(k+1, j-1)) < best_score: best_score = score
 
         if score := (2 * parameters["Pi"] + coaxial_stacking(i, j, i+1, k)
-                     + parameters["M"] + matrix_vx.matrix_vx(i+1, k) + matriw_wxi.matrix_wxi(k+1, j-1)
+                     + parameters["M"] + matrix_vx.matrix_vx(i+1, k) + matrix_wxi.matrix_wxi(k+1, j-1)
                      ) < best_score: best_score = score
 
         if score := (2 * parameters["Pi"] + coaxial_stacking(j-1, k+1, j, i)
