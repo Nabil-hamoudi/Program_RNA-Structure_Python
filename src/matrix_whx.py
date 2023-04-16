@@ -55,7 +55,7 @@ def matrix_whx(i, j, k, l):
             + (2 * parameters["P_wave"]) + matrix_vhx(i+1, j, k, l+1) < best_score:
                 best_score = score
     
-    if score := (parameters["R_wave"](k, k-1, l) parameters["R_wave"](j, i, j-1)) \
+    if score := (parameters["R_wave"](k, k-1, l) + parameters["R_wave"](j, i, j-1)) \
             + (2 * parameters["P_wave"]) + matrix_vhx(i, j-1, k-1, l) < best_score:
                 best_score = score
     
