@@ -3,6 +3,8 @@ from matrix_vhx import matrix_vhx
 from matrix_zhx import matrix_zhx
 from matrix_yhx import matrix_yhx
 from matrix_wxi import matrix_wxi
+from matrix_vx import matrix_vx
+from matrix_wx import matrix_wx
 
 # matrix whx
 
