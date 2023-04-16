@@ -160,7 +160,6 @@ def EIS2_wave(i, j, k, l, sequence):
 def coaxial_stacking(i, j, k, l, sequence):
     """compute and return the coaxial stacking score"""
 
-    global sequence
     i = sequence[i]
     j = sequence[j]
     k = sequence[k]
