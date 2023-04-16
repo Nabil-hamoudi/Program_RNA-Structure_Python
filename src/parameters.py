@@ -220,15 +220,15 @@ def dangle_R(i, j, k):
     j = sequence[j]
     k = sequence[k]
 
-    #######
-    # --> #
-    # k i #
-    # |   #
-    # j   #
-    # <-- #
-    #######
+    #############
+    # --> # --> #
+    # k i #   k #
+    # |   #   | #
+    # j   # i j #
+    # <-- # <-- #
+    #############
 
-    if k != i-1 : raise IndexError("k != i-1")
+    if (k != i-1) or (j != i-1): raise IndexError("k != i-1 or j != i-1")
     # table 3 from 'Improved free-energy parameters for predictions of RNA duplex stability'
     if i == 'A' and k == 'A' and j == 'U': return -0.8
     if i == 'C' and k == 'A' and j == 'U': return -0.5
@@ -260,15 +260,15 @@ def dangle_L(i, k, j):
     j = sequence[j]
     k = sequence[k]
 
-    #######
-    # --> #
-    # i k #
-    #   | #
-    #   j #
-    # <-- #
-    #######
+    #############
+    # --> # --> #
+    # i k # k   #
+    #   | # |   #
+    #   j # j i #
+    # <-- # <-- #
+    #############
 
-    if k != i+1 : raise IndexError("k != i+1")
+    if (k != i+1) or (j != i+1): raise IndexError("k != i+1 or j != i+1")
     # table 3 from 'Improved free-energy parameters for predictions of RNA duplex stability'
     if i == 'A' and k == 'A' and j == 'U': return -0.3
     if i == 'C' and k == 'A' and j == 'U': return -0.3
