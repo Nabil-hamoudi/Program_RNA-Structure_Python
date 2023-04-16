@@ -28,7 +28,7 @@ def matrix_vx(i, j, matrix, sequence):
     best_score = float('inf')
 
     # IS(1)
-    if score := (parameters["EIS1"](i,j)) < best_score: best_score = score
+    if score := (parameters["EIS1"](i,j, sequence)) < best_score: best_score = score
 
     # IS(2)
     for l in range(i,j):
