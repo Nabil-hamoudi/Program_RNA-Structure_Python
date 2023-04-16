@@ -161,7 +161,7 @@ def matrix_whx(i, j, k, l):
                             + matrix_yhx(i, s_prime, k, s) + matrix_yhx(l, j, s-1, s_prime + 1) \
                             < best_score: best_score = score
 
-                    if score := parameters["Gwh"] } matrix_whx(r, j, r_prime, l) \
+                    if score := parameters["Gwh"] + matrix_whx(r, j, r_prime, l) \
                             +  matrix_whx(i, k, r-1, r_prime+1) < best_score: best_score = score
 
                     if score := 2 * parameters["P_wave"] + parameters["Gwh"] \
