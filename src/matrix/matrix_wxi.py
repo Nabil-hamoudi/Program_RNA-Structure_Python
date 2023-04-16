@@ -30,13 +30,13 @@ def matrix_wxi(i, j, matrix, sequence):
     if score := (parameters["Pi"] + matrix_vx.matrix_vx(i,j, matrix, sequence)) < best_score: best_score = score
 
     # Dangles
-    if score := (dangle_Li(i, i+1, j-1) + dangle_Ri(j, i+1, j-1) + parameters["Pi"]
+    if score := (dangle_Li(i, i+1, j-1, sequence) + dangle_Ri(j, i+1, j-1, sequence) + parameters["Pi"]
                  + matrix_vx.matrix_vx(i+1, j-1, matrix, sequence)) < best_score: best_score = score
 
-    if score := (dangle_Li(i, i+1, j) + parameters["Pi"] + matrix_vx.matrix_vx(i+1, j, matrix, sequence)
+    if score := (dangle_Li(i, i+1, j, sequence) + parameters["Pi"] + matrix_vx.matrix_vx(i+1, j, matrix, sequence)
                  ) < best_score: best_score = score
 
-    if score := (dangle_Ri(j, i, j-1) + parameters["Pi"] + matrix_vx.matrix_vx(i, j-1, matrix, sequence)
+    if score := (dangle_Ri(j, i, j-1, sequence) + parameters["Pi"] + matrix_vx.matrix_vx(i, j-1, matrix, sequence)
                  ) < best_score: best_score = score
 
     # Single stranded (9)
@@ -58,7 +58,7 @@ def matrix_wxi(i, j, matrix, sequence):
                              matrix_whx.matrix_whx(k+1, j, l-1, r+1, matrix, sequence)) < best_score: best_score = score
 
                 if score := (2 * parameters["Pi_wave"] + parameters["Gwi"] 
-                             + coaxial_stacking_wave(l-1, r+1, l, k) + matrix_yhx.matrix_yhx(i, r, k, l, matrix, sequence)
+                             + coaxial_stacking_wave(l-1, r+1, l, k, sequence) + matrix_yhx.matrix_yhx(i, r, k, l, matrix, sequence)
                              + matrix_yhx.matrix_yhx(k+1, j, l-1, r+1, matrix, sequence)) < best_score: best_score = score
 
     # End Recursions
