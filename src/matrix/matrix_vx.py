@@ -31,8 +31,8 @@ def matrix_vx(i, j, matrix, sequence):
     if score := (parameters["EIS1"](i,j)) < best_score: best_score = score
 
     # IS(2)
-    for l in range(i,j+1):
-        for k in range(i, l+1):
+    for l in range(i,j):
+        for k in range(i+1, l+1):
             if score := (parameters["EIS2"](i, j, k, l) + matrix_vx(k, l, matrix, sequence)) < best_score: best_score = score
 
     # Nested Multiloop
