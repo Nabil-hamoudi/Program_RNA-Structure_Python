@@ -30,13 +30,13 @@ def matrix_wx(i, j, matrix, sequence):
     if score := (parameters["P"] + matrix_vx.matrix_vx(i,j, matrix, sequence)) < best_score: best_score = score
 
     # Dangles
-    if score := (dangle_L(i, i+1, j-1) + dangle_R(j, i+1, j-1) + parameters["P"]
+    if score := (dangle_L(i, i+1, j-1, sequence) + dangle_R(j, i+1, j-1, sequence) + parameters["P"]
                  + matrix_vx.matrix_vx(i+1, j-1, matrix, sequence)) < best_score: best_score = score
 
-    if score := (dangle_L(i, i+1, j) + parameters["P"] + matrix_vx.matrix_vx(i+1, j, matrix, sequence)
+    if score := (dangle_L(i, i+1, j, sequence) + parameters["P"] + matrix_vx.matrix_vx(i+1, j, matrix, sequence)
                  ) < best_score: best_score = score
 
-    if score := (dangle_R(j, i, j-1) + parameters["P"] + matrix_vx.matrix_vx(i, j-1, matrix, sequence)
+    if score := (dangle_R(j, i, j-1, sequence) + parameters["P"] + matrix_vx.matrix_vx(i, j-1, matrix, sequence)
                  ) < best_score: best_score = score
 
     # Single stranded (9)
@@ -47,7 +47,7 @@ def matrix_wx(i, j, matrix, sequence):
     for k in range(i, j+1):
         if score := (matrix_wx(i, k, matrix) + matrix_wx(k+1, j, matrix, sequence)) < best_score: best_score = score
 
-        if score := (coaxial_stacking(k, i, k+1, j) + matrix_vx.matrix_vx(i, k, matrix, sequence) + matrix_vx.matrix_vx(k+1, j, matrix, sequence)
+        if score := (coaxial_stacking(k, i, k+1, j, sequence) + matrix_vx.matrix_vx(i, k, matrix, sequence) + matrix_vx.matrix_vx(k+1, j, matrix, sequence)
                      ) < best_score: best_score = score
 
     # Non nested bifurcation (pseudoknot) (9)
@@ -58,7 +58,7 @@ def matrix_wx(i, j, matrix, sequence):
                              matrix_whx.matrix_whx(k+1, j, l-1, r+1, matrix, sequence)) < best_score: best_score = score
           
                 if score := (2 * parameters["P_wave"] + parameters["Gw"] 
-                             + coaxial_stacking_wave(l-1, r+1, l, k) + matrix_yhx.matrix_yhx(i, r, k, l, matrix, sequence)
+                             + coaxial_stacking_wave(l-1, r+1, l, k, sequence) + matrix_yhx.matrix_yhx(i, r, k, l, matrix, sequence)
                              + matrix_yhx.matrix_yhx(k+1, j, l-1, r+1, matrix, sequence)) < best_score: best_score = score
  
     # End Recursions
