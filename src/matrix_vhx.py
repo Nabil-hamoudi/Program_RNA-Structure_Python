@@ -26,10 +26,8 @@ def matrix_vhx(i, j, k, l):
 
     for s in range(l, j+1):
         for r in range(i, k+1):
-            if score := parameters["EIS2_wave"](i, j, r s) + matrix_vhx(r, s, k, l) < best_score: best_score =
-            score
-            if score := parameters["EIS2_wave"](r, s k, l) + matrix_vhx(i, j, r, s) < best_score: best_score =
-            score
+            if score := parameters["EIS2_wave"](i, j, r s) + matrix_vhx(r, s, k, l) < best_score: best_score = score
+            if score := parameters["EIS2_wave"](r, s k, l) + matrix_vhx(i, j, r, s) < best_score: best_score = score
 
 
     # store the best score in the matrix and return it 
