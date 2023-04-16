@@ -1,7 +1,6 @@
 from parameters import *
 from matrix_wxi import matrix_wxi
 from matrix_whx import matrix_whx
-from matrix_vx import matrix_vx
 from matrix_zhx import matrix_zhx
 from matrix_yhx import matrix_yhx
 
