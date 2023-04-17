@@ -14,6 +14,7 @@ def matrix_yhx(i, j, k, l, matrix, sequence):
             
     if matrix["yhx"][j][l][k][i] is not None:
         return matrix["yhx"][j][l][k][i]
+    matrix["yhx"][j][l][k][i] = float('inf')
 
     # initialization of the optimal score
     best_score = float('inf')
