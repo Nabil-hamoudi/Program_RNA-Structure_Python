@@ -45,7 +45,7 @@ def matrix_wx(i, j, matrix, sequence):
 
     # Nested Bifurcation (9 & 10)
     for k in range(i, j+1):
-        if score := (matrix_wx(i, k, matrix) + matrix_wx(k+1, j, matrix, sequence)) < best_score: best_score = score
+        if score := (matrix_wx(i, k, matrix, sequence) + matrix_wx(k+1, j, matrix, sequence)) < best_score: best_score = score
 
         if score := (coaxial_stacking(k, i, k+1, j, sequence) + matrix_vx.matrix_vx(i, k, matrix, sequence) + matrix_vx.matrix_vx(k+1, j, matrix, sequence)
                      ) < best_score: best_score = score
