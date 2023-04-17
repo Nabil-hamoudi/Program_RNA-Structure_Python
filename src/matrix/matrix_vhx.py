@@ -21,14 +21,14 @@ def matrix_vhx(i, j, k, l, matrix, sequence):
 
 
     # search for a better score
-    if score := parameters["EIS2_wave"](i, j, k, l, sequence) < best_score: best_score = score
-    if score := (2 * parameters["P_wave"] + parameters["M_wave"] + matrix_whx.matrix_whx(i+1, j-1, k-1, l+1, matrix, sequence)) < best_score: best_score = score
+    if (score := parameters["EIS2_wave"](i, j, k, l, sequence)) < best_score: best_score = score
+    if (score := (2 * parameters["P_wave"] + parameters["M_wave"] + matrix_whx.matrix_whx(i+1, j-1, k-1, l+1, matrix, sequence))) < best_score: best_score = score
 
 
     for s in range(l, j+1):
         for r in range(i, k+1):
-            if score := parameters["EIS2_wave"](i, j, r, s, sequence) + matrix_vhx(r, s, k, l, matrix, sequence) < best_score: best_score = score
-            if score := parameters["EIS2_wave"](r, s, k, l, sequence) + matrix_vhx(i, j, r, s, matrix, sequence) < best_score: best_score = score
+            if (score := parameters["EIS2_wave"](i, j, r, s, sequence) + matrix_vhx(r, s, k, l, matrix, sequence)) < best_score: best_score = score
+            if (score := parameters["EIS2_wave"](r, s, k, l, sequence) + matrix_vhx(i, j, r, s, matrix, sequence)) < best_score: best_score = score
 
 
     # store the best score in the matrix and return it 
