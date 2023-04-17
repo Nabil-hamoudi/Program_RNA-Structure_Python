@@ -18,6 +18,7 @@ def matrix_whx(i, j, k, l, matrix, sequence):
 
     if matrix["whx"][j][l][k][i] is not None:
         return matrix["whx"][j][l][k][i]
+    matrix["whx"][j][l][k][i] = float('inf')
 
 
     if (k+1) == l:
