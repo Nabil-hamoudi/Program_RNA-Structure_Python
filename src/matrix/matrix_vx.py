@@ -20,6 +20,7 @@ def matrix_vx(i, j, matrix, sequence):
     # Box already calculated ? 
     if matrix["vx"][j][i] is not None:
         return matrix["vx"][j][i]
+    matrix["vx"][j][i] = float('inf')
 
     # #############################
     # Beginning Recursions
