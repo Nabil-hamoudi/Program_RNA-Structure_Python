@@ -19,6 +19,7 @@ def matrix_wxi(i, j, matrix, sequence):
     # Box already calculated ?
     if matrix["wxi"][j][i] is not None:
         return matrix["wxi"][j][i]
+    matrix["wxi"][j][i] = float('inf')
 
       # initialization of the optimal score
     best_score = float('inf')
