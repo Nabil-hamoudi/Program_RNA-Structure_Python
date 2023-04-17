@@ -134,7 +134,7 @@ def matrix_whx(i, j, k, l, matrix, sequence):
             if score := 2 * parameters["P_wave"] + coaxial_stacking(s, l, s+1, k, sequence) \
                     + matrix_yhx.matrix_yhx(i, j, k, s+1, matrix, sequence) + matrix_vx.matrix_vx(l, s, matrix, sequence) < best_score: best_score = score
 
-            if score (matrix_yhx.matrix_yhx(i, j, r, s, matrix, sequence) +  matrix_zhx.matrix_zhx(r, s,  k, l, matrix, sequence)) < best_score: best_score = score
+            if score := (matrix_yhx.matrix_yhx(i, j, r, s, matrix, sequence) +  matrix_zhx.matrix_zhx(r, s,  k, l, matrix, sequence)) < best_score: best_score = score
             
             if score := (parameters["M_wave"] + matrix_whx(i, j, r, s, matrix, sequence) \
                     + matrix_whx(r+1, s-1, k, l, matrix, sequence)) < best_score: best_score = score
