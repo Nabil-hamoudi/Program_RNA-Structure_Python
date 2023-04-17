@@ -14,6 +14,7 @@ def matrix_zhx(i, j, k, l, matrix, sequence):
 
     if matrix["zhx"][j][l][k][i] is not None:
         return matrix["zhx"][j][l][k][i]
+    matrix["zhx"][j][l][k][i] = float('inf')
 
     if (k+1) == l:
         matrix["zhx"][j][l][k][i] = matrix_vx.matrix_vx(i, j, matrix, sequence)
