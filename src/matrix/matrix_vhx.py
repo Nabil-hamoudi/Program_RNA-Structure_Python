@@ -14,6 +14,7 @@ def matrix_vhx(i, j, k, l, matrix, sequence):
 
     if matrix["vhx"][j][l][k][i] is not None:
         return matrix["vhx"][j][l][k][i]
+    matrix["vhx"][j][l][k][i] = float('inf')
 
 
     # initialization of the optimal score
