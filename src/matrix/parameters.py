@@ -131,8 +131,6 @@ def EIS2(i, j, k, l, sequence):
     delta_j_l = j - l - 1
 
     if delta_k_i < 0 or delta_j_l < 0:
-        print("delta_k_i=", delta_k_i)
-        print("delta_j_l=", delta_j_l)
         return float('inf')
 
 
@@ -279,7 +277,6 @@ def dangle_L(i, k, j, sequence):
     if j >= len(sequence): return float('inf')
     if k >= len(sequence): return float('inf')
     if (k != i+1) and (j != i+1):
-        print("i=", i, "k=", k,  "j=", j)
         raise IndexError("k != i+1 and j != i+1")
     i = sequence[i]
     j = sequence[j]
@@ -323,7 +320,6 @@ def dangle_Ri(i, k, j, sequence):
 
 def dangle_Li(i, k, j, sequence):
     """return the scoring parameter for 5' base dangling off a multiloop pair"""
-    print("i=", i, "j=", j, "k=", k)
     return dangle_L(i, k, j, sequence) + 0.4
 
 
