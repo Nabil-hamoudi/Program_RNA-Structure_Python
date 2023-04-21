@@ -18,8 +18,8 @@ def matrix_wx(i, j, matrix, sequence):
 
     # Box already calculated ? 
     if matrix["wx"][j][i] is not None:
-        return matrix["wx"][j][i]
-    matrix["wx"][j][i] = float('inf')
+        return matrix["wx"][j][i][0]
+    matrix["wx"][j][i] = (float('inf'), [])
     
     # initialisation of the optimal score
     best_score = float('inf')
