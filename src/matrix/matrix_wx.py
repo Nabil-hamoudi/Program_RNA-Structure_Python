@@ -93,8 +93,8 @@ def matrix_wx(i, j, matrix, sequence):
                              + coaxial_stacking_wave(l-1, r+1, l, k, sequence) 
                              + matrix_yhx.matrix_yhx(i, r, k, l, matrix, sequence)
                              + matrix_yhx.matrix_yhx(k+1, j, l-1, r+1, matrix, sequence))) < best_score:
-                best_score = score
-                matrices_used = [("yhx", i, r, k, l), ("yhx", k+1, j, l-1, r+1)]
+                    best_score = score
+                    matrices_used = [("yhx", i, r, k, l), ("yhx", k+1, j, l-1, r+1)]
  
     # End Recursions
     # #############################
