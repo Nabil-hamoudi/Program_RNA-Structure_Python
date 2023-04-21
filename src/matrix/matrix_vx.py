@@ -90,15 +90,15 @@ def matrix_vx(i, j, matrix, sequence):
                              + matrix_whx.matrix_whx(i+1, r, k, l, matrix, sequence) 
                              + matrix_whx.matrix_whx(k+1, j-1, l-1, r+1, matrix, sequence))) < best_score:
                     best_score = score
-                    matrices_used = [("whx", i+1, r, k, l), "whx", k+1, j-1, l-1, r+1)]
+                    matrices_used = [("whx", i+1, r, k, l), ("whx", k+1, j-1, l-1, r+1)]
                     
          
                 if (score := (2 * parameters["Pi_wave"] + parameters["M_wave"] + parameters["Gwi"]
                              + coaxial_stacking_wave(i, j, i+1, r, sequence) 
                              + matrix_zhx.matrix_zhx(i+1, r, k, l, matrix, sequence)
                              + matrix_whx.matrix_whx(k+1, j-1, l-1, r+1, matrix, sequence))) < best_score:
-                best_score = score
-                matrices_used = [("zhx", i+1, r, k, l), ("whx", k+1, j-1, l-1, r+1)]
+                    best_score = score
+                    matrices_used = [("zhx", i+1, r, k, l), ("whx", k+1, j-1, l-1, r+1)]
                 
 
                 if (score := (2 * parameters["Pi_wave"] + parameters["M_wave"] + parameters["Gwi"]
