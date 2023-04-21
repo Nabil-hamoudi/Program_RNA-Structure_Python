@@ -17,25 +17,32 @@ def matrix_whx(i, j, k, l, matrix, sequence):
         return float('inf')
 
     if matrix["whx"][j][l][k][i] is not None:
-        return matrix["whx"][j][l][k][i]
-    matrix["whx"][j][l][k][i] = float('inf')
+        return matrix["whx"][j][l][k][i][0]
+    matrix["whx"][j][l][k][i] = (float('inf'), [])
 
 
     if (k+1) == l:
-        matrix["whx"][j][l][k][i] = matrix_wx.matrix_wx(i, j, matrix, sequence)
+        matrix["whx"][j][l][k][i] = (matrix_wx.matrix_wx(i, j, matrix, sequence), [("wx", i, j)]
         return matrix_wx.matrix_wx(i, j, matrix, sequence)
 
 
     # initialization of the optimal score
     best_score = float('inf')
 
+    # initialization of the list for the traceback
+    matrices_used = []
     
     # search for a better score
     
     # paired
-    if (score := (2 * parameters["P_wave"] + matrix_vhx.matrix_vhx(i, j, k, l, matrix, sequence))) < best_score: best_score = score
-    if (score := (parameters["P_wave"] + matrix_zhx.matrix_zhx(i, j, k, l, matrix, sequence))) < best_score: best_score = score
-    if (score := (parameters["P_wave"] + matrix_yhx.matrix_yhx(i, j, k, l, matrix, sequence))) < best_score: best_score = score
+    if (score := (2 * parameters["P_wave"] + matrix_vhx.matrix_vhx(i, j, k, l, matrix, sequence))) < best_score:
+        best_score = score
+                                     
+    if (score := (parameters["P_wave"] + matrix_zhx.matrix_zhx(i, j, k, l, matrix, sequence))) < best_score:
+        best_score = score
+                                     
+    if (score := (parameters["P_wave"] + matrix_yhx.matrix_yhx(i, j, k, l, matrix, sequence))) < best_score:
+        best_score = score
 
     # single-stranded
     if (score := (parameters["Q_wave"] + matrix_whx(i+1, j, k, l, matrix, sequence))) < best_score: best_score = score
