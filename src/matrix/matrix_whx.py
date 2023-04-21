@@ -122,7 +122,6 @@ def matrix_whx(i, j, k, l, matrix, sequence):
             + parameters["P_wave"] + matrix_zhx.matrix_zhx(i+1, j-1, k, l, matrix, sequence)) < best_score:
         best_score = score
         matrices_used = [("zhx", i+1, j-1, k, l)]
-                best_score = score
     
     if (score := parameters["L_wave"](i, i+1, j, sequence) + parameters["P_wave"] \
             + matrix_zhx.matrix_zhx(i+1, j, k, l, matrix, sequence)) < best_score:
