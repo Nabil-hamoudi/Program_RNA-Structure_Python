@@ -58,14 +58,14 @@ def matrix_vx(i, j, matrix, sequence):
             
         if (score := (2 * parameters["Pi"] + coaxial_stacking(i, j, i+1, k, sequence)
                      + parameters["M"] + matrix_vx(i+1, k, matrix, sequence) 
-                      + matrix_wxi.matrix_wxi(k+1, j-1, matrix, sequence))) < best_score:
+                     + matrix_wxi.matrix_wxi(k+1, j-1, matrix, sequence))) < best_score:
             best_score = score
             matrices_used = [("vx", i+1, j), ("wxi", k+1, j-1)]
             
 
         if (score := (2 * parameters["Pi"] + coaxial_stacking(j-1, k+1, j, i, sequence)
                      + parameters["M"] + matrix_vx(k+1, j-1, matrix, sequence) 
-                      + matrix_wxi.matrix_wxi(i+1, k, matrix, sequence))) < best_score:
+                     + matrix_wxi.matrix_wxi(i+1, k, matrix, sequence))) < best_score:
             best_score = score
             matrices_used = [("vx", k+1, j-1), ("wxi", i+1, k)]
 
@@ -76,7 +76,7 @@ def matrix_vx(i, j, matrix, sequence):
                 
                 if (score := (3 * parameters["Pi"] + coaxial_stacking(k, i_prime, k+1, j_prime, sequence)
                              + parameters["M"] + matrix_vx(i_prime, k, matrix, sequence) 
-                              + matrix_vx(k+1, j_prime, matrix, sequence))) < best_score:
+                             + matrix_vx(k+1, j_prime, matrix, sequence))) < best_score:
                     best_score = score
                     matrices_used = [("vx", i_prime, k), ("vx", k+1, j_prime)]
 
@@ -88,14 +88,14 @@ def matrix_vx(i, j, matrix, sequence):
                 
                 if (score := (parameters["Pi_wave"] + parameters["M_wave"] + parameters["Gwi"]
                              + matrix_whx.matrix_whx(i+1, r, k, l, matrix, sequence) 
-                              + matrix_whx.matrix_whx(k+1, j-1, l-1, r+1, matrix, sequence))) < best_score:
+                             + matrix_whx.matrix_whx(k+1, j-1, l-1, r+1, matrix, sequence))) < best_score:
                     best_score = score
                     matrices_used = [("whx", i+1, r, k, l), "whx", k+1, j-1, l-1, r+1)]
                     
          
                 if (score := (2 * parameters["Pi_wave"] + parameters["M_wave"] + parameters["Gwi"]
                              + coaxial_stacking_wave(i, j, i+1, r, sequence) 
-                              + matrix_zhx.matrix_zhx(i+1, r, k, l, matrix, sequence)
+                             + matrix_zhx.matrix_zhx(i+1, r, k, l, matrix, sequence)
                              + matrix_whx.matrix_whx(k+1, j-1, l-1, r+1, matrix, sequence))) < best_score:
                 best_score = score
                 matrices_used = [("zhx", i+1, r, k, l), ("whx", k+1, j-1, l-1, r+1)]
@@ -103,7 +103,7 @@ def matrix_vx(i, j, matrix, sequence):
 
                 if (score := (2 * parameters["Pi_wave"] + parameters["M_wave"] + parameters["Gwi"]
                              + coaxial_stacking_wave(j-1, k+1, j, i, sequence) 
-                              + matrix_whx.matrix_whx(i+1, r, k, l, matrix, sequence)
+                             + matrix_whx.matrix_whx(i+1, r, k, l, matrix, sequence)
                              + matrix_zhx.matrix_zhx(k+1, j-1, l-1, r+1, matrix, sequence))) < best_score:
                     best_score = score
                     matrices_used = [("whx", i+1, r, l, l), ("zhx", k+1, j-1, l-1, r+1)]
@@ -111,7 +111,7 @@ def matrix_vx(i, j, matrix, sequence):
 
                 if (score := (3 * parameters["Pi_wave"] + parameters["M_wave"] + parameters["Gwi"]
                              + coaxial_stacking_wave(l-1, r+1, l, k, sequence) 
-                              + matrix_yhx.matrix_yhx(i+1, r, k, l, matrix, sequence)
+                             + matrix_yhx.matrix_yhx(i+1, r, k, l, matrix, sequence)
                              + matrix_yhx.matrix_yhx(k+1, j-1, l-1, r+1, matrix, sequence))) < best_score:
                     best_score = score
                     matrices_used = [("yhx", i+1, r, k, l), ("yhx", k+1, j-1, l-1, r+1)]
