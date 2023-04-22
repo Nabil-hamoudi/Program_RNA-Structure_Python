@@ -129,6 +129,10 @@ def EIS2(i, j, k, l, sequence):
     # compute number of nucleotides between k and i / j and l
     delta_k_i = k - i - 1
     delta_j_l = j - l - 1
+    delta_k_l = l - k - 1
+
+    if delta_k_l < 5:
+        return float('inf')
 
     if delta_k_i < 0 or delta_j_l < 0:
         return float('inf')
