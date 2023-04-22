@@ -4,9 +4,10 @@ import matrix_vx
 import matrix_wx
 import matrix_wxi
 
+sequence = "UCCGAAGUGCAACGGGAAAAUGCACU"
 sequence2 = "CAGUCAUGCUAGCAUG"
-sequence3 = "GGCACCUCCUCGCGGUGCC"
-sequence = "AAACAUGAGGAUUACCCAUGU"
+sequence4 = "GGCACCUCCUCGCGGUGCC"
+sequence3 = "AAACAUGAGGAUUACCCAUGU"
 
 #sys.setrecursionlimit(19000)
 matrix = create_matrices(len(sequence))
@@ -31,8 +32,8 @@ def traceback(matrix, current_matrix_name, indices, matches):
         best_score  = matrix[current_matrix_name][indices[1]][indices[0]][0]
         matrices_used = matrix[current_matrix_name][indices[1]][indices[0]][1]
     elif len(indices) == 4:
-        best_score = matrix[current_matrix_name][indices[3]][indices[2]][indices[1]][indices[0]][0]
-        matrices_used = matrix[current_matrix_name][indices[3]][indices[2]][indices[1]][indices[0]][1]
+        best_score = matrix[current_matrix_name][indices[1]][indices[3]][indices[2]][indices[0]][0]
+        matrices_used = matrix[current_matrix_name][indices[1]][indices[3]][indices[2]][indices[0]][1]
     else:
         print(f"Index error")
 
@@ -53,6 +54,26 @@ def traceback(matrix, current_matrix_name, indices, matches):
             matches[matrix_used[1]] = matrix_used[2]
             matches[matrix_used[2]] = matrix_used[1]
 
+
+        elif matrix_name == "vhx":
+            matches[matrix_used[1]] = matrix_used[2]
+            matches[matrix_used[2]] = matrix_used[1]
+
+            matches[matrix_used[3]] = matrix_used[4]
+            matches[matrix_used[4]] = matrix_used[3]
+
+
+
+        elif matrix_name == "yhx":
+            matches[matrix_used[3]] = matrix_used[4]
+            matches[matrix_used[4]] = matrix_used[3]
+
+
+        elif matrix_name == "zhx":
+            matches[matrix_used[1]] = matrix_used[2]
+            matches[matrix_used[2]] = matrix_used[1]
+
+        
         traceback(matrix, matrix_name, matrix_used[1:], matches)
 
         
@@ -66,7 +87,7 @@ def display(sequence, matches, best_score):
         print(nucleotide, "  ", sep="", end="")
     print()
     for position in range(len(sequence)):
-        print(position, " "*(2-(position//10)), sep="", end="")
+        print(position, " "*(3-len(str(position))), sep="", end="")
     print()
     for index in matches:
         print(index, " "*(3-len(str(index))), sep="", end="")
