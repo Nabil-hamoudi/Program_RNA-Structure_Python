@@ -5,7 +5,8 @@ import matrix_wx
 import matrix_wxi
 
 sequence2 = "CAGUCAUGCUAGCAUG"
-sequence = "AGCAAAAAGCAA"
+sequence3 = "GGCACCUCCUCGCGGUGCC"
+sequence = "AAACAUGAGGAUUACCCAUGU"
 
 #sys.setrecursionlimit(19000)
 matrix = create_matrices(len(sequence))
@@ -15,9 +16,11 @@ matrix_wx.matrix_wx(0, len(sequence)-1, matrix, sequence)
 
 print("## WX ##")
 for line in matrix["wx"]: print([round(x[0], 2) for x in line])
+print("## VX ##")
+for line in matrix["vx"]: print([round(x[0], 2) for x in line])
 
 
-def traceback(matrix, current_matrix_name, indices):
+def traceback(matrix, current_matrix_name, indices, matches):
     """traceback"""
     
     print("------------------------------------------------------------------------")
@@ -33,7 +36,7 @@ def traceback(matrix, current_matrix_name, indices):
     else:
         print(f"Index error")
 
-    print(f"best score : {best_score}")
+    print("best score :", round(best_score, 2))
 
 
     # for each tuple in list matrices_used
@@ -45,17 +48,28 @@ def traceback(matrix, current_matrix_name, indices):
         
         if "EIS" in matrix_name:
             continue
-            
-        traceback(matrix, matrix_name, matrix_used[1:])
+    
+        if matrix_name == "vx":
+            matches[matrix_used[1]] = matrix_used[2]
+            matches[matrix_used[2]] = matrix_used[1]
+
+        traceback(matrix, matrix_name, matrix_used[1:], matches)
 
         
 
-def display(sequence):
+def display(sequence, matches, best_score):
+    print()
+    print(f"Results : ")
+    print("energy (in kcal/mol) :", round(best_score, 2))
+    print()
     for nucleotide in sequence:
         print(nucleotide, "  ", sep="", end="")
     print()
     for position in range(len(sequence)):
         print(position, " "*(2-(position//10)), sep="", end="")
+    print()
+    for index in matches:
+        print(index, " "*(3-len(str(index))), sep="", end="")
     print()
 
 
@@ -76,8 +90,8 @@ def display(sequence):
 # for line in matrix["yhx"]: print(line)
 # print("\n## zhx ##")
 # for line in matrix["zhx"]: print(line)
-
-traceback(matrix, "wx", (0, len(sequence) - 1))
-display(sequence)
+matches = ["_"] * len(sequence)
+traceback(matrix, "wx", (0, len(sequence) - 1), matches)
+display(sequence, matches, matrix["wx"][len(sequence) - 1][0][0])
 # avec i = 0 et j = len(sequence) - 1
 
