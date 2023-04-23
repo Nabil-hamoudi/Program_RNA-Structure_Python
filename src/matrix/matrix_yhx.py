@@ -5,6 +5,7 @@ import matrix_whx
 import matrix_vx
 
 
+
 def matrix_yhx(i, j, k, l, matrix, sequence):
     """return the value of the gap matrix yhx at the given indices"""
     if (i > k) or (k > l) or (l > j):

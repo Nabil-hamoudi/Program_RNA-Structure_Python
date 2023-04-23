@@ -6,6 +6,7 @@ import matrix_wxi
 import matrix_vx
 import matrix_wx
 
+
 # matrix whx
 
 def matrix_whx(i, j, k, l, matrix, sequence):

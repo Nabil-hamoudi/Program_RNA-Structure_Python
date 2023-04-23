@@ -4,6 +4,7 @@ import matrix_yhx
 from parameters import *
 
 
+
 def matrix_wx(i, j, matrix, sequence):
     """
     Calculate the box (i,j) of the wx matrix and return its value.

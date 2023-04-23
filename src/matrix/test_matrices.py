@@ -4,57 +4,14 @@ import matrix_vx
 import matrix_wx
 import matrix_wxi
 
-# sequence1 = "UCCGAAGUGCAACGGGAAAAUGCACU"
-# sequence2 = "CAGUCAUGCUAGCAUG"
-# sequence4 = "GGCACCUCCUCGCGGUGCC"
-# sequence3 = "AAACAUGAGGAUUACCCAUGU"
-# sequence = "GGCGCAGUGGGCUAGCGCCACUCAAAAGGCCCAU"  # pseudoknot
-filename = 'pdb_test.fasta'
 
-def reading_fasta_file(filename):
-    """
-    Reading file containing arn (or dna) sequence
-    Input: file .txt or .fasta
-    Output: RNA (or DNA) sequence & sequence name
-    """
-    with open(filename, "r") as f:
-        sequence = ""
-        name_seq = ''
-        line = f.readline()
-        while line != "":
-            # if not a description line
-            if line[0] != ">":
-                sequence = sequence + line[0: len(line)-1]
-                line = f.readline()
-            else:
-                name_seq = line[0: len(line)-1]
-                line = f.readline()
-        
-        if name_seq == "":
-            name_seq = 'No information on the sequence studied'
-
-    return sequence, name_seq
-
-
-sequence, sequence_name = reading_fasta_file(filename)
-
-
-def check_rna_seq(sequence):
-    """
-    """
-    list_nucleotides = ['A', 'T', 'G', 'C', 'U']
-    for i in range(len(sequence)):
-        if sequence[i] == 'T':
-            sequence = sequence[:i] + 'U' + sequence[i+1:]
-        elif sequence[i] not in list_nucleotides:
-            raise ValueError('The sequence entered is not an RNA or DNA sequence')
-
-    return sequence
-
-
-sequence = check_rna_seq(sequence)
-
-
+sequence1 = "UCCGAAGUGCAACGGGAAAAUGCACU"
+sequence2 = "CAGUCAUGCUAGCAUG"
+sequence4 = "GGCACCUCCUCGCGGUGCC"
+sequence3 = "AAACAUGAGGAUUACCCAUGU"
+sequence5 = "GGCGCAGUGGGCUAGCGCCACUCAAAAGGCCCAU"  # pseudoknot
+sequence6 = "AACUUGUCUUAGCUUUGCAGUCGAGUU"  # hairpin
+sequence = "AGC"
 print("Loading...")
 
 #sys.setrecursionlimit(19000)
@@ -127,6 +84,8 @@ def traceback(matrix, current_matrix_name, indices, matches):
         
 
 def display(sequence, matches, best_score):
+    structure = ''
+    reverse = False
     print()
     print(f"Results : ")
     print("energy (in kcal/mol) :", round(best_score, 2))
@@ -139,6 +98,7 @@ def display(sequence, matches, best_score):
     print()
     for index in matches:
         print(index, " "*(3-len(str(index))), sep="", end="")
+        
     print()
 
 
