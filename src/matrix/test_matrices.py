@@ -20,7 +20,7 @@ def reading_fasta_file(filename):
     """
     with open(filename, "r") as f:
         sequence = ""
-        name_seq = ''
+        name_seq = ""
         line = f.readline()
         while line != "":
             # if not a description line
@@ -32,7 +32,7 @@ def reading_fasta_file(filename):
                 line = f.readline()
 
         if name_seq == "":
-            name_seq = 'No information on the sequence studied'
+            name_seq = "No information on the sequence studied"
 
     sequence = sequence.upper()
 
@@ -45,12 +45,12 @@ sequence, sequence_name = reading_fasta_file(filename)
 def check_rna_seq(sequence):
     """
     """
-    list_nucleotides = ['A', 'T', 'G', 'C', 'U']
+    list_nucleotides = ["A", "T", "G", "C", "U"]
     for i in range(len(sequence)):
-        if sequence[i] == 'T':
-            sequence = sequence[:i] + 'U' + sequence[i+1:]
+        if sequence[i] == "T":
+            sequence = sequence[:i] + "U" + sequence[i+1:]
         elif sequence[i] not in list_nucleotides:
-            raise ValueError('The sequence entered is not an RNA or DNA sequence')
+            raise ValueError("The sequence entered is not an RNA or DNA sequence")
 
     return sequence
 
