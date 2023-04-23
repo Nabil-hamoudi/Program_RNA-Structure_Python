@@ -30,7 +30,7 @@ def run_matrix(sequence):
 
 
 def traceback(matrix, current_matrix_name, indices, matches):
-    """traceback"""
+    """traceback the matrices to get the optimal path and deduce the optimal structures"""
     
     print("------------------------------------------------------------------------")
     print(f"Current matrix : {current_matrix_name}")
