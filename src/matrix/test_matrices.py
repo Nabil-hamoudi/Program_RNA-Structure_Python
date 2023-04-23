@@ -41,7 +41,6 @@ def reading_fasta_file(filename):
 
 sequence, sequence_name = reading_fasta_file(filename)
 
-
 def check_rna_seq(sequence):
     """
     Check if it's an RNA sequence.
@@ -126,14 +125,11 @@ def traceback(matrix, current_matrix_name, indices, matches):
             matches[matrix_used[1]] = matrix_used[2]
             matches[matrix_used[2]] = matrix_used[1]
 
-        
+
         traceback(matrix, matrix_name, matrix_used[1:], matches)
 
-        
 
 def display(sequence, matches, best_score):
-    structure = ''
-    reverse = False
     print()
     print(f"Results : ")
     print("energy (in kcal/mol) :", round(best_score, 2))
@@ -148,11 +144,6 @@ def display(sequence, matches, best_score):
         print(index, " "*(3-len(str(index))), sep="", end="")
         
     print()
-
-
-
-
-
 
 
 # print("\n## WX ##")
@@ -171,4 +162,3 @@ matches = ["_"] * len(sequence)
 traceback(matrix, "wx", (0, len(sequence) - 1), matches)
 display(sequence, matches, matrix["wx"][len(sequence) - 1][0][0])
 # avec i = 0 et j = len(sequence) - 1
-
