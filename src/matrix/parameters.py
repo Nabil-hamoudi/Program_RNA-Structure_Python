@@ -129,6 +129,10 @@ def EIS2(i, j, k, l, sequence):
     # compute number of nucleotides between k and i / j and l
     delta_k_i = k - i - 1
     delta_j_l = j - l - 1
+    delta_k_l = l - k - 1
+
+    if delta_k_l < 5:
+        return float('inf')
 
     if delta_k_i < 0 or delta_j_l < 0:
         return float('inf')
@@ -198,6 +202,18 @@ def coaxial_stacking(i, j, k, l, sequence):
     if i == 'C' and j == 'G' and k == 'G' and l == 'C': return -2.0
     if i == 'G' and j == 'C' and k == 'C' and l == 'G': return -3.4
     if i == 'G' and j == 'C' and k == 'G' and l == 'C': return -2.9
+
+    if l == 'A' and k == 'U' and j == 'A' and i == 'U': return -0.9
+    if l == 'A' and k == 'U' and j == 'U' and i == 'A': return -0.9
+    if l == 'U' and k == 'A' and j == 'A' and i == 'U': return -1.1
+    if l == 'C' and k == 'G' and j == 'A' and i == 'U': return -1.8
+    if l == 'C' and k == 'G' and j == 'U' and i == 'A': return -1.7
+    if l == 'G' and k == 'C' and j == 'A' and i == 'U': return -2.3
+    if l == 'G' and k == 'C' and j == 'U' and i == 'A': return -2.1
+    if l == 'C' and k == 'G' and j == 'G' and i == 'C': return -2.0
+    if l == 'G' and k == 'C' and j == 'C' and i == 'G': return -3.4
+    if l == 'G' and k == 'C' and j == 'G' and i == 'C': return -2.9
+
 
     # initiation 3.4 ?
 
