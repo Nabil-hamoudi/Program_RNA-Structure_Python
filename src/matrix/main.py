@@ -4,6 +4,8 @@ from tkinter import filedialog
 #temporaire
 from test_matrices import *
 
+
+# Parser
 parser = argparse.ArgumentParser()
 
 input_group = parser.add_mutually_exclusive_group(required=False)
@@ -12,7 +14,7 @@ input_group.add_argument('--file_input', help='input a Fasta file of an RNA sequ
 parser.add_argument('-o', '--file_output', help='make the output into a file', type=argparse.FileType('x'), required=False, nargs='?')
 
 args = parser.parse_args(sys.argv[1::])
-
+#
 
 def reading_fasta_file(file):
     """
