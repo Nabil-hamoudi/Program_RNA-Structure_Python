@@ -4,21 +4,30 @@ import matrix_vx
 import matrix_wx
 import matrix_wxi
 
-sequence = "UCCGAAGUGCAACGGGAAAAUGCACU"
-sequence2 = "CAGUCAUGCUAGCAUG"
-sequence4 = "GGCACCUCCUCGCGGUGCC"
-sequence3 = "AAACAUGAGGAUUACCCAUGU"
+
+##########################################
+# sequence = "UCCGAAGUGCAACGGGAAAAUGCACU"
+# sequence2 = "CAGUCAUGCUAGCAUG"
+# sequence4 = "GGCACCUCCUCGCGGUGCC"
+# sequence3 = "AAACAUGAGGAUUACCCAUGU"
+##########################################
 
 #sys.setrecursionlimit(19000)
-matrix = create_matrices(len(sequence))
-fill_matrices(matrix)
 
-matrix_wx.matrix_wx(0, len(sequence)-1, matrix, sequence)
 
-print("## WX ##")
-for line in matrix["wx"]: print([round(x[0], 2) for x in line])
-print("## VX ##")
-for line in matrix["vx"]: print([round(x[0], 2) for x in line])
+def run_matrix(sequence):
+    """create_matrix"""
+    matrix = create_matrices(len(sequence))
+    fill_matrices(matrix)
+
+    matrix_wx.matrix_wx(0, len(sequence)-1, matrix, sequence)
+
+    print("## WX ##")
+    for line in matrix["wx"]: print([round(x[0], 2) for x in line])
+    print("## VX ##")
+    for line in matrix["vx"]: print([round(x[0], 2) for x in line])
+
+    return matrix
 
 
 def traceback(matrix, current_matrix_name, indices, matches):
@@ -111,8 +120,10 @@ def display(sequence, matches, best_score):
 # for line in matrix["yhx"]: print(line)
 # print("\n## zhx ##")
 # for line in matrix["zhx"]: print(line)
-matches = ["_"] * len(sequence)
-traceback(matrix, "wx", (0, len(sequence) - 1), matches)
-display(sequence, matches, matrix["wx"][len(sequence) - 1][0][0])
+
+#matches = ["_"] * len(sequence)
+#traceback(matrix, "wx", (0, len(sequence) - 1), matches)
+#display(sequence, matches, matrix["wx"][len(sequence) - 1][0][0])
+
 # avec i = 0 et j = len(sequence) - 1
 
