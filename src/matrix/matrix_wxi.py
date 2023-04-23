@@ -4,6 +4,7 @@ import matrix_whx
 import matrix_yhx
 
 
+
 def matrix_wxi(i, j, matrix, sequence):
     """
     Calculate the box (i,j) of the wxi matrix and return its value.

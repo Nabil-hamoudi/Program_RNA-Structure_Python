@@ -2,6 +2,7 @@
 
 # dictionnary --> key = parameter, value = score
 
+
 harpin_loop_energy = {
         3 : 7.4,
         4 : 5.9,
