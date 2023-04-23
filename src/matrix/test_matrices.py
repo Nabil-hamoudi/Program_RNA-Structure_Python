@@ -44,6 +44,11 @@ sequence, sequence_name = reading_fasta_file(filename)
 
 def check_rna_seq(sequence):
     """
+    Check if it's an RNA sequence.
+    If it's a DNA sequence, transform it into an RNA sequence.
+    Otherwise return an error.
+    input: rna or dna sequence
+    output: rna sequence
     """
     list_nucleotides = ["A", "T", "G", "C", "U"]
     for i in range(len(sequence)):
