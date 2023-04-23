@@ -30,9 +30,11 @@ def reading_fasta_file(filename):
             else:
                 name_seq = line[0: len(line)-1]
                 line = f.readline()
-        
+
         if name_seq == "":
             name_seq = 'No information on the sequence studied'
+
+    sequence = sequence.upper()
 
     return sequence, name_seq
 
