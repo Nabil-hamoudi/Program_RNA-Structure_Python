@@ -4,8 +4,58 @@ import matrix_vx
 import matrix_wx
 import matrix_wxi
 
-sequence2 = "CAGUCAUGCUAGCAUG"
-sequence = "AGCAAAAAGCAA"
+# sequence1 = "UCCGAAGUGCAACGGGAAAAUGCACU"
+# sequence2 = "CAGUCAUGCUAGCAUG"
+# sequence4 = "GGCACCUCCUCGCGGUGCC"
+# sequence3 = "AAACAUGAGGAUUACCCAUGU"
+# sequence = "GGCGCAGUGGGCUAGCGCCACUCAAAAGGCCCAU"  # pseudoknot
+filename = 'pdb_test.fasta'
+
+def reading_fasta_file(filename):
+    """
+    Reading file containing arn (or dna) sequence
+    Input: file .txt or .fasta
+    Output: RNA (or DNA) sequence & sequence name
+    """
+    with open(filename, "r") as f:
+        sequence = ""
+        name_seq = ''
+        line = f.readline()
+        while line != "":
+            # if not a description line
+            if line[0] != ">":
+                sequence = sequence + line[0: len(line)-1]
+                line = f.readline()
+            else:
+                name_seq = line[0: len(line)-1]
+                line = f.readline()
+        
+        if name_seq == "":
+            name_seq = 'No information on the sequence studied'
+
+    return sequence, name_seq
+
+
+sequence, sequence_name = reading_fasta_file(filename)
+
+
+def check_rna_seq(sequence):
+    """
+    """
+    list_nucleotides = ['A', 'T', 'G', 'C', 'U']
+    for i in range(len(sequence)):
+        if sequence[i] == 'T':
+            sequence = sequence[:i] + 'U' + sequence[i+1:]
+        elif sequence[i] not in list_nucleotides:
+            raise ValueError('The sequence entered is not an RNA or DNA sequence')
+
+    return sequence
+
+
+sequence = check_rna_seq(sequence)
+
+
+print("Loading...")
 
 #sys.setrecursionlimit(19000)
 matrix = create_matrices(len(sequence))
@@ -15,9 +65,11 @@ matrix_wx.matrix_wx(0, len(sequence)-1, matrix, sequence)
 
 print("## WX ##")
 for line in matrix["wx"]: print([round(x[0], 2) for x in line])
+print("## VX ##")
+for line in matrix["vx"]: print([round(x[0], 2) for x in line])
 
 
-def traceback(matrix, current_matrix_name, indices):
+def traceback(matrix, current_matrix_name, indices, matches):
     """traceback"""
     
     print("------------------------------------------------------------------------")
@@ -28,12 +80,12 @@ def traceback(matrix, current_matrix_name, indices):
         best_score  = matrix[current_matrix_name][indices[1]][indices[0]][0]
         matrices_used = matrix[current_matrix_name][indices[1]][indices[0]][1]
     elif len(indices) == 4:
-        best_score = matrix[current_matrix_name][indices[3]][indices[2]][indices[1]][indices[0]][0]
-        matrices_used = matrix[current_matrix_name][indices[3]][indices[2]][indices[1]][indices[0]][1]
+        best_score = matrix[current_matrix_name][indices[1]][indices[3]][indices[2]][indices[0]][0]
+        matrices_used = matrix[current_matrix_name][indices[1]][indices[3]][indices[2]][indices[0]][1]
     else:
         print(f"Index error")
 
-    print(f"best score : {best_score}")
+    print("best score :", round(best_score, 2))
 
 
     # for each tuple in list matrices_used
@@ -45,17 +97,48 @@ def traceback(matrix, current_matrix_name, indices):
         
         if "EIS" in matrix_name:
             continue
-            
-        traceback(matrix, matrix_name, matrix_used[1:])
+    
+        if matrix_name == "vx":
+            matches[matrix_used[1]] = matrix_used[2]
+            matches[matrix_used[2]] = matrix_used[1]
+
+
+        elif matrix_name == "vhx":
+            matches[matrix_used[1]] = matrix_used[2]
+            matches[matrix_used[2]] = matrix_used[1]
+
+            matches[matrix_used[3]] = matrix_used[4]
+            matches[matrix_used[4]] = matrix_used[3]
+
+
+
+        elif matrix_name == "yhx":
+            matches[matrix_used[3]] = matrix_used[4]
+            matches[matrix_used[4]] = matrix_used[3]
+
+
+        elif matrix_name == "zhx":
+            matches[matrix_used[1]] = matrix_used[2]
+            matches[matrix_used[2]] = matrix_used[1]
+
+        
+        traceback(matrix, matrix_name, matrix_used[1:], matches)
 
         
 
-def display(sequence):
+def display(sequence, matches, best_score):
+    print()
+    print(f"Results : ")
+    print("energy (in kcal/mol) :", round(best_score, 2))
+    print()
     for nucleotide in sequence:
         print(nucleotide, "  ", sep="", end="")
     print()
     for position in range(len(sequence)):
-        print(position, " "*(2-(position//10)), sep="", end="")
+        print(position, " "*(3-len(str(position))), sep="", end="")
+    print()
+    for index in matches:
+        print(index, " "*(3-len(str(index))), sep="", end="")
     print()
 
 
@@ -76,7 +159,8 @@ def display(sequence):
 # for line in matrix["yhx"]: print(line)
 # print("\n## zhx ##")
 # for line in matrix["zhx"]: print(line)
-
-traceback(matrix, "wx", (0, len(sequence) - 1))
-display(sequence)
+matches = ["_"] * len(sequence)
+traceback(matrix, "wx", (0, len(sequence) - 1), matches)
+display(sequence, matches, matrix["wx"][len(sequence) - 1][0][0])
 # avec i = 0 et j = len(sequence) - 1
+
