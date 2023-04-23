@@ -69,7 +69,7 @@ def run_programs(sequence):
     traceback(matrix, "wx", (0, len(sequence) - 1), matches)
     return (matches, matrix)
 
-
+# parse with flag: ['-i', '--input'] or --file_input or no flag
 if args.input is not None:
     sequence = check_rna_seq(args.input)
     sequence_name = None
@@ -85,8 +85,10 @@ else:
     sequence = check_rna_seq(sequence)
     matches, matrix = run_programs(sequence)
 
+# make the display
 output = display(sequence, matches, matrix["wx"][len(sequence) - 1][0][0])
 
+# output with or without argument after the flag
 if args.file_output is not None:
     args.file_output.write(output)
 else:
