@@ -86,20 +86,22 @@ def traceback(matrix, current_matrix_name, indices, matches):
 
 
 def display(sequence, matches, best_score):
-    print()
-    print(f"Results : ")
-    print("energy (in kcal/mol) :", round(best_score, 2))
-    print()
+    """"""
+    output = f"\nResults :\n"
+    output += "energy : " +  str(round(best_score, 2)) + " kcal/mol\n"
     for nucleotide in sequence:
-        print(nucleotide, "  ", sep="", end="")
-    print()
+        output += nucleotide + "  "
+    output += "\n"
     for position in range(len(sequence)):
-        print(position, " "*(3-len(str(position))), sep="", end="")
-    print()
+        output += str(position) + " "*(3-len(str(position)))
+    output += "\n"
     for index in matches:
-        print(index, " "*(3-len(str(index))), sep="", end="")
-        
-    print()
+        output += str(index) + " "*(3-len(str(index)))
+    output += "\n"
+  
+    print(output)
+    return output
+
 
 
 # print("\n## WX ##")
