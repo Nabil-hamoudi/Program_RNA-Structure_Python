@@ -25,10 +25,10 @@ def reading_fasta_file(filename):
         while line != "":
             # if not a description line
             if line[0] != ">":
-                sequence = sequence + line[0: len(line)-1]
+                sequence = sequence + line[: len(line)-1]
                 line = f.readline()
             else:
-                name_seq = line[0: len(line)-1]
+                name_seq = line[1: len(line)-1]
                 line = f.readline()
 
         if name_seq == "":
