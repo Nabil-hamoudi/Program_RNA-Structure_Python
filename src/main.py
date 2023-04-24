@@ -81,10 +81,11 @@ if args.input is not None:
     sequence_name = None
     matches, matrix = run_programs(sequence)
 elif args.file_input is not None:
-    sequence, sequence_name = reading_fasta_file(args.file_input)
-    print(sequence)
-    sequence = check_rna_seq(sequence)
-    matches, matrix = run_programs(sequence)
+    # J'ai modif des trucs ici
+    dict_seq = reading_fasta_file(args.file_input)
+    for elem in dict_seq:
+        sequence = check_rna_seq(dict_seq[elem])
+        matches, matrix = run_programs(sequence)
 else:
     file = filedialog.askopenfile(mode='r')
     sequence, sequence_name = reading_fasta_file(file)
