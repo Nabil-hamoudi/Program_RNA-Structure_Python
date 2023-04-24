@@ -11,10 +11,13 @@ parser = argparse.ArgumentParser()
 input_group = parser.add_mutually_exclusive_group(required=False)
 input_group.add_argument('-i', '--input', help='input an RNA sequence', type=str, nargs='?')
 input_group.add_argument('--file_input', help='input a Fasta file of an RNA sequence', type=argparse.FileType('r'), nargs='?')
-parser.add_argument('-o', '--file_output', help='save the output into a file', type=argparse.FileType('x'), required=False, nargs='?')
+
+output_group = parser.add_argument_group(title="Save output", description="Save the output into a file with or without the traceback")
+output_group.add_argument('-o', '--file_output', help='save the output into a file', type=argparse.FileType('x'), required=False, nargs='?')
+output_group.add_argument('-t', '--traceback', help='display the traceback or not', action='store_true', required=False)
 
 args = parser.parse_args(sys.argv[1::])
-#
+
 
 def reading_fasta_file(file):
     """
