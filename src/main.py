@@ -42,7 +42,7 @@ def reading_fasta_file(file):
                     i += 1
             else:  # if it is a sequence line
                 sequence += line
-        
+
         sequences[sequence_name] = sequence  # add previous sequence to dictionary
     return sequences
 
