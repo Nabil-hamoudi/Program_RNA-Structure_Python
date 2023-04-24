@@ -78,7 +78,7 @@ def run_programs(sequence):
 # parse with flag: ['-i', '--input'] or --file_input or no flag
 if args.input is not None:
     sequence = check_rna_seq(args.input)
-    sequence_name = None
+    sequence_name = "Unknow sequence"
     matches, matrix = run_programs(sequence)
 elif args.file_input is not None:
     # J'ai modif des trucs ici
