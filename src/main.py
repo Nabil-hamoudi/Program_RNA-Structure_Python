@@ -20,28 +20,31 @@ args = parser.parse_args(sys.argv[1::])
 def reading_fasta_file(file):
     """
     Reading file containing arn (or dna) sequence
-    Input: file .txt or .fasta
-    Output: RNA (or DNA) sequence & sequence name
+    Input: file in fasta format
+    Output: dictionary with RNA (or DNA) sequence(s) & sequence(s) name
+            Under the form {name_seq1: seq1, name_seq2: seq2}
     """
+    sequences = {}
+    i = 1
+
     with file as f:
+        sequence_name = ""
         sequence = ""
-        name_seq = ""
-        line = f.readline()
-        while line != "":
-            # if not a description line
-            if line[0] != ">":
-                sequence = sequence + line[: len(line)-1]
-                line = f.readline()
-            else:
-                name_seq = line[1: len(line)-1]
-                line = f.readline()
-
-        if name_seq == "":
-            name_seq = "No information on the sequence studied"
-
-    sequence = sequence.upper()
-
-    return sequence, name_seq
+        for line in f:  # iterate through each line of the file
+            line = line.strip()  # removing both the leading and the trailing characters of the line
+            if line.startswith(">"):  # if sequence header
+                if sequence_name != "":
+                    sequences[sequence_name] = sequence  # add previous sequence to dictionary
+                    sequence = ""
+                sequence_name = line[1:]
+                if sequence_name == "":  # if sequence without informations/header
+                    sequence_name = "Unknow sequence " + str(i)
+                    i += 1
+            else:  # if it is a sequence line
+                sequence += line
+        
+        sequences[sequence_name] = sequence  # add previous sequence to dictionary
+    return sequences
 
 
 def check_rna_seq(sequence):
