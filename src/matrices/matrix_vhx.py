@@ -1,5 +1,5 @@
 from parameters import *
-import matrix_whx
+from matrices import matrix_whx
 
 
 # matrix vhx

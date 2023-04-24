@@ -1,10 +1,5 @@
 from parameters import *
-import matrix_vhx
-import matrix_zhx
-import matrix_yhx
-import matrix_wxi
-import matrix_vx
-import matrix_wx
+from matrices import matrix_vhx, matrix_zhx, matrix_yhx, matrix_wxi, matrix_vx, matrix_wx
 
 
 # matrix whx
