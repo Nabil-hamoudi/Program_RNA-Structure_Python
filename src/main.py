@@ -34,7 +34,7 @@ def reading_fasta_file(file):
             line = line.strip()  # removing both the leading and the trailing characters of the line
             if line.startswith(">"):  # if sequence header
                 if sequence_name != "":
-                    sequences[sequence_name] = sequence  # add previous sequence to dictionary
+                    sequences[sequence_name] = sequence.upper()  # add previous sequence to dictionary
                     sequence = ""
                 sequence_name = line[1:]
                 if sequence_name == "":  # if sequence without informations/header
@@ -43,7 +43,7 @@ def reading_fasta_file(file):
             else:  # if it is a sequence line
                 sequence += line
 
-        sequences[sequence_name] = sequence  # add previous sequence to dictionary
+        sequences[sequence_name] = sequence.upper()  # add previous sequence to dictionary
     return sequences
 
 
@@ -55,6 +55,7 @@ def check_rna_seq(sequence):
     input: rna or dna sequence
     output: rna sequence
     """
+    sequence = sequence.upper()
     list_nucleotides = ["A", "T", "G", "C", "U"]
     for i in range(len(sequence)):
         if sequence[i] == "T":
