@@ -77,8 +77,8 @@ def traceback(matrix, current_matrix_name, indices, matches, verbose=False):
 def display(name_sequence, sequence, matches, best_score):
     """output the results of the given sequence"""
     
-    output = f"## Results for {name_sequence} ##\n" + f"length of the sequence : {len(sequence)}" \
-            + "energy : " + str(round(best_score, 2)) + " kcal/mol\n"
+    output = f"## Results for {name_sequence} ##\n" + f"length of the sequence : {len(sequence)} nucleotides" \
+            + "\nenergy : " + str(round(best_score, 2)) + " kcal/mol\n"
                                                                                       
     for nucleotide in sequence: output += nucleotide + "  "
     output += "\n"
