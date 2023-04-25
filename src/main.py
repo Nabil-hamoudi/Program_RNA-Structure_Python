@@ -11,7 +11,7 @@ parser = argparse.ArgumentParser()
 input_group = parser.add_mutually_exclusive_group(required=False)
 input_group.add_argument('-i', '--input', help='input an RNA sequence', type=str, nargs='?')
 input_group.add_argument('-f', '--file_input', help='input a Fasta file of an RNA sequence', type=argparse.FileType('r'), nargs='?')
-parser.add_argument('-s', '--file_output', help='save the output into a file', type=argparse.FileType('x'), required=False, nargs='?')
+parser.add_argument('-s', '--save', help='save the output into a file', type=argparse.FileType('x'), required=False, nargs='?')
 parser.add_argument('-t', '--traceback', help='display the traceback or not', action='store_true', required=False)
 
 args = parser.parse_args(sys.argv[1::])
@@ -97,9 +97,9 @@ else:
         output += '\n' + display(sequence, matches, matrix["wx"][len(sequence) - 1][0][0])
 
 # output with or without argument after the flag
-if args.file_output is not None:
-    args.file_output.write(output)
+if args.save is not None:
+    args.save.write(output)
 else:
-    if '--file_output' in sys.argv[1::] or '-s' in sys.argv[1::]:
+    if '--save' in sys.argv[1::] or '-s' in sys.argv[1::]:
         file = filedialog.asksaveasfile(mode='x', title="save file")
         file.write(output)
