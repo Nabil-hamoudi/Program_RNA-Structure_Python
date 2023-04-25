@@ -58,6 +58,7 @@ def check_rna_seq(sequence):
     sequence = sequence.upper()
     list_nucleotides = ["A", "T", "G", "C", "U"]
     for i in range(len(sequence)):
+        # replacing T by U
         if sequence[i] == "T":
             sequence = sequence[:i] + "U" + sequence[i+1:]
         elif sequence[i] not in list_nucleotides:
