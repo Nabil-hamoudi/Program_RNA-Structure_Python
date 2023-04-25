@@ -19,7 +19,7 @@ args = parser.parse_args(sys.argv[1::])
 
 def reading_fasta_file(file):
     """
-    Reading file containing arn (or dna) sequence
+    Reading file containing RNA (or DNA) sequence
     Input: file in fasta format
     Output: dictionary with RNA (or DNA) sequence(s) & sequence(s) name
             Under the form {name_seq1: seq1, name_seq2: seq2}
@@ -52,8 +52,8 @@ def check_rna_seq(sequence):
     Check if it's an RNA sequence.
     If it's a DNA sequence, transform it into an RNA sequence.
     Otherwise return an error.
-    input: rna or dna sequence
-    output: rna sequence
+    input: RNA or DNA sequence
+    output: RNA sequence
     """
     sequence = sequence.upper()
     list_nucleotides = ["A", "T", "G", "C", "U"]
