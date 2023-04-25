@@ -55,6 +55,7 @@ def check_rna_seq(sequence):
     input: rna or dna sequence
     output: rna sequence
     """
+    sequence = sequence.upper()
     list_nucleotides = ["A", "T", "G", "C", "U"]
     for i in range(len(sequence)):
         if sequence[i] == "T":
