@@ -72,7 +72,7 @@ def run_programs(sequence):
     sequence = check_rna_seq(sequence)
     matches = ["_"] * len(sequence)
     matrix = run_matrix(sequence)
-    traceback(matrix, "wx", (0, len(sequence) - 1), matches)
+    traceback(matrix, "wx", (0, len(sequence) - 1), matches, args.traceback)
     return (matches, matrix)
 
 # parse with flag: ['-i', '--input'] or --file_input or no flag
@@ -80,25 +80,26 @@ if args.input is not None:
     sequence = check_rna_seq(args.input)
     sequence_name = "Unknow sequence"
     matches, matrix = run_programs(sequence)
+    output = display(sequence, matches, matrix["wx"][len(sequence) - 1][0][0])
 elif args.file_input is not None:
-    # J'ai modif des trucs ici
     dict_seq = reading_fasta_file(args.file_input)
+    output = ""
     for elem in dict_seq:
         sequence = check_rna_seq(dict_seq[elem])
         matches, matrix = run_programs(sequence)
+        output += '\n' + display(sequence, matches, matrix["wx"][len(sequence) - 1][0][0])
 else:
-    file = filedialog.askopenfile(mode='r')
-    sequence, sequence_name = reading_fasta_file(file)
-    sequence = check_rna_seq(sequence)
-    matches, matrix = run_programs(sequence)
-
-# make the display
-output = display(sequence, matches, matrix["wx"][len(sequence) - 1][0][0])
+    dict_seq = reading_fasta_file(filedialog.askopenfile(mode='r'))
+    output = ""
+    for elem in dict_seq:
+        sequence = check_rna_seq(dict_seq[elem])
+        matches, matrix = run_programs(sequence)
+        output += '\n' + display(sequence, matches, matrix["wx"][len(sequence) - 1][0][0])
 
 # output with or without argument after the flag
 if args.file_output is not None:
     args.file_output.write(output)
 else:
-    if '--file_output' in sys.argv[1::] or '-o' in sys.argv[1::]:
-        file = filedialog.asksaveasfile(mode='x', title="output.log")
+    if '--file_output' in sys.argv[1::] or '-s' in sys.argv[1::]:
+        file = filedialog.asksaveasfile(mode='x', title="save file")
         file.write(output)
