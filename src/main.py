@@ -6,15 +6,22 @@ from test_matrices import *
 
 
 # Parser
-parser = argparse.ArgumentParser()
+def parser():
+    """
+    Initialisation of the parser
+    output argument of the user
+    """
+    parser = argparse.ArgumentParser()
 
-input_group = parser.add_mutually_exclusive_group(required=False)
-input_group.add_argument('-i', '--input', help='input an RNA sequence', type=str, nargs='?')
-input_group.add_argument('-f', '--file_input', help='input a Fasta file of an RNA sequence', type=argparse.FileType('r'), nargs='?')
-parser.add_argument('-s', '--save', help='save the output into a file', type=argparse.FileType('x'), required=False, nargs='?')
-parser.add_argument('-t', '--traceback', help='display the traceback', action='store_true', required=False)
+    input_group = parser.add_mutually_exclusive_group(required=False)
+    input_group.add_argument('-i', '--input', help='input an RNA sequence', type=str, nargs='?')
+    input_group.add_argument('-f', '--file_input', help='input a Fasta file of an RNA sequence', type=argparse.FileType('r'), nargs='?')
+    parser.add_argument('-s', '--save', help='save the output into a file', type=argparse.FileType('x'), required=False, nargs='?')
+    parser.add_argument('-t', '--traceback', help='display the traceback', action='store_true', required=False)
 
-args = parser.parse_args(sys.argv[1::])
+    args = parser.parse_args(sys.argv[1::])
+
+    return args
 
 
 def reading_fasta_file(file):
@@ -76,31 +83,46 @@ def run_programs(sequence):
     traceback(matrix, "wx", (0, len(sequence) - 1), matches, args.traceback)
     return (matches, matrix)
 
-# parse with flag: ['-i', '--input'] or --file_input or no flag
-if args.input is not None:
-    sequence = check_rna_seq(args.input)
-    sequence_name = "Unknow sequence"
-    matches, matrix = run_programs(sequence)
-    output = display(sequence, matches, matrix["wx"][len(sequence) - 1][0][0])
-elif args.file_input is not None:
-    dict_seq = reading_fasta_file(args.file_input)
-    output = ""
-    for elem in dict_seq:
-        sequence = check_rna_seq(dict_seq[elem])
-        matches, matrix = run_programs(sequence)
-        output += '\n' + display(sequence, matches, matrix["wx"][len(sequence) - 1][0][0])
-else:
-    dict_seq = reading_fasta_file(filedialog.askopenfile(mode='r'))
-    output = ""
-    for elem in dict_seq:
-        sequence = check_rna_seq(dict_seq[elem])
-        matches, matrix = run_programs(sequence)
-        output += '\n' + display(sequence, matches, matrix["wx"][len(sequence) - 1][0][0])
 
-# output with or without argument after the flag
-if args.save is not None:
-    args.save.write(output)
-else:
-    if '--save' in sys.argv[1::] or '-s' in sys.argv[1::]:
-        file = filedialog.asksaveasfile(mode='x', title="save file")
-        file.write(output)
+def program_parse(args):
+    """
+    parse with flag: ['-i', '--input'] or ['-f', '--file_input'] or no flag
+    """
+    if args.input is not None:
+        sequence = check_rna_seq(args.input)
+        sequence_name = "Unknow sequence"
+        matches, matrix = run_programs(sequence)
+        output = sequence_name + '\n' + display(sequence, matches, matrix["wx"][len(sequence) - 1][0][0])
+    elif args.file_input is not None:
+        dict_seq = reading_fasta_file(args.file_input)
+        output = ""
+        for elem in dict_seq:
+            sequence = check_rna_seq(dict_seq[elem])
+            matches, matrix = run_programs(sequence)
+            output += elem + '\n' + display(sequence, matches, matrix["wx"][len(sequence) - 1][0][0]) + '\n'
+    else:
+        if '-i' in sys.argv[1::] or '--input' in sys.argv[1::]:
+            return ""
+        dict_seq = reading_fasta_file(filedialog.askopenfile(mode='r'))
+        output = ""
+        for elem in dict_seq:
+            sequence = check_rna_seq(dict_seq[elem])
+            matches, matrix = run_programs(sequence)
+            output += elem + '\n' + display(sequence, matches, matrix["wx"][len(sequence) - 1][0][0]) + '\n'
+    return output
+
+def save_into_file(args, output):
+    """
+    output with or without argument after the flag
+    """
+    if args.save is not None:
+        args.save.write(output)
+    else:
+        if '--save' in sys.argv[1::] or '-s' in sys.argv[1::]:
+            file = filedialog.asksaveasfile(mode='x', title="save file")
+            file.write(output)
+
+
+args = parser()
+output = program_parse(args)
+save_into_file(args, output)
