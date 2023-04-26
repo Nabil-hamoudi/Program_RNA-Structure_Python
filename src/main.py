@@ -38,7 +38,7 @@ def reading_fasta_file(file):
                     sequence = ""
                 sequence_name = line[1:]
                 if sequence_name == "":  # if sequence without informations/header
-                    sequence_name = "Unknow sequence " + str(i)
+                    sequence_name = "Unknow sequence " + str(counter_unknow_seq)
                     counter_unknow_seq += 1
             else:  # if it is a sequence line
                 sequence += line
