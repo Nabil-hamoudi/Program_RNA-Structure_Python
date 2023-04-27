@@ -1,4 +1,7 @@
 import sys
+import subprocess
+from traceback_RNA import matches2dbn
+
 
 def display_results(name_sequence, sequence, matches, best_score):
     """output the results of the given sequence"""
@@ -42,3 +45,19 @@ def save_into_file(args, output):
         if '--save' in sys.argv[1::] or '-s' in sys.argv[1::]:
             file = filedialog.asksaveasfile(mode='x', title="save file")
             file.write(output)
+
+
+def draw_graph(file, sequence, matches):
+    """docstring"""
+    
+    dbn = matches2dbn(matches)
+    main_command = "java -cp VARNAv3-93.jar fr.orsay.lri.varna.applications.VARNAcmd"
+    sequence_argument = f"-sequenceDBN {sequence}"
+    structure_argument = f"-structureDBN {dbn}"
+    output_argument = f"-o {file}"
+    
+    return_code = subprocess.call(main_command + sequence_argument + structure_argument + output_argument, shell=True)
+
+    if return_code != 0:
+        print(f"VARNA finished with the return code {return_code})
+
