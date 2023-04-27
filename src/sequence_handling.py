@@ -6,7 +6,7 @@ def reading_fasta_file(file):
             Under the form {name_seq1: seq1, name_seq2: seq2}
     """
     sequences = {}
-    counter_unknow_seq = 1
+    counter_unknown_seq = 1
     counter_same_name = 1
 
     with file as f:
@@ -25,8 +25,8 @@ def reading_fasta_file(file):
                     sequence = ""
                 sequence_name = line[1:]
                 if sequence_name == "":  # if sequence without informations/header
-                    sequence_name = "Unknow sequence " + str(counter_unknow_seq)
-                    counter_unknow_seq += 1
+                    sequence_name = "Unknown sequence " + str(counter_unknown_seq)
+                    counter_unknown_seq += 1
             else:  # if it is a sequence line
                 sequence += line
 
