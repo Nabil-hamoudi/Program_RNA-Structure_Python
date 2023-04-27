@@ -57,10 +57,20 @@ def run_programs(sequence, verbose=False):
     """
     get sequence from arguments
     """
+    # check the sequence
     sequence = check_rna_seq(sequence)
+    
+    # initialize matrices
+    matrix = create_matrices(len(sequence))
+    fill_matrices(matrix)
+
+    # start the algorithm
+    matrix_wx.matrix_wx(0, len(sequence)-1, matrix, sequence)
+    
+    # traceback
     matches = ["_"] * len(sequence)
-    matrix = run_matrix(sequence)
     traceback(matrix, "wx", (0, len(sequence) - 1), matches, verbose)
+    
     return (matches, matrix)
 
 
