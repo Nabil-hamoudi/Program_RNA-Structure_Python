@@ -1,4 +1,4 @@
-def traceback(matrix, current_matrix_name, indices, matches, verbose=False):
+def traceback(matrix, current_matrix_name, indices, dbn, verbose=False):
     """traceback the matrices to get the optimal path and deduce the optimal structures"""
   
     # recover the best score and the matrices used to obtain it
@@ -27,27 +27,66 @@ def traceback(matrix, current_matrix_name, indices, matches, verbose=False):
             continue
     
         if matrix_name == "vx":
-            matches[matrix_used[1]] = matrix_used[2]
-            matches[matrix_used[2]] = matrix_used[1]
+            dbn[matrix_used[1]] = matrix_used[2]
+            dbn[matrix_used[2]] = matrix_used[1]
 
 
         elif matrix_name == "vhx":
-            matches[matrix_used[1]] = matrix_used[2]
-            matches[matrix_used[2]] = matrix_used[1]
+            dbn[matrix_used[1]] = matrix_used[2]
+            dbn[matrix_used[2]] = matrix_used[1]
 
-            matches[matrix_used[3]] = matrix_used[4]
-            matches[matrix_used[4]] = matrix_used[3]
+            dbn[matrix_used[3]] = matrix_used[4]
+            dbn[matrix_used[4]] = matrix_used[3]
 
 
         elif matrix_name == "yhx":
-            matches[matrix_used[3]] = matrix_used[4]
-            matches[matrix_used[4]] = matrix_used[3]
+            dbn[matrix_used[3]] = matrix_used[4]
+            dbn[matrix_used[4]] = matrix_used[3]
 
 
         elif matrix_name == "zhx":
-            matches[matrix_used[1]] = matrix_used[2]
-            matches[matrix_used[2]] = matrix_used[1]
+            dbn[matrix_used[1]] = matrix_used[2]
+            dbn[matrix_used[2]] = matrix_used[1]
 
 
-        traceback(matrix, matrix_name, matrix_used[1:], matches, verbose)
+        traceback(matrix, matrix_name, matrix_used[1:], dbn, verbose)
+
+
+
+def find_structures(dbn):
+    """docstring"""
+    # dot-bracket notation
+    dbn = list(dbn)
+    
+    for position in range(len(dbn)):
+        if dbn[position] is None : 
+            dbn[position] = '.'
+        
+        elif isinstance(dbn[position], str): continue
+
+        else:
+            if ')' in dbn[position:dbn[position]]:
+                if ']' in dbn[position:dbn[position]]:
+                    if '}' in dbn[position:dbn[position]]:
+                        if '>' in dbn[position:dbn[position]]:
+                            raise ValueError("Unsupported DBN format for this pseudoknot")
+                        else: 
+                            dbn[dbn[position]] = '>'
+                            dbn[position] = '<'
+                    else: 
+                        dbn[dbn[position]] = '}'
+                        dbn[position] = '{'
+                else: 
+                    dbn[dbn[position]] = ']'
+                    dbn[position] = '['
+            else: 
+                dbn[dbn[position]] = ')'
+                dbn[position] = '('
+            
+    return ''.join(dbn)
+    
+
+
+
+
 
