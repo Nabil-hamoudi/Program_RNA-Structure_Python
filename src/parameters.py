@@ -1,7 +1,4 @@
-# parameters : table 2 & 3
-
-# dictionnary --> key = parameter, value = score
-
+# give the energy from the size of the structure
 
 harpin_loop_energy = {
         3 : 7.4,
