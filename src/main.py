@@ -3,6 +3,7 @@ import argparse
 from output import *
 from traceback_RNA import *
 from sequence_handling import *
+from create_matrices import *
 
 
 # Parser
