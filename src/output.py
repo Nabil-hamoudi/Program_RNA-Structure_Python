@@ -10,7 +10,9 @@ def display_results(name_sequence, sequence, matches, best_score):
     output += "\n"
     for position in range(len(sequence)): output += str(position) + " "*(3-len(str(position)))
     output += "\n"
-    for index in matches: output += str(index) + " "*(3-len(str(index)))
+    for index in matches:
+        if index is None: index = '_'
+        output += str(index) + " "*(3-len(str(index)))
     output += "\n"
   
     print(output)
