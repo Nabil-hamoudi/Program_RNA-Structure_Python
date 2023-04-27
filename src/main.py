@@ -77,13 +77,14 @@ def path_input(argument):
         raise "Not a directory"
 
 
-def get_output(sequence, sequence_name, verbose_traceback, path, graphe_directory=None):
+def get_output(sequence, sequence_name, verbose_traceback, graphe_directory=None):
     """
     docstring
     """
-    matches, matrix = run_programs(sequence, args.traceback)
+    matches, matrix = run_programs(sequence, verbose_traceback)
     output = display_results(sequence_name, sequence, matches, matrix["wx"][len(sequence) - 1][0][0]) + '\n'
-    draw_graph(os.path.join(path, sequence_name + ".jpeg"), sequence, matches)
+    if graphe_directory is not None:
+        draw_graph(os.path.join(graphe_directory, sequence_name + ".jpeg"), sequence, matches)
     return output
 
 
