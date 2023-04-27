@@ -1,15 +1,4 @@
-from create_matrices import *
-from matrices import matrix_wx
-
-def run_matrix(sequence):
-    """"""
-    matrix = create_matrices(len(sequence))
-    fill_matrices(matrix)
-
-    matrix_wx.matrix_wx(0, len(sequence)-1, matrix, sequence)
-
-    return matrix
-
+import sys
 
 def display_results(name_sequence, sequence, matches, best_score):
     """output the results of the given sequence"""
