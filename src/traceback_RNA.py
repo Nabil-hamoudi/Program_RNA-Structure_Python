@@ -29,22 +29,14 @@ def traceback(matrix, current_matrix_name, indices, dbn, verbose=False):
         if matrix_name == "vx":
             dbn[matrix_used[1]] = matrix_used[2]
             dbn[matrix_used[2]] = matrix_used[1]
+            continue
 
-
-        elif matrix_name == "vhx":
-            dbn[matrix_used[1]] = matrix_used[2]
-            dbn[matrix_used[2]] = matrix_used[1]
-
+        if matrix_name == "yhx" or matrix_name == "vhx":
             dbn[matrix_used[3]] = matrix_used[4]
             dbn[matrix_used[4]] = matrix_used[3]
 
 
-        elif matrix_name == "yhx":
-            dbn[matrix_used[3]] = matrix_used[4]
-            dbn[matrix_used[4]] = matrix_used[3]
-
-
-        elif matrix_name == "zhx":
+        if matrix_name == "zhx" or matrix_name == "vhx":
             dbn[matrix_used[1]] = matrix_used[2]
             dbn[matrix_used[2]] = matrix_used[1]
 
@@ -53,10 +45,10 @@ def traceback(matrix, current_matrix_name, indices, dbn, verbose=False):
 
 
 
-def find_structures(dbn):
+def matches2dbn(matches):
     """docstring"""
     # dot-bracket notation
-    dbn = list(dbn)
+    dbn = list(matches)
     
     for position in range(len(dbn)):
         if dbn[position] is None : 
@@ -84,9 +76,3 @@ def find_structures(dbn):
                 dbn[position] = '('
             
     return ''.join(dbn)
-    
-
-
-
-
-
