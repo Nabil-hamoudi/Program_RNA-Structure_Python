@@ -39,3 +39,15 @@ def print_matrix(matrix, matrix_name):
         #for line in matrix[matrix_name]: print([round(x[0], 2) for x in line])
 
 
+
+def save_into_file(args, output):
+    """
+    output with or without argument after the flag
+    """
+    if args.save is not None:
+        args.save.write(output)
+    else:
+        from tkinter import filedialog
+        if '--save' in sys.argv[1::] or '-s' in sys.argv[1::]:
+            file = filedialog.asksaveasfile(mode='x', title="save file")
+            file.write(output)
