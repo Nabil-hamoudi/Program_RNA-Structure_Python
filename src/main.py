@@ -1,6 +1,6 @@
 import sys
 import argparse
-from display import *
+from output import *
 from traceback_RNA import *
 from sequence_handling import *
 
