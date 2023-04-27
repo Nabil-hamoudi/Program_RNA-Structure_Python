@@ -32,6 +32,7 @@ def reading_fasta_file(file):
     """
     sequences = {}
     counter_unknow_seq = 1
+    counter_same_name = 1
 
     with file as f:
         sequence_name = ""
@@ -40,6 +41,11 @@ def reading_fasta_file(file):
             line = line.strip()  # removing both the leading and the trailing characters of the line
             if line.startswith(">"):  # if sequence header
                 if sequence_name != "":
+                    # If 2 different RNA sequences have the same name
+                    if sequence_name in sequences.keys() and sequences[sequence_name] != sequence:
+                        sequence_name = sequence_name + str(counter_same_name)
+                        counter_same_name += 1
+
                     sequences[sequence_name] = sequence  # add previous sequence to dictionary
                     sequence = ""
                 sequence_name = line[1:]
@@ -49,7 +55,12 @@ def reading_fasta_file(file):
             else:  # if it is a sequence line
                 sequence += line
 
+        # If 2 different RNA sequences have the same name
+        if sequence_name in sequences.keys() and sequences[sequence_name] != sequence:
+            sequence_name = sequence_name + str(counter_same_name)
+            counter_same_name += 1
         sequences[sequence_name] = sequence # add previous sequence to dictionary
+    print(sequences)
     return sequences
 
 
