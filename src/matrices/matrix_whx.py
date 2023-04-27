@@ -14,7 +14,6 @@ def matrix_whx(i, j, k, l, matrix, sequence):
         return matrix["whx"][j][l][k][i][0]
     matrix["whx"][j][l][k][i] = (float('inf'), [])
 
-
     if (k+1) == l:
         matrix["whx"][j][l][k][i] = (matrix_wx.matrix_wx(i, j, matrix, sequence), [("wx", i, j)])
         return matrix_wx.matrix_wx(i, j, matrix, sequence)
@@ -25,19 +24,18 @@ def matrix_whx(i, j, k, l, matrix, sequence):
 
     # initialization of the list for the traceback
     matrices_used = []
-    
 
     ## search for a better score ##
-    
+
     # paired
     if (score := (2 * parameters["P_wave"] + matrix_vhx.matrix_vhx(i, j, k, l, matrix, sequence))) < best_score:
         best_score = score
         matrices_used = [("vhx", i, j, k, l)]
-                                     
+                          
     if (score := (parameters["P_wave"] + matrix_zhx.matrix_zhx(i, j, k, l, matrix, sequence))) < best_score:
         best_score = score
         matrices_used = [("zhx", i, j, k, l)]
-                                     
+                       
     if (score := (parameters["P_wave"] + matrix_yhx.matrix_yhx(i, j, k, l, matrix, sequence))) < best_score:
         best_score = score
         matrices_used = [("yhx", i, j, k, l)]
@@ -61,7 +59,7 @@ def matrix_whx(i, j, k, l, matrix, sequence):
         matrices_used = [("whx", i, j, k, l+1)]
 
 
-    # dangles 
+    # dangles
     if (score := parameters["L_wave"](i, i+1, j, sequence) + parameters["R_wave"](k, k-1, l, sequence) \
             + (2 * parameters["P_wave"]) + matrix_vhx.matrix_vhx(i+1, j, k-1, l, matrix, sequence)) < best_score:
         best_score = score
@@ -71,41 +69,41 @@ def matrix_whx(i, j, k, l, matrix, sequence):
             + (2 * parameters["P_wave"]) + matrix_vhx.matrix_vhx(i, j-1, k, l+1, matrix, sequence)) < best_score:
         best_score = score
         matrices_used = [("vhx", i, j-1, k, l+1)]
-    
+
     if (score := (parameters["L_wave"](i, i+1, j, sequence) + parameters["L_wave"](l, k, l+1, sequence)) \
             + (2 * parameters["P_wave"]) + matrix_vhx.matrix_vhx(i+1, j, k, l+1, matrix, sequence)) < best_score:
         best_score = score
         matrices_used = [("vhx", i+1, j, k, l+1)]
-    
+
     if (score := (parameters["R_wave"](k, k-1, l, sequence) + parameters["R_wave"](j, i, j-1, sequence)) \
             + (2 * parameters["P_wave"]) + matrix_vhx.matrix_vhx(i, j-1, k-1, l, matrix, sequence)) < best_score:
         best_score = score
         matrices_used = [("vhx", i, j-1, k-1, l)]
-    
+
     if (score := parameters["L_wave"](i, i+1, j-1, sequence) + (parameters["R_wave"](k, k-1, l, sequence) \
             + parameters["R_wave"](j, i+1, j-1, sequence)) + (2 * parameters["P_wave"]) \
             + matrix_vhx.matrix_vhx(i+1, j-1, k-1, l, matrix, sequence)) < best_score:
         best_score = score
         matrices_used = [("vhx", i+1, j-1, k-1, l)]
-    
+
     if (score := (parameters["L_wave"](i, i+1, j, sequence) + parameters["L_wave"](l, k-1, l+1, sequence)) \
             + parameters["R_wave"](k, k-1, l+1, sequence) + (2 * parameters["P_wave"]) \
             + matrix_vhx.matrix_vhx(i+1, j, k-1, l+1, matrix, sequence)) < best_score:
         best_score = score
         matrices_used = [("vhx", i+1, j, k-1, l+1)]
-    
+
     if (score := (parameters["L_wave"](i, i+1, j-1, sequence) + parameters["L_wave"](l, k, l+1, sequence)) \
             + parameters["R_wave"](j, i+1, j-1, sequence) + (2 * parameters["P_wave"]) \
             + matrix_vhx.matrix_vhx(i+1, j-1, k, l+1, matrix, sequence)) < best_score:
         best_score = score
         matrices_used = [("vhx", i+1, j-1, k, l+1)]
-    
+
     if (score := parameters["L_wave"](l, k-1, l+1, sequence) + (parameters["R_wave"](k, k-1, l+1, sequence) \
             + parameters["R_wave"](j, i, j-1, sequence)) + (2 * parameters["P_wave"]) \
             + matrix_vhx.matrix_vhx(i, j-1, k-1, l+1, matrix, sequence)) < best_score:
         best_score = score
         matrices_used = [("vhx", i, j-1, k-1, l+1)]
-    
+
     if (score := (parameters["L_wave"](i, i+1, j-1, sequence) + parameters["L_wave"](l, k-1, l+1, sequence)) \
             + (parameters["R_wave"](k, k-1, l+1, sequence) + parameters["R_wave"](j, i+1, j-1, sequence)) \
             + (2 * parameters["P_wave"]) + matrix_vhx.matrix_vhx(i+1, j-1, k-1, l+1, matrix, sequence)) < best_score:
