@@ -5,6 +5,15 @@ from traceback_RNA import *
 from sequence_handling import *
 from create_matrices import *
 from matrices import matrix_wx
+from tkinter import filedialog
+import pathlib
+import os
+
+
+DIRECTORY_NAME_GRAPH = "result"
+DEFAULT_SAVE_FILENAME = "result"
+DEFAULT_EXTENSION_SAVE = "txt"
+FILE_TYPE = [("Texte file", "*.txt"), ("Fasta file", "*.fasta; *.fa; *.fna; *.ffn; *.frn"), ("other format", "*")]
 
 
 # Parser
@@ -20,10 +29,62 @@ def parser():
     input_group.add_argument('-f', '--file_input', help='input a Fasta file of an RNA sequence', type=argparse.FileType('r'), nargs='?')
     parser.add_argument('-s', '--save', help='save the output into a file', type=argparse.FileType('x'), required=False, nargs='?')
     parser.add_argument('-t', '--traceback', help='display the traceback', action='store_true', default=False, required=False)
+    parser.add_argument('-g', '--graph', help='create a graph and save it into a directory', type=path_input, required=False, nargs='?')
 
     args = parser.parse_args(sys.argv[1::])
 
+    # parse if there is the flag file, input or no flag and the argument
+    if args.file is None:
+        if args.input is None:
+            if '-i' in sys.argv[1::] or '--input' in sys.argv[1::]:
+                args.input = ""
+            args.file = filedialog.askopenfile(mode='r', title="RNA sequence file", filetypes=FILE_TYPE)
+            if args.file is None:
+                args.input = ""
+
+    # parse the graph and add the result directory
+    save_directory = None
+    if args.graph is not None:
+        save_directory = args.graph
+        args.graph = os.path.join(args.graph, DIRECTORY_NAME_GRAPH)
+        os.mkdir(args.graph)
+    elif args.graph is None and ('-g' in sys.argv[1::] or '--graph' in sys.argv[1::]):
+        argument = filedialog.askdirectory(mustexist=True, title="Enter a valid directory")
+        if argument is not None:
+            args.graph = pathlib.Path(argument)
+            save_directory = args.graph
+            args.graph = os.path.join(args.graph, DIRECTORY_NAME_GRAPH)
+            os.mkdir(args.graph)
+
+    # parse the save if there is an argument or not
+    if args.save is None and ('--save' in sys.argv[1::] or '-s' in sys.argv[1::]):
+        args.save = filedialog.asksaveasfile(mode='x', title="save file",
+                                             initialdir=save_directory,
+                                             initialfile=DEFAULT_SAVE_FILENAME,
+                                             defaultextension=DEFAULT_EXTENSION_SAVE)
+
     return args
+
+
+def path_input(argument):
+    """
+    docstring
+    """
+    argument = pathlib.Path(argument)
+    if argument.exists() and argument.is_dir():
+        return argument
+    else:
+        raise "Not a directory"
+
+
+def get_output(sequence, sequence_name, verbose_traceback, path, graphe_directory=None):
+    """
+    docstring
+    """
+    matches, matrix = run_programs(sequence, args.traceback)
+    output = display_results(sequence_name, sequence, matches, matrix["wx"][len(sequence) - 1][0][0]) + '\n'
+    draw_graph(os.path.join(path, sequence_name + ".jpeg"), sequence, matches)
+    return output
 
 
 def program_parse(args):
@@ -33,25 +94,13 @@ def program_parse(args):
     if args.input is not None:
         sequence = check_rna_seq(args.input)
         sequence_name = "Unknow sequence"
-        matches, matrix = run_programs(sequence, args.traceback)
-        output = display_results(sequence_name, sequence, matches, matrix["wx"][len(sequence) - 1][0][0]) + '\n'
-    elif args.file_input is not None:
+        output = get_output(sequence, sequence_name, args.traceback, args.graph)
+    else:
         dict_seq = reading_fasta_file(args.file_input)
         output = ""
         for sequence_name in dict_seq:
             sequence = check_rna_seq(dict_seq[sequence_name])
-            matches, matrix = run_programs(sequence, args.traceback)
-            output += display_results(sequence_name, sequence, matches, matrix["wx"][len(sequence) - 1][0][0]) + '\n'
-    else:
-        from tkinter import filedialog
-        if '-i' in sys.argv[1::] or '--input' in sys.argv[1::]:
-            return ""
-        dict_seq = reading_fasta_file(filedialog.askopenfile(mode='r'))
-        output = ""
-        for sequence_name in dict_seq:
-            sequence = check_rna_seq(dict_seq[sequence_name])
-            matches, matrix = run_programs(sequence, args.traceback)
-            output += display_results(sequence_name, sequence, matches, matrix["wx"][len(sequence) - 1][0][0]) + '\n'
+            output += get_output(sequence, sequence_name, args.traceback, args.graph)
     return output
 
 
@@ -61,22 +110,26 @@ def run_programs(sequence, verbose=False):
     """
     # check the sequence
     sequence = check_rna_seq(sequence)
-    
+
     # initialize matrices
     matrix = create_matrices(len(sequence))
     fill_matrices(matrix)
 
     # start the algorithm
     matrix_wx.matrix_wx(0, len(sequence)-1, matrix, sequence)
-    
+
     # traceback
     matches = ["_"] * len(sequence)
     traceback(matrix, "wx", (0, len(sequence) - 1), matches, verbose)
-    
+
     return (matches, matrix)
 
 
 if __name__ == "__main__":
     args = parser()
     output = program_parse(args)
-    save_into_file(args, output)
+
+    # write into file if we save
+    if args.save is not None:
+        args.save.write(output)
+
