@@ -45,5 +45,5 @@ def draw_graph(file, sequence, matches):
     return_code = subprocess.call(main_command + sequence_argument + structure_argument + output_argument, shell=True)
 
     if return_code != 0:
-        print(f"VARNA finished with the return code {return_code})
+        print(f"VARNA finished with the return code {return_code}")
 

@@ -13,7 +13,7 @@ import os
 DIRECTORY_NAME_GRAPH = "result"
 DEFAULT_SAVE_FILENAME = "result"
 DEFAULT_EXTENSION_SAVE = "txt"
-FILE_TYPE = [("Texte file", "*.txt"), ("Fasta file", "*.fasta; *.fa; *.fna; *.ffn; *.frn"), ("other format", "*")]
+FILE_TYPE = [("Fasta file", "*.fasta *.fa *.fna *.ffn *.frn"), ("Texte file", "*.txt"), ("other format", "*")]
 
 
 # Parser
@@ -34,12 +34,12 @@ def parser():
     args = parser.parse_args(sys.argv[1::])
 
     # parse if there is the flag file, input or no flag and the argument
-    if args.file is None:
+    if args.file_input is None:
         if args.input is None:
             if '-i' in sys.argv[1::] or '--input' in sys.argv[1::]:
                 args.input = ""
-            args.file = filedialog.askopenfile(mode='r', title="RNA sequence file", filetypes=FILE_TYPE)
-            if args.file is None:
+            args.file_input = filedialog.askopenfile(mode='r', title="RNA sequence file", filetypes=FILE_TYPE)
+            if args.file_input is None:
                 args.input = ""
 
     # parse the graph and add the result directory
