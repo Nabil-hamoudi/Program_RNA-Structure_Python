@@ -12,8 +12,9 @@ import os
 
 DIRECTORY_NAME_GRAPH = "result"
 DEFAULT_SAVE_FILENAME = "result"
-DEFAULT_EXTENSION_SAVE = "txt"
-FILE_TYPE = [("Fasta file", "*.fasta *.fa *.fna *.ffn *.frn"), ("Texte file", "*.txt"), ("other format", "*")]
+DEFAULT_EXTENSION_SAVE = ".txt"
+FILE_TYPE_SAVE = [("Texte file", "*.txt"), ("Log file", "*.log")]
+FILE_TYPE_READ = [("Fasta file", "*.fasta *.fa *.fna *.ffn *.frn"), ("Texte file", "*.txt"), ("Other format", "*")]
 
 
 # Parser
@@ -38,7 +39,7 @@ def parser():
         if args.input is None:
             if '-i' in sys.argv[1::] or '--input' in sys.argv[1::]:
                 args.input = ""
-            args.file_input = filedialog.askopenfile(mode='r', title="RNA sequence file", filetypes=FILE_TYPE)
+            args.file_input = filedialog.askopenfile(mode='r', title="RNA sequence file", filetypes=FILE_TYPE_READ)
             if args.file_input is None:
                 args.input = ""
 
@@ -61,7 +62,8 @@ def parser():
         args.save = filedialog.asksaveasfile(mode='x', title="save file",
                                              initialdir=save_directory,
                                              initialfile=DEFAULT_SAVE_FILENAME,
-                                             defaultextension=DEFAULT_EXTENSION_SAVE)
+                                             defaultextension= DEFAULT_EXTENSION_SAVE,
+                                             filetypes=FILE_TYPE_SAVE)
 
     return args
 
