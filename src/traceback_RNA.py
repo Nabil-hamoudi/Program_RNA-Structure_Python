@@ -46,7 +46,7 @@ def traceback(matrix, current_matrix_name, indices, dbn, verbose=False):
 
 
 def matches2dbn(matches):
-    """docstring"""
+    """translate the 'matches' list into dot-bracket notation (dbn)"""
     # dot-bracket notation
     dbn = list(matches)
     
