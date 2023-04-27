@@ -60,7 +60,6 @@ def reading_fasta_file(file):
             sequence_name = sequence_name + str(counter_same_name)
             counter_same_name += 1
         sequences[sequence_name] = sequence # add previous sequence to dictionary
-    print(sequences)
     return sequences
 
 
