@@ -9,8 +9,6 @@ def matrix_vhx(i, j, k, l, matrix, sequence):
 
     #check indices
     if (i > k) or (k > l) or (l > j):
-        # print(f"Error : invalid index. \n i = {i}, k = {k}, l = {l}, j = {j}")
-        # exit(1)
         return float('inf')
 
     if matrix["vhx"][j][l][k][i] is not None:

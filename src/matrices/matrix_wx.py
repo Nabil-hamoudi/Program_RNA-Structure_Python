@@ -12,7 +12,6 @@ def matrix_wx(i, j, matrix, sequence):
 
     # Function input check
     if (i > j):
-        # raise NameError("Invalid index, i must be smaller or equal to j.")
         return float('inf')
 
     # Box already calculated ? 

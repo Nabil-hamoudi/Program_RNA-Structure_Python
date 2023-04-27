@@ -6,8 +6,6 @@ from matrices import matrix_vhx, matrix_wxi, matrix_whx, matrix_vx
 def matrix_yhx(i, j, k, l, matrix, sequence):
     """return the value of the gap matrix yhx at the given indices"""
     if (i > k) or (k > l) or (l > j):
-        # print(f"Error : invalid index.\n i = {i}, k = {k}, l = {l}, j= {j} ")
-        # exit(1)
         return float('inf')
             
     if matrix["yhx"][j][l][k][i] is not None:

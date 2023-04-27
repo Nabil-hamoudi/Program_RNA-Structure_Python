@@ -12,7 +12,6 @@ def matrix_vx(i, j, matrix, sequence):
 
     # Function input check
     if (i > j):
-        # raise IndexError("Invalid index, i must be smaller or equal to j.")
         return float('inf')
 
     # Box already calculated ? 
