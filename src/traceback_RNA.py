@@ -1,4 +1,4 @@
-def traceback(matrix, current_matrix_name, indices, dbn, verbose=False):
+def traceback(matrix, current_matrix_name, indices, matches, verbose=False):
     """
     traceback the matrices to get the optimal path and deduce the optimal structures
     """
@@ -29,21 +29,21 @@ def traceback(matrix, current_matrix_name, indices, dbn, verbose=False):
             continue
     
         if matrix_name == "vx":
-            dbn[matrix_used[1]] = matrix_used[2]
-            dbn[matrix_used[2]] = matrix_used[1]
+            matches[matrix_used[1]] = matrix_used[2]
+            matches[matrix_used[2]] = matrix_used[1]
             continue
 
         if matrix_name == "yhx" or matrix_name == "vhx":
-            dbn[matrix_used[3]] = matrix_used[4]
-            dbn[matrix_used[4]] = matrix_used[3]
+            matches[matrix_used[3]] = matrix_used[4]
+            matches[matrix_used[4]] = matrix_used[3]
 
 
         if matrix_name == "zhx" or matrix_name == "vhx":
-            dbn[matrix_used[1]] = matrix_used[2]
-            dbn[matrix_used[2]] = matrix_used[1]
+            matches[matrix_used[1]] = matrix_used[2]
+            matches[matrix_used[2]] = matrix_used[1]
 
 
-        traceback(matrix, matrix_name, matrix_used[1:], dbn, verbose)
+        traceback(matrix, matrix_name, matrix_used[1:], matches, verbose)
 
 
 
