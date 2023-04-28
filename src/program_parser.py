@@ -81,7 +81,6 @@ def parser_input(args, parser):
     parse the input for -i/--input and -f/--file_input if there is an argument or not, if not a window to choose the
     file will display
     """
-    # because Argparse is fucking dumb
     if ('-i' in sys.argv[1::] or '--input' in sys.argv[1::]) and ('-f' in sys.argv[1::] or '--file_input' in sys.argv[1::]):
         parser.error("argument -f/--file_input: not allowed with argument -i/--input")
 
