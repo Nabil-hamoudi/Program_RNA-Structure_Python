@@ -9,20 +9,12 @@ from program_parser import parser_function
 # Default constant for file display
 GRAPH_EXTENSION = ".jpeg"
 
-def get_output(sequence, sequence_name, verbose_traceback, graphe_directory=None):
-    """
-    docstring
-    """
-    matches, best_score = run_programs(sequence, verbose_traceback)
-    output = display_results(sequence_name, sequence, matches, best_score) + '\n'
-    if graphe_directory is not None:
-        draw_graph(os.path.join(graphe_directory, sequence_name + GRAPH_EXTENSION), sequence, matches)
-    return output
-
 
 def program_parse(args):
     """
-    parse with flag: ['-i', '--input'] or ['-f', '--file_input'] or no flag
+    Input: Argument enter by the user
+    Output: 
+    Manage the program with the argument
     """
     if args.input is not None:
         sequence = check_rna_seq(args.input)
@@ -34,6 +26,18 @@ def program_parse(args):
         for sequence_name in dict_seq:
             sequence = check_rna_seq(dict_seq[sequence_name])
             output += get_output(sequence, sequence_name, args.traceback, args.graph)
+    return output
+
+
+def get_output(sequence, sequence_name, verbose_traceback, graphe_directory=None):
+    """
+    Output str of the save if need it and save graph(s) if
+    graph argument present
+    """
+    matches, best_score = run_programs(sequence, verbose_traceback)
+    output = display_results(sequence_name, sequence, matches, best_score) + '\n'
+    if graphe_directory is not None:
+        draw_graph(os.path.join(graphe_directory, sequence_name + GRAPH_EXTENSION), sequence, matches)
     return output
 
 
