@@ -3,7 +3,10 @@ from matrices import matrix_vhx, matrix_wxi, matrix_whx, matrix_vx
 
 
 def matrix_zhx(i, j, k, l, matrix, sequence):
-    """return the value of the gap matrix zhx at the given indices"""
+    """
+    return the value of the gap matrix zhx at the given indices
+    """
+    
     if (i > k) or (k > l) or (l > j):
         return float('inf')
 
