@@ -56,26 +56,31 @@ def parser_function():
     args = parser.parse_args(sys.argv[1::])
 
     parser_input(args, parser)
+    parser_graph(args, parser)
 
-    # parse the graph and add the result directory
-    save_directory = None
     if args.graph is not None:
-        save_directory = args.graph
+        parser_save(args, parser, os.path.abspath(os.path.join(args.graph, "..")))
+    else:
+        parser_save(args, parser)
+
+    return args
+
+
+def parser_graph(args, parser):
+    """
+    parse the graph and add the result directory
+    """
+    if args.graph is not None:
         args.graph = os.path.join(args.graph, DIRECTORY_NAME_GRAPH)
         os.mkdir(args.graph)
     elif '-g' in sys.argv[1::] or '--graph' in sys.argv[1::]:
         argument = filedialog.askdirectory(mustexist=True, title="Enter a directory to save the graph(s)")
         if argument is not None:
             args.graph = pathlib.Path(argument)
-            save_directory = args.graph
             args.graph = os.path.join(args.graph, DIRECTORY_NAME_GRAPH)
             os.mkdir(args.graph)
         else:
-            parser.error('no save directory given for -g/--graph flage.')
-
-    parser_save(args, parser, save_directory)
-
-    return args
+            parser.error('no save directory given for -g/--graph flag.')
 
 
 def parser_input(args, parser):
