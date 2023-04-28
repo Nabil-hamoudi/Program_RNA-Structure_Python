@@ -55,16 +55,7 @@ def parser_function():
 
     args = parser.parse_args(sys.argv[1::])
 
-    # parse if there is the flag file, input or no flag and the argument
-    if args.file_input is None:
-        if args.input is None:
-            # A savoir si on garde ou non
-            if '-i' in sys.argv[1::] or '--input' in sys.argv[1::]:
-                parser.error('argument for -i flag is required.')
-            ###########################
-            args.file_input = filedialog.askopenfile(mode='r', title="Choose a fasta file", filetypes=FILE_TYPE_READ)
-            if args.file_input is None:
-                parser.error('no input given for -i/--input or -f/--file_input flag.')
+    parser_input(args, parser)
 
     # parse the graph and add the result directory
     save_directory = None
@@ -82,7 +73,30 @@ def parser_function():
         else:
             parser.error('no save directory given for -g/--graph flage.')
 
-    # parse the save if there is an argument or not
+    parser_save(args, parser, save_directory)
+
+    return args
+
+
+def parser_input(args, parser):
+    """
+    parse if there is the flag file, input or no flag and the argument
+    """
+    if args.file_input is None:
+        if args.input is None:
+            # A savoir si on garde ou non
+            if '-i' in sys.argv[1::] or '--input' in sys.argv[1::]:
+                parser.error('argument for -i flag is required.')
+            ###########################
+            args.file_input = filedialog.askopenfile(mode='r', title="Choose a fasta file", filetypes=FILE_TYPE_READ)
+            if args.file_input is None:
+                parser.error('no input given for -i/--input or -f/--file_input flag.')
+
+
+def parser_save(args, parser, save_directory=None):
+    """
+    parse the save if there is an argument or not
+    """
     if args.save is None and ('--save' in sys.argv[1::] or '-s' in sys.argv[1::]):
         args.save = filedialog.asksaveasfile(mode='x', title="save file",
                                              initialdir=save_directory,
@@ -92,12 +106,11 @@ def parser_function():
         if args.save is None:
             parser.error('no save file given for -s/--save flage.')
 
-    return args
-
 
 def path_input(parser, argument):
     """
-    Define path
+    Define path and
+    parse the graph and add the result directory
     """
     argument = pathlib.Path(argument)
     if argument.exists() and argument.is_dir():
@@ -148,7 +161,7 @@ def run_programs(sequence, verbose=False):
     # traceback
     matches = ["_"] * len(sequence)
     traceback(matrix, "wx", (0, len(sequence) - 1), matches, verbose)
-    
+
     best_score = matrix["wx"][len(sequence) - 1][0][0]
 
     return (matches, best_score)
