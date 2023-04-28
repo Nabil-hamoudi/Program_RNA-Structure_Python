@@ -4,7 +4,9 @@ from traceback_RNA import matches2dbn
 
 
 def display_results(name_sequence, sequence, matches, best_score):
-    """output the results of the given sequence"""
+    """
+    output the results of the given sequence
+    """
 
     output = f"## Results for {name_sequence} ##\n" + f"length of the sequence : {len(sequence)} nucleotides" \
             + "\nenergy : " + str(round(best_score, 2)) + " kcal/mol\n"
@@ -23,7 +25,9 @@ def display_results(name_sequence, sequence, matches, best_score):
 
 
 def print_matrix(matrix, matrix_name):
-    """print the given matrix"""
+    """
+    print the given matrix
+    """
 
     if matrix_name in ["vx", "wx", "wxi"]:
         print("\n##", matrix_name, "##")
@@ -34,7 +38,9 @@ def print_matrix(matrix, matrix_name):
 
 
 def draw_graph(file, sequence, matches):
-    """docstring"""
+    """
+    create an image to represent the secondary structure of the given sequence, using the software VARNA
+    """
 
     dbn = matches2dbn(matches)
     main_command = "java -cp VARNAv3-93.jar fr.orsay.lri.varna.applications.VARNAcmd"
