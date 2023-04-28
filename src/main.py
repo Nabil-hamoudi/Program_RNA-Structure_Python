@@ -85,9 +85,10 @@ def parser_input(args, parser):
     if args.file_input is None:
         if args.input is None:
             # A savoir si on garde ou non
-            if '-i' in sys.argv[1::] or '--input' in sys.argv[1::]:
-                parser.error('argument for -i flag is required.')
-            ###########################
+            #############################
+            # if '-i' in sys.argv[1::] or '--input' in sys.argv[1::]:
+            #     parser.error('argument for -i flag is required.')
+            #############################
             args.file_input = filedialog.askopenfile(mode='r', title="Choose a fasta file", filetypes=FILE_TYPE_READ)
             if args.file_input is None:
                 parser.error('no input given for -i/--input or -f/--file_input flag.')
