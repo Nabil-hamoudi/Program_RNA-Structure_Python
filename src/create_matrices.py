@@ -1,7 +1,9 @@
-# creation matrices
+# creation and initialization of matrices
 
 def create_matrices(n):
-    """creation of the six triangular matrices """
+    """
+    creation of the six triangular matrices
+    """
     # global vx, wx, vhx, whx, yhx, zhx
     vx = [[None for i in range(j+1)] for j in range(n)]
     wx = [[None for i in range(j+1)] for j in range(n)]
@@ -15,7 +17,10 @@ def create_matrices(n):
 
 
 def fill_matrices(matrix):
-    """fill the matrices with the initialization conditions"""
+    """
+    fill the matrices with the initialization conditions
+    """
+    
     n = len(matrix["vx"])
 
     # initialization for vx and wx
@@ -47,8 +52,4 @@ def fill_matrices(matrix):
                 #k+1 must be lower than j 
                 if k+1 <= j:
                     matrix["zhx"][j][k+1][k][i] = matrix["vx"][j][i]
-                
-
-                
-#for l in vx: print(l)
-#for l in wx: print(l)
+                    
