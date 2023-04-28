@@ -97,7 +97,10 @@ internal_loop_energy = {
 
 
 def EIS1(i, j, sequence):
-    """scoring function for an irreducible surface of order 1"""
+    """
+    scoring function for an irreducible surface of order 1
+    """
+
     if i >= len(sequence): return float('inf')
     if j >= len(sequence): return float('inf')
 
@@ -112,7 +115,9 @@ def EIS1(i, j, sequence):
 
 
 def EIS2(i, j, k, l, sequence):
-    """scoring function for an irreducible surface of order 2"""
+    """
+    scoring function for an irreducible surface of order 2
+    """
 
     #######
     # k-l #
@@ -164,12 +169,16 @@ def EIS2(i, j, k, l, sequence):
 
 
 def EIS2_wave(i, j, k, l, sequence):
-    """scoring function for an irreducible surface of order 2 in pseudoknot"""
+    """
+    scoring function for an irreducible surface of order 2 in pseudoknot
+    """
     return EIS2(i, j, k, l, sequence) * 0.83
 
 
 def coaxial_stacking(i, j, k, l, sequence):
-    """compute and return the coaxial stacking score"""
+    """
+    compute and return the coaxial stacking score
+    """
     
     if i >= len(sequence): return float('inf')
     if j >= len(sequence): return float('inf')
@@ -235,12 +244,16 @@ def coaxial_stacking(i, j, k, l, sequence):
 
 
 def coaxial_stacking_wave(i, j, k, l, sequence):
-    """compute and return the coaxial stacking score in pseudoknots """
+    """
+    compute and return the coaxial stacking score in pseudoknots
+    """
     return coaxial_stacking(i, j, k, l, sequence) * 0.83
 
 
 def dangle_R(i, k, j, sequence):
-    """return the free-energy for unpaired 3' terminal nucleotides"""
+    """
+    return the free-energy for unpaired 3' terminal nucleotides
+    """
     # page 9/16 --> R^j i, j-1 where j = i, i = j, j-1 = k
 
     if i >= len(sequence): return float('inf')
@@ -284,7 +297,9 @@ def dangle_R(i, k, j, sequence):
 
 
 def dangle_L(i, k, j, sequence):
-    """return the free-energy for unpaired 5' terminal nucleotides """
+    """
+    return the free-energy for unpaired 5' terminal nucleotides
+    """
    # page 9/16 --> L^i i+1, j where i = i, i+1 = k, j = j
 
     if i >= len(sequence): return float('inf')
@@ -327,25 +342,33 @@ def dangle_L(i, k, j, sequence):
 
     return float('inf')
 
+
 def dangle_Ri(i, k, j, sequence):
-    """return the scoring parameter for 3' base dangling off a multiloop pair"""
+    """
+    return the scoring parameter for 3' base dangling off a multiloop pair
+    """
     return dangle_R(i, k, j, sequence) + 0.4
 
 
 def dangle_Li(i, k, j, sequence):
-    """return the scoring parameter for 5' base dangling off a multiloop pair"""
+    """r
+    eturn the scoring parameter for 5' base dangling off a multiloop pair
+    """
     return dangle_L(i, k, j, sequence) + 0.4
 
 
 def dangle_R_wave(i, k, j, sequence):
-    """return the scoring paramater for 3' base dangling off a pseudoknot pair"""
+    """
+    return the scoring paramater for 3' base dangling off a pseudoknot pair
+    """
     return dangle_R(i, k, j, sequence) * 0.83 + 0.2
 
 
 def dangle_L_wave(i, k, j, sequence):
-    """return the scoring paramater for 5' base dangling off a pseudoknot pair"""
+    """
+    return the scoring paramater for 5' base dangling off a pseudoknot pair
+    """
     return dangle_L(i, k, j, sequence) * 0.83 + 0.2
-
 
 
 parameters = {
