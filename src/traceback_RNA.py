@@ -1,5 +1,7 @@
 def traceback(matrix, current_matrix_name, indices, dbn, verbose=False):
-    """traceback the matrices to get the optimal path and deduce the optimal structures"""
+    """
+    traceback the matrices to get the optimal path and deduce the optimal structures
+    """
   
     # recover the best score and the matrices used to obtain it
     if len(indices) == 2: # matrices vx, wx and wxi
@@ -46,7 +48,9 @@ def traceback(matrix, current_matrix_name, indices, dbn, verbose=False):
 
 
 def matches2dbn(matches):
-    """translate the 'matches' list into dot-bracket notation (dbn)"""
+    """
+    translate the 'matches' list into dot-bracket notation (dbn)
+    """
     # dot-bracket notation
     dbn = list(matches)
     
