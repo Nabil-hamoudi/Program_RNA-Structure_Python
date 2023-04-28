@@ -5,7 +5,9 @@ from matrices import matrix_vhx, matrix_zhx, matrix_yhx, matrix_wxi, matrix_vx, 
 # matrix whx
 
 def matrix_whx(i, j, k, l, matrix, sequence):
-    """return the value of the gap matrix whx at the given indices"""
+    """
+    return the value of the gap matrix whx at the given indices
+    """
     # check indices
     if (i > k) or (k > l) or (l > j):
         return float('inf')
