@@ -55,6 +55,7 @@ def reading_fasta_file(file):
 
     return sequences
 
+
 def check_rna_seq(sequence):
     """
     Check if it's an RNA sequence.
