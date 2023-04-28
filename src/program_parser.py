@@ -16,8 +16,9 @@ FILE_TYPE_READ = [("Fasta file", "*.fasta *.fa *.fna *.ffn *.frn"), ("Text file"
 # Parser
 def parser_function():
     """
-    Initialization of the parser
-    return arguments of the user
+    Initialization of the parser and
+    modification of the arguments for the program
+    Output: Argument of the user
     """
     parser = argparse.ArgumentParser()
 
@@ -43,7 +44,7 @@ def parser_function():
                         required=False)
     parser.add_argument('-g', '--graph',
                         help='save a representation of the secondary structure of RNA into a directory',
-                        type=lambda argument: path_input(parser, argument),
+                        type=lambda argument: path_input(parser, argument, '-g/--graph'),
                         required=False,
                         nargs='?')
 
@@ -60,21 +61,25 @@ def parser_function():
     return args
 
 
-def path_input(parser, argument):
+def path_input(parser, argument, flag):
     """
-    Define path and
-    parse the graph and add the result directory
+    Input: Parser_class to get error and argument user input
+    Define path of the directory
+    enter by the user and return it if
+    it exists and is a directory
     """
     argument = pathlib.Path(argument)
     if argument.exists() and argument.is_dir():
         return argument
     else:
-        parser.error('invalid directory for -g flag.')
+        parser.error(f'invalid directory for flag {flag}.')
 
 
 def parser_input(args, parser):
     """
-    parse if there is the flag file, input or no flag and the argument
+    Input: Argument structure with the user input, Parser_class to get error 
+    parse the input for -i/--input and -f/--file_input if there is an argument or not, if not a window to choose the
+    file will display
     """
     # because Argparse is fucking dumb
     if ('-i' in sys.argv[1::] or '--input' in sys.argv[1::]) and ('-f' in sys.argv[1::] or '--file_input' in sys.argv[1::]):
@@ -84,20 +89,21 @@ def parser_input(args, parser):
         if args.input is None:
             if '-i' in sys.argv[1::] or '--input' in sys.argv[1::]:
                 parser.error('argument for -i flag is required.')
-            args.file_input = filedialog.askopenfile(mode='r', title="Choose a fasta file", filetypes=FILE_TYPE_READ)
+            args.file_input = filedialog.askopenfile(mode='r', title="Choose a file", filetypes=FILE_TYPE_READ)
             if args.file_input is None:
-                parser.error('no input given for -i/--input or -f/--file_input flag.')
+                parser.error('no parameters given for -i/--input or -f/--file_input.')
 
 
 def parser_graph(args, parser):
     """
-    parse the graph and add the result directory
+    Input: Argument structure with the user input, Parser_class to get error 
+    parse the save directory input by the user and add the result directory to it
     """
     if args.graph is not None:
         args.graph = os.path.join(args.graph, DIRECTORY_NAME_GRAPH)
         os.mkdir(args.graph)
     elif '-g' in sys.argv[1::] or '--graph' in sys.argv[1::]:
-        argument = filedialog.askdirectory(mustexist=True, title="Enter a directory to save the graph(s)")
+        argument = filedialog.askdirectory(mustexist=True, title="Enter a directory where save the graph(s)")
         if argument is not None:
             args.graph = pathlib.Path(argument)
             args.graph = os.path.join(args.graph, DIRECTORY_NAME_GRAPH)
@@ -108,13 +114,16 @@ def parser_graph(args, parser):
 
 def parser_save(args, parser, save_directory=None):
     """
-    parse the save if there is an argument or not
+    Input: Argument structure with the user input, Parser_class to get error and
+    default directory where to display the save window
+    parse the save if there is an argument or not, if not a window for choose the
+    file will display
     """
     if args.save is None and ('--save' in sys.argv[1::] or '-s' in sys.argv[1::]):
-        args.save = filedialog.asksaveasfile(mode='x', title="save file",
+        args.save = filedialog.asksaveasfile(mode='x', title="Save file",
                                              initialdir=save_directory,
                                              initialfile=DEFAULT_SAVE_FILENAME,
-                                             defaultextension= DEFAULT_EXTENSION_SAVE,
+                                             defaultextension=DEFAULT_EXTENSION_SAVE,
                                              filetypes=FILE_TYPE_SAVE)
         if args.save is None:
-            parser.error('no save file given for -s/--save flage.')
+            parser.error('no save file given for -s/--save flag.')
