@@ -22,15 +22,34 @@ def get_sequences(args):
         return reading_fasta_file(args.file_input)
 
 
-def get_output(sequence, sequence_name, verbose_traceback, graphe_directory=None):
+def sequence_processing(sequence, sequence_name, verbose_traceback, graph_directory=None):
     """
-    Output str of the save if need it and 
-    save graph(s) if graph argument present
+    Process a single sequence
+    Input:
+        sequence: string containing the sequence
+        sequence_name: string containing the name of the sequence
+        verbose_traceback: boolean, True  - the traceback should be printed
+                                      False - the traceback should not be printed
+        graph_directory: string containing the path to the directory
+                         where the graph should be created
+    Output:
+        output: string containing the displayed result
     """
+    # check if the sequence is valid
+    sequence = check_rna_seq(sequence, sequence_name)
+    if sequence == "": # invalid sequence
+        return "" # skip the sequence
+
+    # get results for the dynamic programming algorithm
     matches, best_score = run_algorithm(sequence, verbose_traceback)
+    
+    # keep the output (display) for further use
     output = display_results(sequence_name, sequence, matches, best_score)
-    if graphe_directory is not None:
-        draw_graph(os.path.join(graphe_directory, sequence_name + GRAPH_EXTENSION), sequence, matches)
+    
+    if graph_directory is not None: # create the graph if asked
+        graph_file = os.path.join(graphe_directory, sequence_name + GRAPH_EXTENSION)
+        draw_graph(graph_file, sequence, matches)
+    
     return output
 
 
@@ -61,8 +80,7 @@ def main():
 
     output = ""
     for sequence_name in dict_seq:
-        sequence = check_rna_seq(dict_seq[sequence_name])
-        output += get_output(sequence, sequence_name, args.traceback, args.graph)
+        output += sequence_processing(dict_seq[sequence_name], sequence_name, args.traceback, args.graph)
 
     # write into file if asked
     if args.save is not None:
