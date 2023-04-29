@@ -16,10 +16,10 @@ def get_sequences(args):
     Output: 
     Manage the program with the arguments
     """
-    if args.input is not None:
-        return {"Unknown sequence": args.input}
+    if args.NA_Sequence is not None:
+        return {"Unknown sequence": args.NA_Sequence}
     else:
-        return reading_fasta_file(args.file_input)
+        return reading_fasta_file(args.Fasta_File)
 
 
 def sequence_processing(sequence, sequence_name, verbose_traceback, graph_directory=None):
@@ -80,11 +80,11 @@ def main():
 
     output = ""
     for sequence_name in dict_seq:
-        output += sequence_processing(dict_seq[sequence_name], sequence_name, args.traceback, args.graph)
+        output += sequence_processing(dict_seq[sequence_name], sequence_name, args.traceback, args.Save_Directory_Graph)
 
     # write into file if asked
-    if args.save is not None:
-        args.save.write(output)
+    if args.Save_File_Output is not None:
+        args.Save_File_Output.write(output)
 
 
 if __name__ == "__main__":
