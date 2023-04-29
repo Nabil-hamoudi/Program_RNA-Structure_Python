@@ -64,6 +64,11 @@ def check_rna_seq(sequence):
     input: RNA or DNA sequence
     output: RNA sequence
     """
+    
+    # check if sequence is empty
+    if sequence == "":
+        return -1
+  
     sequence = sequence.upper()
     list_nucleotides = ["A", "T", "G", "C", "U"]
     for i in range(len(sequence)):
@@ -71,6 +76,7 @@ def check_rna_seq(sequence):
         if sequence[i] == "T":
             sequence = sequence[:i] + "U" + sequence[i+1:]
         elif sequence[i] not in list_nucleotides:
-            raise ValueError("The sequence entered is not an RNA or DNA sequence")
+            return -1
+        
 
     return sequence
