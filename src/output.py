@@ -8,8 +8,9 @@ def display_results(sequence_name, sequence, matches, best_score):
     """
     output the results of the given sequence
     """
-
-    output = f"## Results for {sequence_name} ##\n" + f"length of the sequence : {len(sequence)} nucleotides" \
+    
+    plural = 's' if len(sequence) > 1 else ''
+    output = f"## Results for {sequence_name} ##\n" + f"length of the sequence : {len(sequence)} nucleotide{plural}" \
             + "\nenergy : " + str(round(best_score, 2)) + " kcal/mol\n"
 
     for nucleotide in sequence: output += nucleotide + "  "
