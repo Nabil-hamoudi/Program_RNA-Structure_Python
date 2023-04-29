@@ -21,7 +21,7 @@ def display_results(sequence_name, sequence, matches, best_score):
     output += "\n"
 
     print(output)
-    return output
+    return output + '\n'
 
 
 def print_matrix(matrix, matrix_name):
@@ -43,10 +43,11 @@ def draw_graph(file, sequence, matches):
     """
 
     dbn = matches2dbn(matches)
-    main_command = "java -cp VARNAv3-93.jar fr.orsay.lri.varna.applications.VARNAcmd"
-    sequence_argument = f"-sequenceDBN {sequence}"
-    structure_argument = f"-structureDBN {dbn}"
-    output_argument = f"-o {str(file)}"
+    print(dbn)
+    main_command = "java -cp structures_tools/VARNAv3-93.jar fr.orsay.lri.varna.applications.VARNAcmd"
+    sequence_argument = f" -sequenceDBN {sequence}"
+    structure_argument = f" -structureDBN \"{dbn}\""
+    output_argument = f" -o \"{str(file)}\""
 
     return_code = subprocess.call(main_command + sequence_argument + structure_argument + output_argument, shell=True)
 
