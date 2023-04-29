@@ -3,12 +3,12 @@ import subprocess
 from traceback_RNA import matches2dbn
 
 
-def display_results(name_sequence, sequence, matches, best_score):
+def display_results(sequence_name, sequence, matches, best_score):
     """
     output the results of the given sequence
     """
 
-    output = f"## Results for {name_sequence} ##\n" + f"length of the sequence : {len(sequence)} nucleotides" \
+    output = f"## Results for {sequence_name} ##\n" + f"length of the sequence : {len(sequence)} nucleotides" \
             + "\nenergy : " + str(round(best_score, 2)) + " kcal/mol\n"
 
     for nucleotide in sequence: output += nucleotide + "  "
