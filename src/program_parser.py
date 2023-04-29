@@ -104,18 +104,25 @@ def parser_graph(args, parser):
     """
     if args.directory_path is not None:
         args.directory_path = os.path.join(args.directory_path, DIRECTORY_NAME_GRAPH)
-        if not pathlib.Path(args.directory_path).exists():
-            os.mkdir(args.directory_path)
+        create_folder(args.directory_path)
     elif '-g' in sys.argv[1::] or '--graph' in sys.argv[1::]:
         from tkinter import filedialog
         argument = filedialog.askdirectory(mustexist=True, title="Enter a directory where save the graph(s)")
         if argument is not None:
             args.directory_path = pathlib.Path(argument)
             args.directory_path = os.path.join(args.directory_path, DIRECTORY_NAME_GRAPH)
-            if not pathlib.Path(args.directory_path).exists():
-                os.mkdir(args.directory_path)
+            create_folder(args.directory_path)
         else:
-            parser.error('no save directory given for -g/--graph flag.')
+            args.directory_path = os.path.abspath(DIRECTORY_NAME_GRAPH)
+            create_folder(args.directory_path)
+
+
+def create_folder(folder):
+    """
+    create a folder if it not already exist
+    """
+    if not pathlib.Path(folder).exists():
+        os.mkdir(folder)
 
 
 def parser_save(args, parser):
@@ -133,4 +140,11 @@ def parser_save(args, parser):
                                              defaultextension=DEFAULT_EXTENSION_SAVE,
                                              filetypes=FILE_TYPE_SAVE)
         if args.file_path is None:
-            parser.error('no save file given for -s/--save flag.')
+            if args.directory_path is not None:
+                args.file_path = os.path.join(args.directory_path, DEFAULT_SAVE_FILENAME) + DEFAULT_EXTENSION_SAVE
+            else:
+                args.file_path = os.path.abspath(DEFAULT_SAVE_FILENAME + DEFAULT_EXTENSION_SAVE)
+            try:
+                args.file_path = open(args.file_path, 'x')
+            except FileExistsError:
+                parser.error('default save already exist for -s/--save flag.')
