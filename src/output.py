@@ -1,3 +1,4 @@
+import os
 import sys
 import subprocess
 from traceback_RNA import matches2dbn
@@ -43,8 +44,9 @@ def draw_graph(file, sequence, matches):
     """
 
     dbn = matches2dbn(matches)
-    print(dbn)
-    main_command = "java -cp structures_tools/VARNAv3-93.jar fr.orsay.lri.varna.applications.VARNAcmd"
+    path_to_varna = os.path.join(os.path.dirname(__file__), '..', 'structures_tools', "VARNAv3-93.jar")
+
+    main_command = f"java -cp {path_to_varna} fr.orsay.lri.varna.applications.VARNAcmd"
     sequence_argument = f" -sequenceDBN {sequence}"
     structure_argument = f" -structureDBN \"{dbn}\""
     output_argument = f" -o \"{str(file)}\""
