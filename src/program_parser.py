@@ -46,7 +46,7 @@ def parser_function():
                         required=False)
     parser.add_argument('-g', '--graph',
                         help='save a representation of the secondary structure of RNA into a directory',
-                        dest="Save_Directory_Graph",
+                        dest="directory_path",
                         type=lambda argument: path_input(parser, argument, '-g/--graph'),
                         required=False,
                         nargs='?')
