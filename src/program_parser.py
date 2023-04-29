@@ -2,7 +2,6 @@ import os
 import sys
 import pathlib
 import argparse
-from tkinter import filedialog
 
 
 # Default constant for file display
@@ -20,7 +19,7 @@ def parser_function():
     modification of the arguments for the program
     Output: Argument of the user
     """
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description='RNA PROGRAM DESCRIPTION.')
 
     input_group = parser.add_mutually_exclusive_group(required=False)
     input_group.add_argument('-i', '--input',
@@ -77,7 +76,7 @@ def path_input(parser, argument, flag):
 
 def parser_input(args, parser):
     """
-    Input: Argument structure with the user input, Parser_class to get error 
+    Input: Argument structure with the user input, Parser_class to get error
     parse the input for -i/--input and -f/--file_input if there is an argument or not, if not a window to choose the
     file will display
     """
@@ -88,6 +87,7 @@ def parser_input(args, parser):
         if args.input is None:
             if '-i' in sys.argv[1::] or '--input' in sys.argv[1::]:
                 parser.error('argument for -i flag is required.')
+            from tkinter import filedialog
             args.file_input = filedialog.askopenfile(mode='r', title="Choose a file", filetypes=FILE_TYPE_READ)
             if args.file_input is None:
                 parser.error('no parameters given for -i/--input or -f/--file_input.')
@@ -95,18 +95,21 @@ def parser_input(args, parser):
 
 def parser_graph(args, parser):
     """
-    Input: Argument structure with the user input, Parser_class to get error 
+    Input: Argument structure with the user input, Parser_class to get error
     parse the save directory input by the user and add the result directory to it
     """
     if args.graph is not None:
         args.graph = os.path.join(args.graph, DIRECTORY_NAME_GRAPH)
-        os.mkdir(args.graph)
+        if not pathlib.Path(args.graph).exists():
+            os.mkdir(args.graph)
     elif '-g' in sys.argv[1::] or '--graph' in sys.argv[1::]:
+        from tkinter import filedialog
         argument = filedialog.askdirectory(mustexist=True, title="Enter a directory where save the graph(s)")
         if argument is not None:
             args.graph = pathlib.Path(argument)
             args.graph = os.path.join(args.graph, DIRECTORY_NAME_GRAPH)
-            os.mkdir(args.graph)
+            if not pathlib.Path(args.graph).exists():
+                os.mkdir(args.graph)
         else:
             parser.error('no save directory given for -g/--graph flag.')
 
@@ -119,6 +122,7 @@ def parser_save(args, parser, save_directory=None):
     file will display
     """
     if args.save is None and ('--save' in sys.argv[1::] or '-s' in sys.argv[1::]):
+        from tkinter import filedialog
         args.save = filedialog.asksaveasfile(mode='x', title="Save file",
                                              initialdir=save_directory,
                                              initialfile=DEFAULT_SAVE_FILENAME,
