@@ -3,7 +3,6 @@ from traceback_RNA import *
 from sequence_handling import *
 from create_matrices import *
 from matrices import matrix_wx
-#parser
 from program_parser import parser_function
 
 # Default constant for file display
@@ -12,13 +11,13 @@ GRAPH_EXTENSION = ".jpeg"
 
 def program_parse(args):
     """
-    Input: Argument enter by the user
+    Input: Arguments entered by the user
     Output: 
-    Manage the program with the argument
+    Manage the program with the arguments
     """
     if args.input is not None:
         sequence = check_rna_seq(args.input)
-        sequence_name = "Unknow sequence"
+        sequence_name = "Unknown sequence"
         output = get_output(sequence, sequence_name, args.traceback, args.graph)
     else:
         dict_seq = reading_fasta_file(args.file_input)
@@ -31,8 +30,8 @@ def program_parse(args):
 
 def get_output(sequence, sequence_name, verbose_traceback, graphe_directory=None):
     """
-    Output str of the save if need it and save graph(s) if
-    graph argument present
+    Output str of the save if need it and 
+    save graph(s) if graph argument present
     """
     matches, best_score = run_programs(sequence, verbose_traceback)
     output = display_results(sequence_name, sequence, matches, best_score) + '\n'
@@ -65,6 +64,6 @@ if __name__ == "__main__":
     args = parser_function()
     output = program_parse(args)
 
-    # write into file if we save
+    # write into file if asked
     if args.save is not None:
         args.save.write(output)
