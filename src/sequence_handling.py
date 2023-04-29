@@ -17,7 +17,7 @@ def seq_same_name(sequences, sequence, sequence_name, counter_same_name):
     return sequence_name, counter_same_name
 
 
-def reading_fasta_file(file):
+def reading_fasta_file(fasta_file_path):
     """
     Reading file containing RNA (or DNA) sequence
     Input: file in fasta format
@@ -31,8 +31,8 @@ def reading_fasta_file(file):
     sequence_name = ""
     sequence = ""
 
-    with file as f:
-        for line in f:  # iterate through each line of the file
+    with fasta_file_path as fasta_file:
+        for line in fasta_file:  # iterate through each line of the file
             line = line.strip()  # removing both the leading and the trailing characters of the line
             if line.startswith(">"):  # if sequence header
                 if sequence_name != "":
@@ -46,6 +46,8 @@ def reading_fasta_file(file):
                 if sequence_name == "":  # if sequence without informations/header
                     sequence_name = "Unknown sequence " + str(counter_unknown_seq)
                     counter_unknown_seq += 1
+            elif sequence_name == "": # if the file doesn't start with an header
+                raise "The given file isn't a fasta file"
             else:  # if it is a sequence line
                 sequence += line
 
