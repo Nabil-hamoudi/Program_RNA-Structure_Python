@@ -56,7 +56,7 @@ def reading_fasta_file(file):
     return sequences
 
 
-def check_rna_seq(sequence):
+def check_rna_seq(sequence, sequence_name):
     """
     Check if it's an RNA sequence.
     If it's a DNA sequence, transform it into an RNA sequence.
@@ -67,7 +67,8 @@ def check_rna_seq(sequence):
     
     # check if sequence is empty
     if sequence == "":
-        return -1
+        print(f"The sequence {sequence_name} is empty")
+        return ""
   
     sequence = sequence.upper()
     list_nucleotides = ["A", "T", "G", "C", "U"]
@@ -76,7 +77,8 @@ def check_rna_seq(sequence):
         if sequence[i] == "T":
             sequence = sequence[:i] + "U" + sequence[i+1:]
         elif sequence[i] not in list_nucleotides:
-            return -1
+            print(f"The sequence {sequence_name} is not an RNA or DNA sequence") 
+            return ""
         
 
     return sequence
