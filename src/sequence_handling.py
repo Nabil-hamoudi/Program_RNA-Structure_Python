@@ -47,7 +47,7 @@ def reading_fasta_file(fasta_file_path):
                     sequence_name = "Unknown sequence " + str(counter_unknown_seq)
                     counter_unknown_seq += 1
             elif sequence_name == "": # if the file doesn't start with an header
-                raise "The given file isn't a fasta file"
+                raise IOError("The given file isn't a fasta file")
             else:  # if it is a sequence line
                 sequence += line
 
