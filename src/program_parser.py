@@ -134,7 +134,7 @@ def parser_save(args, parser):
     """
     if args.file_path is None and ('--save' in sys.argv[1::] or '-s' in sys.argv[1::]):
         from tkinter import filedialog
-        args.file_path = filedialog.asksaveasfile(mode='x', title="Save file",
+        args.file_path = filedialog.asksaveasfile(mode='w', title="Save file",
                                              initialdir=args.directory_path,
                                              initialfile=DEFAULT_SAVE_FILENAME,
                                              defaultextension=DEFAULT_EXTENSION_SAVE,
