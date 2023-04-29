@@ -5,7 +5,7 @@ import argparse
 
 
 # Default constant for file display
-DIRECTORY_NAME_GRAPH = "result"
+DIRECTORY_NAME_GRAPH = "results"
 DEFAULT_SAVE_FILENAME = "result"
 DEFAULT_EXTENSION_SAVE = ".txt"
 FILE_TYPE_SAVE = [("Text file", "*.txt"), ("Log file", "*.log")]
