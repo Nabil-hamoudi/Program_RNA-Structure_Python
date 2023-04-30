@@ -1,4 +1,4 @@
-# give the energy from the size of the structure
+# constants give the energy according to the size of the structure
 
 harpin_loop_energy = {
         3 : 7.4,
@@ -98,14 +98,21 @@ internal_loop_energy = {
 
 def EIS1(i, j, sequence):
     """
-    scoring function for an irreducible surface of order 1
+    Scoring function for an irreducible surface of order 1
+    Input:
+        i, j: indices of the sequence
+        sequence: string containing the sequence
+    Output:
+        float of the energy of the irreducible surface
     """
-
+    # out of range
     if i >= len(sequence): return float('inf')
     if j >= len(sequence): return float('inf')
 
     # compute number of nucleotides between j and i
     delta_j_i = j - i - 1
+
+    # return the energy accoring to the size of the hairpin
     if delta_j_i > 30:
         return coaxial_stacking(i, j, i+1, j-1, sequence) + 8.9
     elif delta_j_i > 2:
@@ -116,7 +123,12 @@ def EIS1(i, j, sequence):
 
 def EIS2(i, j, k, l, sequence):
     """
-    scoring function for an irreducible surface of order 2
+    Scoring function for an irreducible surface of order 2
+    Input:
+        i, j, k, l: indices of the sequence
+        sequence: string containing the sequence
+    Output:
+        float of the energy of the irreducible surface
     """
 
     #######
@@ -125,19 +137,20 @@ def EIS2(i, j, k, l, sequence):
     # 5 3 #
     #######
 
+    # out of range
     if i >= len(sequence): return float('inf')
     if j >= len(sequence): return float('inf')
     if k >= len(sequence): return float('inf')
     if l >= len(sequence): return float('inf')
+    
     # compute number of nucleotides between k and i / j and l
     delta_k_i = k - i - 1
     delta_j_l = j - l - 1
-    delta_k_l = l - k - 1
 
-    if delta_k_l < 5:
+    if (l - k - 1) < 5: # not enough nucleotides left to make a hairpin
         return float('inf')
 
-    if delta_k_i < 0 or delta_j_l < 0:
+    if delta_k_i < 0 or delta_j_l < 0: # impossible configuration
         return float('inf')
 
 
@@ -170,35 +183,46 @@ def EIS2(i, j, k, l, sequence):
 
 def EIS2_wave(i, j, k, l, sequence):
     """
-    scoring function for an irreducible surface of order 2 in pseudoknot
+    Scoring function for an irreducible surface of order 2 in pseudoknot
+    Input:
+        i, j, k, l: indices of the sequence
+        sequence: string containing the sequence
+    Output:
+        float of the energy of the irreducible surface
     """
     return EIS2(i, j, k, l, sequence) * 0.83
 
 
 def coaxial_stacking(i, j, k, l, sequence):
     """
-    compute and return the coaxial stacking score
+    Compute and return the coaxial stacking score
+    Input:
+        i, j, k, l: indices of the sequence
+        sequence: string containing the sequence
+    Output:
+        float of the energy of the coaxial stacking
     """
-    
+    # out of range
     if i >= len(sequence): return float('inf')
     if j >= len(sequence): return float('inf')
     if k >= len(sequence): return float('inf')
     if l >= len(sequence): return float('inf')
+
+    # get nucleotide letter
     i = sequence[i]
     j = sequence[j]
     k = sequence[k]
     l = sequence[l]
     
+    #############
+    # --> # --> #
+    # i k # l j #
+    # | | # | | #
+    # j l # k i #
+    # <-- # <-- #
+    #############
 
-    #######
-    # --> #
-    # i k #
-    # | | #
-    # j l #
-    # <-- #
-    #######
-
-    #table 2 from 'Improved free-energy parameters for predictions of RNA duplex stability'
+    # table 2 from 'Improved free-energy parameters for predictions of RNA duplex stability'
     if i == 'A' and j == 'U' and k == 'A' and l == 'U': return -0.9
     if i == 'A' and j == 'U' and k == 'U' and l == 'A': return -0.9
     if i == 'U' and j == 'A' and k == 'A' and l == 'U': return -1.1
@@ -210,6 +234,7 @@ def coaxial_stacking(i, j, k, l, sequence):
     if i == 'G' and j == 'C' and k == 'C' and l == 'G': return -3.4
     if i == 'G' and j == 'C' and k == 'G' and l == 'C': return -2.9
 
+    # symmetry
     if l == 'A' and k == 'U' and j == 'A' and i == 'U': return -0.9
     if l == 'A' and k == 'U' and j == 'U' and i == 'A': return -0.9
     if l == 'U' and k == 'A' and j == 'A' and i == 'U': return -1.1
@@ -220,9 +245,6 @@ def coaxial_stacking(i, j, k, l, sequence):
     if l == 'C' and k == 'G' and j == 'G' and i == 'C': return -2.0
     if l == 'G' and k == 'C' and j == 'C' and i == 'G': return -3.4
     if l == 'G' and k == 'C' and j == 'G' and i == 'C': return -2.9
-
-
-    # initiation 3.4 ?
 
     # mismatches G-U
     if i == 'A' and j == 'U' and k == 'G' and l == 'U': return -0.5
@@ -239,6 +261,7 @@ def coaxial_stacking(i, j, k, l, sequence):
     if i == 'G' and j == 'U' and k == 'U' and l == 'G': return -0.5
     if i == 'U' and j == 'G' and k == 'U' and l == 'G': return -0.5
 
+    # default value
     return -0.4
 
 
@@ -246,6 +269,11 @@ def coaxial_stacking(i, j, k, l, sequence):
 def coaxial_stacking_wave(i, j, k, l, sequence):
     """
     compute and return the coaxial stacking score in pseudoknots
+    Input:
+        i, j, k, l: indices of the sequence
+        sequence: string containing the sequence
+    Output:
+        float of the energy of the coaxial stacking
     """
     return coaxial_stacking(i, j, k, l, sequence) * 0.83
 
@@ -253,13 +281,23 @@ def coaxial_stacking_wave(i, j, k, l, sequence):
 def dangle_R(i, k, j, sequence):
     """
     return the free-energy for unpaired 3' terminal nucleotides
+    Input:
+        i, k, j: indices of the sequence
+        sequence: string containing the sequence
+    Output:
+        float of the energy of the right dangle
     """
-    # page 9/16 --> R^j i, j-1 where j = i, i = j, j-1 = k
-
+    # out of range
     if i >= len(sequence): return float('inf')
     if j >= len(sequence): return float('inf')
     if k >= len(sequence): return float('inf')
+
+    # error if i is not contiguous with j nor k
+    # this raises an error as it is not the algorithm going out of bounds
+    # but the programmer calling the function with the wrong indices
     if (k != i-1) and (j != i-1): raise IndexError("k != i-1 and j != i-1")
+
+    # get nucleotide letter
     i = sequence[i]
     j = sequence[j]
     k = sequence[k]
@@ -293,20 +331,32 @@ def dangle_R(i, k, j, sequence):
     if i == 'G' and k == 'U' and j == 'A': return -0.7
     if i == 'U' and k == 'U' and j == 'A': return -0.1
 
+    # default value
     return float('inf')
 
 
 def dangle_L(i, k, j, sequence):
     """
-    return the free-energy for unpaired 5' terminal nucleotides
+    Return the free-energy for unpaired 5' terminal nucleotides
+    Input:
+        i, k, j: indices of the sequence
+        sequence: string containing the sequence
+    Output:
+        float of the energy of the left dangle
     """
    # page 9/16 --> L^i i+1, j where i = i, i+1 = k, j = j
 
+    # out of range
     if i >= len(sequence): return float('inf')
     if j >= len(sequence): return float('inf')
     if k >= len(sequence): return float('inf')
-    if (k != i+1) and (j != i+1):
-        raise IndexError("k != i+1 and j != i+1")
+
+    # error if i is not contiguous with j nor k
+    # this raises an error as it is not the algorithm going out of bounds
+    # but the programmer calling the function with the wrong indices
+    if (k != i+1) and (j != i+1): raise IndexError("k != i+1 and j != i+1")
+
+    # get nucleotide letter
     i = sequence[i]
     j = sequence[j]
     k = sequence[k]
@@ -340,37 +390,59 @@ def dangle_L(i, k, j, sequence):
     if i == 'G' and k == 'U' and j == 'A': return -0.2
     if i == 'U' and k == 'U' and j == 'A': return -0.2
 
+    # default value
     return float('inf')
 
 
 def dangle_Ri(i, k, j, sequence):
     """
-    return the scoring parameter for 3' base dangling off a multiloop pair
+    Return the scoring parameter for 3' base dangling off a multiloop pair
+    Input:
+        i, k, j: indices of the sequence
+        sequence: string containing the sequence
+    Output:
+        float of the energy of the right dangle
     """
     return dangle_R(i, k, j, sequence) + 0.4
 
 
 def dangle_Li(i, k, j, sequence):
-    """r
-    eturn the scoring parameter for 5' base dangling off a multiloop pair
+    """
+    Return the scoring parameter for 5' base dangling off a multiloop pair
+    Input:
+        i, k, j: indices of the sequence
+        sequence: string containing the sequence
+    Output:
+        float of the energy of the right dangle
     """
     return dangle_L(i, k, j, sequence) + 0.4
 
 
 def dangle_R_wave(i, k, j, sequence):
     """
-    return the scoring paramater for 3' base dangling off a pseudoknot pair
+    Return the scoring paramater for 3' base dangling off a pseudoknot pair
+    Input:
+        i, k, j: indices of the sequence
+        sequence: string containing the sequence
+    Output:
+        float of the energy of the right dangle
     """
     return dangle_R(i, k, j, sequence) * 0.83 + 0.2
 
 
 def dangle_L_wave(i, k, j, sequence):
     """
-    return the scoring paramater for 5' base dangling off a pseudoknot pair
+    Return the scoring paramater for 5' base dangling off a pseudoknot pair
+    Input:
+        i, k, j: indices of the sequence
+        sequence: string containing the sequence
+    Output:
+        float of the energy of the left dangle
     """
     return dangle_L(i, k, j, sequence) * 0.83 + 0.2
 
 
+# table 2 and 3 of the article
 parameters = {
         "EIS1" : EIS1,
         "EIS2" : EIS2,
