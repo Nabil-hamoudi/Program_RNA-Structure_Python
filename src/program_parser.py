@@ -103,7 +103,7 @@ def parser_graph(args, parser):
     parse the save directory input by the user and add the result directory to it
     """
     if args.directory_path is not None:
-        args.directory_path = os.path.join(args.directory_path, DIRECTORY_NAME_GRAPH)
+        args.directory_path = args.directory_path
         create_folder(args.directory_path)
     elif '-g' in sys.argv[1::] or '--graph' in sys.argv[1::]:
         from tkinter import filedialog

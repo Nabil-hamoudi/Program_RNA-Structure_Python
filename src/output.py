@@ -52,6 +52,7 @@ def print_matrix(matrix, matrix_name):
     if matrix_name in ["vx", "wx", "wxi"]: # 2D matrices
         for line in matrix[matrix_name]: print([round(x[0], 2) for x in line])
     elif matrix_name in ["vhx", "whx", "yhx", "zhx"]: # 4D matrices
+        pass
         #for line in matrix[matrix_name]: print([round(x[0], 2) for x in line])
 
 
