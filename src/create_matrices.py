@@ -1,5 +1,3 @@
-# creation and initialization of matrices
-
 def create_matrices(n):
     """
     Creation of the six triangular matrices
