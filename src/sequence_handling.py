@@ -40,7 +40,7 @@ def reading_fasta_file(fasta_file_path):
                                                                      sequence,
                                                                      sequence_name,
                                                                      counter_same_name)
-                    sequences[sequence_name] = sequence  # add previous sequence to dictionary
+                    sequences[sequence_name.strip()] = sequence  # add previous sequence to dictionary
                     sequence = ""
                 sequence_name = line[1:]
                 if sequence_name == "":  # if sequence without informations/header
@@ -53,7 +53,7 @@ def reading_fasta_file(fasta_file_path):
 
         sequence_name, counter_same_name = seq_same_name(sequences, sequence,
                                                          sequence_name, counter_same_name)
-        sequences[sequence_name] = sequence  # add previous sequence to dictionary
+        sequences[sequence_name.strip()] = sequence  # add previous sequence to dictionary
 
     return sequences
 
