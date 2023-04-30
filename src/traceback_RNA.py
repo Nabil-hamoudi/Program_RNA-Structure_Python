@@ -1,6 +1,18 @@
 def traceback(matrix, current_matrix_name, indices, matches, verbose=False):
     """
-    traceback the matrices to get the optimal path and deduce the optimal structures
+    Recursive function to traceback the matrices to get the optimal path and deduce the optimal structures
+    Fill the list matches
+    Input:
+        matrix: dictionnary of the matrices
+        current_matrix_name: string of the name of the matrix to trace
+        indices: list of 2 or 4 indices depending of the matrix
+        matches: list where the ith nucleotide is:
+                  - not paired if matches[i] is None
+                  - paired to matches[i]th nucleotide if matches[i] is an integer
+                 for 0 <= i < sequence length
+        verbose_traceback: boolean, True  - the traceback should be printed
+                                    False - the traceback should not be printed
+    No output
     """
   
     # recover the best score and the matrices used to obtain it
@@ -19,8 +31,9 @@ def traceback(matrix, current_matrix_name, indices, matches, verbose=False):
 
 
     # for each tuple in list matrices_used
-    for matrix_used in matrices_used:
-        if verbose: print(f"trace {matrix_used[0]} {matrix_used[1:]}")
+    if verbose:
+        for matrix_used in matrices_used:
+            print(f"trace {matrix_used[0]} {matrix_used[1:]}")
 
     for matrix_used in matrices_used:
         matrix_name = matrix_used[0]
@@ -49,18 +62,28 @@ def traceback(matrix, current_matrix_name, indices, matches, verbose=False):
 
 def matches2dbn(matches):
     """
-    translate the 'matches' list into dot-bracket notation (dbn)
+    translate the 'matches' list into dot-bracket notation (DBN)
+    Input:
+        matches: list where the ith nucleotide is:
+                  - not paired if matches[i] is None
+                  - paired to matches[i]th nucleotide if matches[i] is an integer
+                 for 0 <= i < sequence length
+    Output:
+        string of a sequence structure in DBN format
     """
-    # dot-bracket notation
+    # copy the list matches
     dbn = list(matches)
     
     for position in range(len(dbn)):
-        if dbn[position] is None : 
+        if dbn[position] is None: # unpaired
             dbn[position] = '.'
         
-        elif isinstance(dbn[position], str): continue
+        elif isinstance(dbn[position], str): # already changed
+            continue
 
-        else:
+        else: # paired
+            # for more and more complex pseudoknot
+            # we need to add more and more kinds of brackets
             if ')' in dbn[position:dbn[position]]:
                 if ']' in dbn[position:dbn[position]]:
                     if '}' in dbn[position:dbn[position]]:
