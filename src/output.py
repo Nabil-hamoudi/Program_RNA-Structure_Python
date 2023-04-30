@@ -6,21 +6,35 @@ from traceback_RNA import matches2dbn
 
 def display_results(sequence_name, sequence, matches, best_score):
     """
-    output the results of the given sequence
+    Output the results of the given sequence
+    Input:
+        sequence_name: string containing the name of the sequence
+        sequence: string containing the sequence
+        matches: list where the ith nucleotide is:
+                  - not paired if matches[i] is None
+                  - paired to matches[i]th nucleotide if matches[i] is an integer
+                 for 0 <= i < sequence length
+        best_score: integer of the energy in kcal/mol for the best folding found
+    Output:
+        string containing the displayed result
     """
-    
-    plural = 's' if len(sequence) > 1 else ''
+    plural = 's' if len(sequence) > 1 else '' # attention to details
     output = f"## Results for {sequence_name} ##\n" + f"length of the sequence : {len(sequence)} nucleotide{plural}" \
             + "\nenergy : " + str(round(best_score, 2)) + " kcal/mol\n"
 
+    # display the nucleotides of the sequence
     for nucleotide in sequence: output += nucleotide + "  "
-    output += "\n"
+    output += '\n'
+    
+    # display the index of the nucleotide
     for position in range(len(sequence)): output += str(position) + " "*(3-len(str(position)))
-    output += "\n"
+    output += '\n'
+    
+    # display the index of the paired nucleotide
     for index in matches:
         if index is None: index = '_'
         output += str(index) + " "*(3-len(str(index)))
-    output += "\n"
+    output += '\n'
 
     print(output)
     return output + '\n'
@@ -28,32 +42,43 @@ def display_results(sequence_name, sequence, matches, best_score):
 
 def print_matrix(matrix, matrix_name):
     """
-    print the given matrix
+    Used for debugging, print a matrix
+    Input:
+        matrix: dictionnary of matrices
+        matrix_name: string of the name of the matrix to print
+    No output
     """
-
-    if matrix_name in ["vx", "wx", "wxi"]:
-        print("\n##", matrix_name, "##")
+    print("\n##", matrix_name, "##")
+    if matrix_name in ["vx", "wx", "wxi"]: # 2D matrices
         for line in matrix[matrix_name]: print([round(x[0], 2) for x in line])
-    elif matrix_name in ["vhx", "whx", "yhx", "zhx"]:
-        print("\n##", matrix_name, "##")
+    elif matrix_name in ["vhx", "whx", "yhx", "zhx"]: # 4D matrices
         #for line in matrix[matrix_name]: print([round(x[0], 2) for x in line])
 
 
 def draw_graph(file, sequence, matches):
     """
-    create an image to represent the secondary structure of the given sequence, using the software VARNA
+    Create an image to represent the secondary structure of the given sequence, using the software VARNA
+    Input:
+        file: Path of the file to create
+        sequence: string containing the sequence
+        matches: list where the ith nucleotide is:
+                  - not paired if matches[i] is None
+                  - paired to matches[i]th nucleotide if matches[i] is an integer
+                 for 0 <= i < sequence length
+    No output
     """
-
-    dbn = matches2dbn(matches)
+    dbn = matches2dbn(matches) # translates the list matches to DBN format
+    # compute VARNA path
     path_to_varna = os.path.join(os.path.dirname(__file__), '..', 'structures_tools', "VARNAv3-93.jar")
 
+    # format the command and its arguments
     main_command = f"java -cp {path_to_varna} fr.orsay.lri.varna.applications.VARNAcmd"
     sequence_argument = f" -sequenceDBN {sequence}"
     structure_argument = f" -structureDBN \"{dbn}\""
     output_argument = f" -o \"{str(file)}\""
 
+    # execute the command
     return_code = subprocess.call(main_command + sequence_argument + structure_argument + output_argument, shell=True)
 
-    if return_code != 0:
-        print(f"VARNA finished with the return code {return_code}")
+    if return_code != 0: print(f"VARNA finished with the return code {return_code}")
 
