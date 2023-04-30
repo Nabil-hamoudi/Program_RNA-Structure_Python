@@ -2,13 +2,16 @@ def seq_same_name(sequences, sequence, sequence_name, counter_same_name):
     """
     If in the fasta file, 2 different RNA sequences have the same name
     change the name of one of the sequences
-    input: sequences --> dictionnary of sequences {name_seq1: seq1, name_seq2: seq2}
-           sequence_name & sequence (str)
-           counter_same_name (int)
-    output: sequence_name (str)
-            counter_same_name (int)
+    Input:
+        sequences: dictionnary containing the sequences and their name as key
+        sequence: string containing the sequence to add
+        sequence_name: string containing the name of the sequence to add
+        counter_same_name: integer
+    Output:
+        string containing the name of the sequence to add
+        integer of the number of sequences that have the same name
     """
-    # if sequence name already in dictionary with a different RNA string
+    # if sequence_name already in dictionary with a different RNA string
     if (sequence_name in sequences.keys()) and \
        (sequences[sequence_name] != sequence):
         sequence_name = sequence_name + " (" + str(counter_same_name) + ")"
@@ -20,9 +23,10 @@ def seq_same_name(sequences, sequence, sequence_name, counter_same_name):
 def reading_fasta_file(fasta_file_path):
     """
     Reading file containing RNA (or DNA) sequence
-    Input: file in fasta format
-    Output: dictionary with RNA (or DNA) sequence(s) & sequence(s) name
-            Under the form {name_seq1: seq1, name_seq2: seq2}
+    Input:
+        fasta_file_path: path to the fasta file to read
+    Output:
+        dictionnary containing the sequences and their name as key
     """
     # variable initialization
     sequences = {}
@@ -40,7 +44,7 @@ def reading_fasta_file(fasta_file_path):
                                                                      sequence,
                                                                      sequence_name,
                                                                      counter_same_name)
-                    sequences[sequence_name.strip()] = sequence  # add previous sequence to dictionary
+                    sequences[sequence_name] = sequence  # add previous sequence to dictionary
                     sequence = ""
                 sequence_name = line[1:]
                 if sequence_name == "":  # if sequence without informations/header
@@ -53,7 +57,7 @@ def reading_fasta_file(fasta_file_path):
 
         sequence_name, counter_same_name = seq_same_name(sequences, sequence,
                                                          sequence_name, counter_same_name)
-        sequences[sequence_name.strip()] = sequence  # add previous sequence to dictionary
+        sequences[sequence_name] = sequence  # add previous sequence to dictionary
 
     return sequences
 
@@ -64,8 +68,12 @@ def check_rna_seq(sequence, sequence_name):
     Check if it's an RNA sequence.
     If it's a DNA sequence, transform it into an RNA sequence.
     Otherwise return an error.
-    input: RNA or DNA sequence
-    output: RNA sequence
+    input:
+        sequence: string containing a DNA or RNA sequence
+        sequence_name: string containing the name of the sequence
+    output:
+        string containing an RNA sequence
+        return empty string if there is an error
     """
     
     # check if sequence is empty
