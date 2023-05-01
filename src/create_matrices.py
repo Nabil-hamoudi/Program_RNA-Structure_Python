@@ -1,6 +1,6 @@
 def create_matrices(n):
     """
-    Creation of the six triangular matrices
+    Creation of the seven triangular matrices
     Input:
         n: integer, the size of the sequence to process
     Output:
