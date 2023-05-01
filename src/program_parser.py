@@ -4,10 +4,10 @@ import pathlib
 import argparse
 
 
-# Default constant for file display
+# Default constants
 DIRECTORY_NAME_GRAPH = "results"
 DEFAULT_SAVE_FILENAME = "result"
-DEFAULT_EXTENSION_SAVE = ".txt"
+DEFAULT_SAVE_EXTENSION = ".txt"
 FILE_TYPE_SAVE = [("Text file", "*.txt"), ("Log file", "*.log")]
 FILE_TYPE_READ = [("Fasta file", "*.fasta *.fa *.fna *.ffn *.frn"), ("Text file", "*.txt"), ("Other format", "*")]
 
@@ -15,12 +15,15 @@ FILE_TYPE_READ = [("Fasta file", "*.fasta *.fa *.fna *.ffn *.frn"), ("Text file"
 # Parser
 def parser_function():
     """
-    Initialization of the parser and
+    Initialization of the arguments parser and
     modification of the arguments for the program
-    Output: Argument of the user
+    No input
+    Output:
+        Argument of the user
     """
-    parser = argparse.ArgumentParser(description='RNA PROGRAM DESCRIPTION.')
+    parser = argparse.ArgumentParser(description='RNA secondary structure prediction using dynamic programmation from a given sequence of RNA.')
 
+    # -i and -f flags cannot be set at the same time
     input_group = parser.add_mutually_exclusive_group(required=False)
     input_group.add_argument('-i', '--input',
                              help='input an RNA sequence',
@@ -28,11 +31,12 @@ def parser_function():
                              type=str,
                              nargs='?')
     input_group.add_argument('-f', '--file_input',
-                             dest="Fasta_File",
+                             dest="Fasta_file",
                              help='input a Fasta file of one or more RNA sequence(s)',
                              type=argparse.FileType('r'),
                              nargs='?')
-
+    
+    # remaining flags
     parser.add_argument('-s', '--save',
                         help='save the output into a file',
                         dest="file_path",
@@ -47,104 +51,133 @@ def parser_function():
     parser.add_argument('-g', '--graph',
                         help='save a representation of the secondary structure of RNA into a directory',
                         dest="directory_path",
-                        type=lambda argument: path_input(parser, argument, '-g/--graph'),
+                        type=lambda argument: check_directory(parser, argument, '-g/--graph'),
                         required=False,
                         nargs='?')
-
+    
+    # analyze the given arguments
     args = parser.parse_args(sys.argv[1::])
 
     parser_input(args, parser)
     parser_graph(args, parser)
-
-    if args.directory_path is not None:
-        parser_save(args, parser)
-    else:
-        parser_save(args, parser)
-
+    parser_save(args, parser)
+    
     return args
 
 
-def path_input(parser, argument, flag):
+def create_folder(folder):
     """
-    Input: Parser_class to get error and argument user input
-    Define path of the directory
-    enter by the user and return it if
-    it exists and is a directory
+    Create a folder if it not already exist
+    Input:
+        folder: string of the path of the folder to create
+    No output
     """
-    argument = pathlib.Path(argument)
-    if argument.exists() and argument.is_dir():
-        return argument
+    if not pathlib.Path(folder).exists():
+        os.mkdir(folder)
+
+
+def check_directory(parser, directory, flag):
+    """
+    Check if the given path is a directory
+    Input:
+        parser: container for argument specifications
+        directory: string of a path
+        flag: string of the name of a flag 
+    No output
+    """
+    directory = pathlib.Path(directory)
+    if directory.exists() and directory.is_dir():
+        return directory
     else:
         parser.error(f'invalid directory for flag {flag}.')
 
 
 def parser_input(args, parser):
     """
-    Input: Argument structure with the user input, Parser_class to get error
-    parse the input for -i/--input and -f/--file_input if there is an argument or not, if not a window to choose the
-    file will display
+    Analyze the input for the flags -i and -f
+    Input: 
+        args: class object of arguments entered by the user
+        parser: container for argument specifications
+    No output
     """
+    # -i and -f flags cannot be set at the same time
     if ('-i' in sys.argv[1::] or '--input' in sys.argv[1::]) and ('-f' in sys.argv[1::] or '--file_input' in sys.argv[1::]):
         parser.error("argument -f/--file_input: not allowed with argument -i/--input")
-
-    if args.Fasta_File is None:
-        if args.sequence is None:
-            if '-i' in sys.argv[1::] or '--input' in sys.argv[1::]:
-                parser.error('argument for -i flag is required.')
-            from tkinter import filedialog
-            args.Fasta_File = filedialog.askopenfile(mode='r', title="Choose a file", filetypes=FILE_TYPE_READ)
-            if args.Fasta_File is None:
-                parser.error('no parameters given for -i/--input or -f/--file_input.')
+    
+    # if no input is given
+    if args.Fasta_file is None and args.sequence is None:
+        # the -i flag must be followed by an RNA sequence
+        if '-i' in sys.argv[1::] or '--input' in sys.argv[1::]:
+            parser.error('argument for -i flag is required.')
+        # open the graphical interface
+        try: from tkinter import filedialog
+        except ImportError:
+            print("No input is given and the tkinter module is not installed.")
+            exit(1)
+        args.Fasta_file = filedialog.askopenfile(mode='r', title="Choose a fasta file", filetypes=FILE_TYPE_READ)
+        # raise an error if no file is chosen
+        if args.Fasta_file is None:
+            parser.error('no parameters given for -i/--input or -f/--file_input.')
 
 
 def parser_graph(args, parser):
     """
-    Input: Argument structure with the user input, Parser_class to get error
-    parse the save directory input by the user and add the result directory to it
+    Analyze the input for the flag -g
+    Input: 
+        args: class object of arguments entered by the user
+        parser: container for argument specifications
+    No output
     """
+    # creation of the folder if an argument is given
     if args.directory_path is not None:
-        args.directory_path = args.directory_path
         create_folder(args.directory_path)
+    # if the -g flag is set but no argument is given
     elif '-g' in sys.argv[1::] or '--graph' in sys.argv[1::]:
-        from tkinter import filedialog
-        argument = filedialog.askdirectory(mustexist=True, title="Enter a directory where save the graph(s)")
+        # open the graphical interface
+        try: from tkinter import filedialog
+        except ImportError:
+            print("No input is given and the tkinter module is not installed.")
+            exit(1)
+        argument = filedialog.askdirectory(mustexist=True, title="Choose a directory where to save the graph(s)")
+        # creation of the folder at the given path
         if argument is not None:
             args.directory_path = pathlib.Path(argument)
             args.directory_path = os.path.join(args.directory_path, DIRECTORY_NAME_GRAPH)
             create_folder(args.directory_path)
+        # creation of the folder at the current directory
         else:
             args.directory_path = os.path.abspath(DIRECTORY_NAME_GRAPH)
             create_folder(args.directory_path)
 
 
-def create_folder(folder):
-    """
-    create a folder if it not already exist
-    """
-    if not pathlib.Path(folder).exists():
-        os.mkdir(folder)
-
 
 def parser_save(args, parser):
     """
-    Input: Argument structure with the user input, Parser_class to get error and
-    default directory where to display the save window
-    parse the save if there is an argument or not, if not a window for choose the
-    file will display
+    Analyze the input for the flag -s
+    Input: 
+        args: class object of arguments entered by the user
+        parser: container for argument specifications
+    No output
     """
-    if args.file_path is None and ('--save' in sys.argv[1::] or '-s' in sys.argv[1::]):
-        from tkinter import filedialog
-        args.file_path = filedialog.asksaveasfile(mode='w', title="Save file",
+    # if the -s flag is set but no argument is given
+    if args.file_path is None and ('-s' in sys.argv[1::] or '--save' in sys.argv[1::]):
+        # open the graphical interface
+        try: from tkinter import filedialog
+        except ImportError:
+            print("No input is given and the tkinter module is not installed.")
+            exit(1)
+        args.file_path = filedialog.asksaveasfile(mode='w', title="Choose a directory and the file name where to save the results",
                                              initialdir=args.directory_path,
                                              initialfile=DEFAULT_SAVE_FILENAME,
-                                             defaultextension=DEFAULT_EXTENSION_SAVE,
+                                             defaultextension=DEFAULT_SAVE_EXTENSION,
                                              filetypes=FILE_TYPE_SAVE)
+    
         if args.file_path is None:
-            if args.directory_path is not None:
-                args.file_path = os.path.join(args.directory_path, DEFAULT_SAVE_FILENAME) + DEFAULT_EXTENSION_SAVE
-            else:
-                args.file_path = os.path.abspath(DEFAULT_SAVE_FILENAME + DEFAULT_EXTENSION_SAVE)
-            try:
+            if args.directory_path is not None: # save the file in the graphs directory
+                args.file_path = os.path.join(args.directory_path, DEFAULT_SAVE_FILENAME) + DEFAULT_SAVE_EXTENSION
+            else: # save the file in the current directory and give the default name
+                args.file_path = os.path.abspath(DEFAULT_SAVE_FILENAME + DEFAULT_SAVE_EXTENSION)
+            try: # try to open or create the file
                 args.file_path = open(args.file_path, 'x')
             except FileExistsError:
-                parser.error('default save already exist for -s/--save flag.')
+                parser.error(f"File with the same name already exists : {args.file_path}")
