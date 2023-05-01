@@ -51,6 +51,9 @@ def sequence_processing(sequence, sequence_name, verbose_traceback, graph_direct
     output = display_results(sequence_name, sequence, matches, best_score)
     
     if graph_directory is not None: # create the graph if asked
+        # replace all forbidden characters by an underscore
+        for char in ['<', '>', ':', '"', '/', '\\', '|', '?', '*']:
+            sequence_name = sequence_name.replace(char, '_')
         graph_file = os.path.join(graph_directory, sequence_name + GRAPH_EXTENSION)
         draw_graph(graph_file, sequence, matches)
     
