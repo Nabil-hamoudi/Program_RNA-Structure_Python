@@ -34,8 +34,10 @@ def display_results(sequence_name, sequence, matches, best_score):
     for index in matches:
         if index is None: index = '_'
         output += str(index) + " "*(3-len(str(index)))
-    output += '\n'
+    output += "\nStructure(s) in DBN format:\n"
 
+    # translates the list matches to DBN format
+    output += matches2dbn(matches) + '\n'
     print(output)
     return output + '\n'
 
