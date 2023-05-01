@@ -23,7 +23,7 @@ def get_sequences(args):
     if args.sequence is not None: # sequence input
         return {"Unknown sequence": args.sequence}
     else: # fasta file input
-        return reading_fasta_file(args.Fasta_File)
+        return reading_fasta_file(args.Fasta_file)
 
 
 def sequence_processing(sequence, sequence_name, verbose_traceback, graph_directory=None):
