@@ -35,7 +35,7 @@ def parser_function():
                              help='input a Fasta file of one or more RNA sequence(s)',
                              type=argparse.FileType('r'),
                              nargs='?')
-    
+
     # remaining flags
     parser.add_argument('-s', '--save',
                         help='save the output into a file',
@@ -54,14 +54,14 @@ def parser_function():
                         type=lambda argument: check_directory(parser, argument, '-g/--graph'),
                         required=False,
                         nargs='?')
-    
+
     # analyze the given arguments
     args = parser.parse_args(sys.argv[1::])
 
     parser_input(args, parser)
     parser_graph(args, parser)
     parser_save(args, parser)
-    
+
     return args
 
 
@@ -74,6 +74,7 @@ def create_folder(folder):
     """
     if not pathlib.Path(folder).exists():
         os.mkdir(folder)
+    return folder
 
 
 def check_directory(parser, directory, flag):
@@ -85,9 +86,11 @@ def check_directory(parser, directory, flag):
         flag: string of the name of a flag 
     No output
     """
-    directory = pathlib.Path(directory)
-    if directory.exists() and directory.is_dir():
-        return directory
+    directory = os.path.abspath(pathlib.Path(directory))
+    prec_directory = pathlib.Path(os.path.abspath(os.path.join(directory, "..")))
+    if prec_directory.exists() and prec_directory.is_dir():
+        # creation of the folder if an argument is given
+        return create_folder(directory)
     else:
         parser.error(f'invalid directory for flag {flag}.')
 
@@ -103,7 +106,7 @@ def parser_input(args, parser):
     # -i and -f flags cannot be set at the same time
     if ('-i' in sys.argv[1::] or '--input' in sys.argv[1::]) and ('-f' in sys.argv[1::] or '--file_input' in sys.argv[1::]):
         parser.error("argument -f/--file_input: not allowed with argument -i/--input")
-    
+
     # if no input is given
     if args.Fasta_file is None and args.sequence is None:
         # the -i flag must be followed by an RNA sequence
@@ -112,8 +115,7 @@ def parser_input(args, parser):
         # open the graphical interface
         try: from tkinter import filedialog
         except ImportError:
-            print("No input is given and the tkinter module is not installed.")
-            exit(1)
+            parser.error('No input is given for -i/--input or -f/--file_input and the tkinter module is not installed.')
         args.Fasta_file = filedialog.askopenfile(mode='r', title="Choose a fasta file", filetypes=FILE_TYPE_READ)
         # raise an error if no file is chosen
         if args.Fasta_file is None:
@@ -128,16 +130,12 @@ def parser_graph(args, parser):
         parser: container for argument specifications
     No output
     """
-    # creation of the folder if an argument is given
-    if args.directory_path is not None:
-        create_folder(args.directory_path)
     # if the -g flag is set but no argument is given
-    elif '-g' in sys.argv[1::] or '--graph' in sys.argv[1::]:
+    if args.directory_path is None and ('-g' in sys.argv[1::] or '--graph' in sys.argv[1::]):
         # open the graphical interface
         try: from tkinter import filedialog
         except ImportError:
-            print("No input is given and the tkinter module is not installed.")
-            exit(1)
+            parser.error('No input is given for -g/--graph flag and the tkinter module is not installed.')
         argument = filedialog.askdirectory(mustexist=True, title="Choose a directory where to save the graph(s)")
         # creation of the folder at the given path
         if argument is not None:
@@ -164,8 +162,7 @@ def parser_save(args, parser):
         # open the graphical interface
         try: from tkinter import filedialog
         except ImportError:
-            print("No input is given and the tkinter module is not installed.")
-            exit(1)
+            parser.error('No input is given for -s/--save and the tkinter module is not installed.')
         args.file_path = filedialog.asksaveasfile(mode='w', title="Choose a directory and the file name where to save the results",
                                              initialdir=args.directory_path,
                                              initialfile=DEFAULT_SAVE_FILENAME,
