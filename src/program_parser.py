@@ -70,7 +70,8 @@ def create_folder(folder):
     Create a folder if it not already exist
     Input:
         folder: string of the path of the folder to create
-    No output
+    Output:
+        string of the path of the folder
     """
     if not pathlib.Path(folder).exists():
         os.mkdir(folder)
@@ -87,8 +88,8 @@ def check_directory(parser, directory, flag):
     No output
     """
     directory = os.path.abspath(pathlib.Path(directory))
-    prec_directory = pathlib.Path(os.path.abspath(os.path.join(directory, "..")))
-    if prec_directory.exists() and prec_directory.is_dir():
+    parent_directory = pathlib.Path(os.path.abspath(os.path.join(directory, "..")))
+    if parent_directory.exists() and parent_directory.is_dir():
         # creation of the folder if an argument is given
         return create_folder(directory)
     else:
@@ -115,11 +116,11 @@ def parser_input(args, parser):
         # open the graphical interface
         try: from tkinter import filedialog
         except ImportError:
-            parser.error('No input is given for -i/--input or -f/--file_input and the tkinter module is not installed.')
+            parser.error('No input is given for -i nor -f flag and the tkinter module is not installed.')
         args.Fasta_file = filedialog.askopenfile(mode='r', title="Choose a fasta file", filetypes=FILE_TYPE_READ)
         # raise an error if no file is chosen
         if args.Fasta_file is None:
-            parser.error('no parameters given for -i/--input or -f/--file_input.')
+            parser.error('No parameter given for -i nor -f flag.')
 
 
 def parser_graph(args, parser):
