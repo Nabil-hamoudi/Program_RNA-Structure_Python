@@ -78,7 +78,7 @@ def draw_graph(file, sequence, matches):
     main_command = f"java -cp {path_to_varna} fr.orsay.lri.varna.applications.VARNAcmd"
     sequence_argument = f" -sequenceDBN {sequence}"
     structure_argument = f" -structureDBN \"{dbn}\""
-    output_argument = f" -o \"{str(file)}\""
+    output_argument = f" -o \"{str(file)}\" -resolution 3"
 
     # execute the command
     return_code = subprocess.call(main_command + sequence_argument + structure_argument + output_argument, shell=True)
