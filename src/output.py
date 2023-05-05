@@ -75,7 +75,7 @@ def draw_graph(file, sequence, matches):
     path_to_varna = os.path.join(os.path.dirname(__file__), '..', 'structures_tools', "VARNAv3-93.jar")
 
     # format the command and its arguments
-    main_command = f"java -cp {path_to_varna} fr.orsay.lri.varna.applications.VARNAcmd"
+    main_command = f"java -cp \"{path_to_varna}\" fr.orsay.lri.varna.applications.VARNAcmd"
     sequence_argument = f" -sequenceDBN {sequence}"
     structure_argument = f" -structureDBN \"{dbn}\""
     output_argument = f" -o \"{str(file)}\" -resolution 3"
