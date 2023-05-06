@@ -44,7 +44,6 @@ def traceback(matrix, current_matrix_name, indices, matches, verbose=False):
         if matrix_name == "vx":
             matches[matrix_used[1]] = matrix_used[2]
             matches[matrix_used[2]] = matrix_used[1]
-            continue
 
         if matrix_name == "yhx" or matrix_name == "vhx":
             matches[matrix_used[3]] = matrix_used[4]
