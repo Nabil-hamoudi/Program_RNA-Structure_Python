@@ -202,6 +202,8 @@ def coaxial_stacking(i, j, k, l, sequence):
     Output:
         float of the energy of the coaxial stacking
     """
+    letter2index = {'A': 0, 'C': 1, 'G': 2, 'U': 3}
+
     # out of range
     if i >= len(sequence): return float('inf')
     if j >= len(sequence): return float('inf')
@@ -214,55 +216,68 @@ def coaxial_stacking(i, j, k, l, sequence):
     k = sequence[k]
     l = sequence[l]
     
-    #############
-    # --> # --> #
-    # i k # l j #
-    # | | # | | #
-    # j l # k i #
-    # <-- # <-- #
-    #############
+    #######
+    # --> #
+    # i k #
+    # | | #
+    # j l #
+    # <-- #
+    #######
 
-    # table 2 from 'Improved free-energy parameters for predictions of RNA duplex stability'
-    if i == 'A' and j == 'U' and k == 'A' and l == 'U': return -0.9
-    if i == 'A' and j == 'U' and k == 'U' and l == 'A': return -0.9
-    if i == 'U' and j == 'A' and k == 'A' and l == 'U': return -1.1
-    if i == 'C' and j == 'G' and k == 'A' and l == 'U': return -1.8
-    if i == 'C' and j == 'G' and k == 'U' and l == 'A': return -1.7
-    if i == 'G' and j == 'C' and k == 'A' and l == 'U': return -2.3
-    if i == 'G' and j == 'C' and k == 'U' and l == 'A': return -2.1
-    if i == 'C' and j == 'G' and k == 'G' and l == 'C': return -2.0
-    if i == 'G' and j == 'C' and k == 'C' and l == 'G': return -3.4
-    if i == 'G' and j == 'C' and k == 'G' and l == 'C': return -2.9
+    # table 4 from 'Improved free-energy parameters for predictions of RNA duplex stability'
+    if i == 'G' and j == 'C':
+        matrix_GC = [
+            [-1.1, -1.3, -1.3, -2.3],
+            [-1.1, -0.6, -3.4, -0.5],
+            [-1.6, -2.9, -1.4, -1.4],
+            [-2.1, -0.8, -2.3, -0.7]
+        ]
+        k = letter2index[k]
+        l = letter2index[l]
+        return matrix_GC[k][l]
 
-    # symmetry
-    if l == 'A' and k == 'U' and j == 'A' and i == 'U': return -0.9
-    if l == 'A' and k == 'U' and j == 'U' and i == 'A': return -0.9
-    if l == 'U' and k == 'A' and j == 'A' and i == 'U': return -1.1
-    if l == 'C' and k == 'G' and j == 'A' and i == 'U': return -1.8
-    if l == 'C' and k == 'G' and j == 'U' and i == 'A': return -1.7
-    if l == 'G' and k == 'C' and j == 'A' and i == 'U': return -2.3
-    if l == 'G' and k == 'C' and j == 'U' and i == 'A': return -2.1
-    if l == 'C' and k == 'G' and j == 'G' and i == 'C': return -2.0
-    if l == 'G' and k == 'C' and j == 'C' and i == 'G': return -3.4
-    if l == 'G' and k == 'C' and j == 'G' and i == 'C': return -2.9
+    if i == 'C' and j == 'G':
+        matrix_CG = [
+            [-1.9, -2.0, -1.9, -1.8],
+            [-1.0, -1.1, -2.9, -0.8],
+            [-1.9, -2.0, -1.9, -1.6],
+            [-1.7, -1.5, -1.9, -1.2]
+        ]
+        k = letter2index[k]
+        l = letter2index[l]
+        return matrix_CG[k][l]
+
+    if i == 'A' and j == 'U':
+        matrix_AU = [
+            [-0.8, -1.0, -1.0, -0.9],
+            [-0.7, -0.7, -2.1, -0.7],
+            [-0.8, -1.7, -1.0, -0.9],
+            [-0.9, -0.8, -0.9, -0.8]
+        ]
+        k = letter2index[k]
+        l = letter2index[l]
+        return matrix_AU[k][l]
+
+    if i == 'U' and j == 'A':
+        matrix_UA = [
+            [-1.0, -0.8, -1.1, -1.1],
+            [-0.7, -0.6, -2.3, -0.5],
+            [-1.1, -1.8, -1.2, -0.9],
+            [-0.9, -0.6, -1.0, -0.5]
+        ]
+        k = letter2index[k]
+        l = letter2index[l]
+        return matrix_UA[k][l]
 
     # mismatches G-U
-    if i == 'A' and j == 'U' and k == 'G' and l == 'U': return -0.5
-    if i == 'C' and j == 'G' and k == 'G' and l == 'U': return -1.5
-    if i == 'G' and j == 'C' and k == 'G' and l == 'U': return -1.3
-    if i == 'U' and j == 'A' and k == 'G' and l == 'U': return -0.7
     if i == 'G' and j == 'U' and k == 'G' and l == 'U': return -0.5
     if i == 'U' and j == 'G' and k == 'G' and l == 'U': return -0.6
 
-    if i == 'A' and j == 'U' and k == 'U' and l == 'G': return -0.7
-    if i == 'C' and j == 'G' and k == 'U' and l == 'G': return -1.5
-    if i == 'G' and j == 'C' and k == 'U' and l == 'G': return -1.9
-    if i == 'U' and j == 'A' and k == 'U' and l == 'G': return -0.5
     if i == 'G' and j == 'U' and k == 'U' and l == 'G': return -0.5
     if i == 'U' and j == 'G' and k == 'U' and l == 'G': return -0.5
 
     # default value
-    return -0.4
+    return float('inf')
 
 
 
