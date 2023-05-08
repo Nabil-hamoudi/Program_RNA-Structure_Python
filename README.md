@@ -41,6 +41,11 @@ The following command lines must be run in a terminal by executing the file `alg
 Use the flag **-i** or **--input** follow by your sequence.
 In order to launch the program you can can directly enter an RNA or DNA sequence (which will be automatically converted into an RNA sequence). The sequence must be composed of the following characters: A, C, G, U, T, a, c, g, u, t.
 
+```sh 
+python3 algo.py -i sequence
+``` 
+
+Examples : 
 ```sh
 python3 algo.py −i AAAUCCAAAGCGAUUUCG
 python3 algo.py −i aaauccaaagcauuucg
@@ -90,6 +95,7 @@ Then 2 options are available:
 ```sh
 python3 algo.py -f -s path/file.txt
 ```
+where *path* is the path leading to the *file* which is the name of the file with its extension.
 
 Examples : 
 ```sh
@@ -115,6 +121,7 @@ Then 2 options are available:
 ```sh
 python3 algo.py -f -g path/directory
 ```
+where *path* is the path leading to the *directory* which will contains the graphs
 
 Examples : 
 ```sh
