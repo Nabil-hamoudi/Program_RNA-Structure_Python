@@ -23,7 +23,7 @@ The folder RNA_Program contains :
     * Improvedfree-energyparametersforpredictionsofRNAduplexstability.pdf
 * results
     * pseudoknot_example.jpeg
-* seq
+* seq (*a lot of sequences for testing, they're not essentials*)
     * seq_PKNOT
 * src
     * matrices
