@@ -62,7 +62,6 @@ The following command lines must be run in a terminal by executing the file algo
 Use the flag -i or --input follow by your sequence.
 In order to launch the program you can can directly enter an RNA or DNA sequence (which will be automatically converted into an RNA sequence). The sequence must be composed of the following characters: A, C, G, U, T, a, c, g, u, t.
 
-For examples:
 ```sh
 python3 algo.py −i AAAUCCAAAGCGAUUUCG
 python3 algo.py −i aaauccaaagcauuucg
@@ -117,3 +116,11 @@ python3 algo.py -f -g
 python3 algo.py −i AGCUC -g
 ```
 > Note: to use this feature you must have [java](https://www.java.com/fr/) installed on your machine.
+
+- Afficher le traceback
+
+It is possible to display the traceback using the flag -t or --traceback. This feature is especially useful for developers, as it makes it easier to debug the program. Indeed, it makes it possible to display for each recursion, the current matrix, the indices studied, the best score and the matrices of the next recursion.
+```sh
+python3 algo.py -f -t
+python3 algo.py −i AGCUC -t
+python3 algo.py −i AGCUC --traceback
