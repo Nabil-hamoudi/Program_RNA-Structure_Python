@@ -27,8 +27,6 @@ int nb_pseudoknot = 0;
 
 %token PAR_O PAR_C
 %token BRA_O BRA_C
-%token CUR_O CUR_C
-%token LOW_O GRE_C
 %token DOT
 
 %%
