@@ -62,7 +62,7 @@ To do this, use the flag: **-f** or **--file_input**.
 
 Two options are available:
 
-#### Enter the path leading to the fasta file
+→ Enter the path leading to the fasta file
 
 ```sh
 python3 algo.py -f path/file
@@ -76,7 +76,7 @@ python3 algo.py −f C:\path\to\file.fasta
 python3 algo.py --file_input relative/path/to/file.fasta
 
 ```
-#### Do not write anything after the flag, in this case the file explorer will open and you can directly select the file to open.
+→ Do not write anything after the flag, in this case the file explorer will open and you can directly select the file to open.
 Examples : 
 ```sh
 python3 algo.py -f
