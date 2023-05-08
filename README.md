@@ -74,12 +74,12 @@ python3 algo.py −−input AAATCCAAAGCATTTCG
 Instead of entering a sequence by hand you can choose to use a fasta file (containing one or more RNA or DNA sequence(s)).
 To do this, use the flag: -f or --file_input. Two options are available:
 
--- Enter the path leading to the fasta file
+→ Enter the path leading to the fasta file
 ```sh
 python3 algo.py −f C:\xxx\xxxx\yyy.fa
 python3 algo.py --file_input C:\xxx\xxxx\yyy.fa
 ```
--- Do not write anything after the flag, in this case the file explorer will open and you can directly select the file to open.
+→ Do not write anything after the flag, in this case the file explorer will open and you can directly select the file to open.
 ```sh
 python3 algo.py -f
 python3 algo.py --file_input
