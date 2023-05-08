@@ -91,7 +91,7 @@ If you want to save the results, use the flag **-s** or **--save**.
 
 Then 2 options are available:
 
-#### Enter the path to choose where to save the file.
+→ Enter the path to choose where to save the file.
 ```sh
 python3 algo.py -f -s path/file.txt
 ```
@@ -102,7 +102,7 @@ Examples :
 python3 algo.py −f C:\path\to\file.fa -s C:\path\to\result.txt
 python3 algo.py -f -s relative/path/to/result.txt
 ```
-#### Do not enter anything, in this case a window will open to invite you to select the location of the backup and the name of the file. 
+→ Do not enter anything, in this case a window will open to invite you to select the location of the backup and the name of the file. 
 Examples : 
 ```sh
 python3 algo.py -f -s
@@ -116,7 +116,7 @@ Pour générer et enregistrer un graphe représentant la structure secondaire de
 
 Then 2 options are available:
 
-#### Enter the path to choose where to save the file.
+→ Enter the path to choose where to save the file.
 
 ```sh
 python3 algo.py -f -g path/directory
@@ -129,7 +129,7 @@ python3 algo.py -f -g C:\path\to\directory
 python3 algo.py -g path/to/directory
 ```
 
-#### Do not enter anything, in this case a window will open to invite you to select the location of the backup and the name of the file. 
+→ Do not enter anything, in this case a window will open to invite you to select the location of the backup and the name of the file. 
 Examples : 
 ```sh
 python3 algo.py -f -g
