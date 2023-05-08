@@ -53,6 +53,7 @@ The folder RNA_Program contains :
 - algo.py
 - README.md
 
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png)
 ## How to use the program
 The following command lines must be run in a terminal by executing the file algo.py.
 
