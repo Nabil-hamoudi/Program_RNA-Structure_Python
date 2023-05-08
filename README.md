@@ -126,7 +126,7 @@ where *path* is the path leading to the *directory* which will contains the grap
 Examples : 
 ```sh
 python3 algo.py -f -g C:\path\to\directory
-python3 algo.py path/to/directory
+python3 algo.py -g path/to/directory
 ```
 
 #### Do not enter anything, in this case a window will open to invite you to select the location of the backup and the name of the file. 
