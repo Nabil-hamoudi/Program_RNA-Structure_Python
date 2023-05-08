@@ -12,7 +12,7 @@ RNA secondary structure prediction using dynamic programmation from a given sequ
 (you can install it with `pip install tk`). If pip is not installed, you can follow this link : https://pip.pypa.io/en/stable/installation
 - JAVA for VARNA : http://varna.lri.fr/index.php?lang=en&page=home&css=varna
 
-## Content
+## :open_file_folder: Content
 The folder RNA_Program contains : 
 * rapport.pdf
 * references
