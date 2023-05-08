@@ -124,3 +124,5 @@ It is possible to display the traceback using the flag -t or --traceback. This f
 python3 algo.py -f -t
 python3 algo.py −i AGCUC -t
 python3 algo.py −i AGCUC --traceback
+
+> $${\color{red}Note: all flags can be used together except -i and -f.}$$
