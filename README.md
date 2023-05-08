@@ -1,4 +1,5 @@
 # A Dynamic Programming Algorithm for RNA Structure Prediction Including Pseudoknots
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png)
 
 *CIESLA Julie, GODET Chloé, GROSJACQUES Marwane, HAMOUDI Nabil*
 
