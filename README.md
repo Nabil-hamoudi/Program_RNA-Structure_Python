@@ -35,6 +35,7 @@ The following command lines must be run in a terminal by executing the file `alg
 > Note: The program can take several minutes or even several hours to run.
 > Note: All flags can be used together except -i and -f.
 
+
 ### Enter an RNA sequence
 
 Use the flag **-i** or **--input** follow by your sequence.
@@ -47,6 +48,7 @@ python3 algo.py −i AAauCCAaAGcGAUUuCG
 python3 algo.py −i AAATCCAAAGCATTTCG
 python3 algo.py −−input AAATCCAAAGCATTTCG
 ```
+
 
 ### Load a file in fasta format
 
@@ -77,6 +79,7 @@ python3 algo.py --file_input
 ```
 > Note: If no flag is entered, the file explorer opens by default.
 
+
 ### Save the results
 
 If you want to save the results, use the flag **-s** or **--save**. 
@@ -99,6 +102,7 @@ Examples :
 python3 algo.py -f -s
 python3 algo.py −f C:\path\to\file.fa -s
 ```
+
 
 ### Generate and save a graph
 
@@ -126,6 +130,7 @@ python3 algo.py −i AGCUC -g
 ```
 > Note: to use this feature you must have [java](https://www.java.com/fr/) installed on your machine.
 > Note: the default name of the graph directory is results
+
 
 ### Display traceback
 
