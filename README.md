@@ -1,9 +1,8 @@
 # A Dynamic Programming Algorithm for RNA Structure Prediction Including Pseudoknots
-![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png)
 
 *CIESLA Julie, GODET Chloé, GROSJACQUES Marwane, HAMOUDI Nabil*
 
-
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png)
 ## Presentation
 RNA secondary structure prediction using dynamic programmation from a given sequence of RNA.
 
