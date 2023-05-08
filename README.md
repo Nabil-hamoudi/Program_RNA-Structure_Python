@@ -7,7 +7,7 @@
 This is a graduation project. 
 
 The goal was to implement an RNA seocondary structure prediction algorithm using dynamic programmation.
-Our work is based on [A Dynamic Programming Algorithm for RNA Structure Prediction Including Pseudoknots](https://github.com/Nabil-hamoudi/Program_RNA-Structure_Python/blob/main/references/A%20Dynamic%20Programming%20Algorithm%20for%20RNA%20Structure.pdf) by Elena Rivass and Sean R. Eddy. 
+Our work is based on [A Dynamic Programming Algorithm for RNA Structure Prediction Including Pseudoknots](https://github.com/Nabil-hamoudi/Program_RNA-Structure_Python/blob/main/references/A%20Dynamic%20Programming%20Algorithm%20for%20RNA%20Structure.pdf) by Elena Rivas and Sean R. Eddy. 
 
 
 ## :construction: Installation
