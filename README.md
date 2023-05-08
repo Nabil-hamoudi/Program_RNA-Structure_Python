@@ -24,6 +24,7 @@ The folder RNA_Program contains :
 * results
     * pseudoknot_example.jpeg
 * seq
+    * seq_PKNOT
 * src
     * matrices
         * matrix_vhx.py
