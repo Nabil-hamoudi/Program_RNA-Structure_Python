@@ -73,6 +73,7 @@ python3 algo.py −−input AAATCCAAAGCATTTCG
 
 Instead of entering a sequence by hand you can choose to use a fasta file (containing one or more RNA or DNA sequence(s)).
 To do this, use the flag: -f or --file_input. Two options are available:
+
 -- Enter the path leading to the fasta file
 ```sh
 python3 algo.py −f C:\xxx\xxxx\yyy.fa
@@ -88,6 +89,7 @@ python3 algo.py --file_input
 - Save the results
 
 If you want to save the results, use the flag -s or --save. Then 2 options are available:
+
 --  Enter the path to choose where to save the file.
 ```sh
 python3 algo.py −f C:\xxx\xxxx\yyy.fa -s C:\xxx\xxxxxx\xx\file_name.txt
@@ -102,6 +104,7 @@ python3 algo.py −f C:\xxx\xxxx\yyy.fa -s
 - Generate and save a graph
 
 Pour générer et enregistrer un graphe représentant la structure secondaire de l'ARN vous pouvez utiliser le flag -g ou --graph. Then 2 options are available:
+
 --  Enter the path to choose where to save the file.
 ```sh
 python3 algo.py -f -g C:\xxx\xxxxxx\xx
