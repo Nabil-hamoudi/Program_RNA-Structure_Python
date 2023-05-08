@@ -57,7 +57,7 @@ The folder RNA_Program contains :
 The following command lines must be run in a terminal by executing the file algo.py.
 > Note: The program can take several minutes or even several hours to run.
 
-> Note: all flags can be used together except -i and -f.
+> Note: All flags can be used together except -i and -f.
 
 - Enter an RNA sequence
 
