@@ -117,7 +117,7 @@ python3 algo.py −i AGCUC -g
 ```
 > Note: to use this feature you must have [java](https://www.java.com/fr/) installed on your machine.
 
-- Afficher le traceback
+- Display traceback
 
 It is possible to display the traceback using the flag -t or --traceback. This feature is especially useful for developers, as it makes it easier to debug the program. Indeed, it makes it possible to display for each recursion, the current matrix, the indices studied, the best score and the matrices of the next recursion.
 ```sh
