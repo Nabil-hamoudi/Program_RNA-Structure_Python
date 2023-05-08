@@ -18,12 +18,16 @@ It is capable of predicting the following structures :
 * multiloop
 * pseudoknot (only the three most common topologies)
 
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png)
 ## :construction: Installation
 - Python version used : 3.10.10
 - tkinter version 8.6 or newer 
 (you can install it with `pip install tk`). If pip is not installed, you can follow this link : https://pip.pypa.io/en/stable/installation
 - JAVA for VARNA : http://varna.lri.fr/index.php?lang=en&page=home&css=varna
 
+
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png)
 ## :open_file_folder: Content
 The folder RNA_Program contains : 
 * rapport.pdf
