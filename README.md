@@ -126,4 +126,4 @@ python3 algo.py −i AGCUC -t
 python3 algo.py −i AGCUC --traceback
 ```
 
-> $\textcolor{blue}{Note: all flags can be used together except -i and -f.}$ 
+>$\textcolor{blue}{\textsf{Note: all flags can be used together except -i and -f.}}$ 
