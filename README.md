@@ -56,6 +56,7 @@ The folder RNA_Program contains :
 ## :computer: How to use the program
 The following command lines must be run in a terminal by executing the file algo.py.
 > Note: The program can take several minutes or even several hours to run.
+> Note: all flags can be used together except -i and -f.
 
 - Enter an RNA sequence
 
@@ -126,4 +127,3 @@ python3 algo.py −i AGCUC -t
 python3 algo.py −i AGCUC --traceback
 ```
 
->$\textcolor{blue}{\textsf{Note: all flags can be used together except -i and -f.}}$ 
