@@ -27,46 +27,6 @@ It is capable of predicting the following structures :
 - JAVA for VARNA : http://varna.lri.fr/index.php?lang=en&page=home&css=varna
 
 
-![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png)
-## :open_file_folder: Content
-The folder RNA_Program contains : 
-* rapport.pdf
-* references
-    * 1985_Sankoff.pdf
-    * A Dynamic Programming Algorithm for RNA Structure.pdf
-    * complete set of recursion.pdf
-    * HIV-1-RT-ligand RNA pseudoknots.pdf
-    * Improvedfree-energyparametersforpredictionsofRNAduplexstability.pdf
-* results
-    * pseudoknot_example.jpeg
-* seq (*a lot of sequences for testing, they're not essentials*)
-    * seq_PKNOT
-* src
-    * matrices
-        * matrix_vhx.py
-        * matrix_vx.py
-        * matrix_whx.py
-        * matrix_wx.py
-        * matrix_wxi.py
-        * matrix_yhx.py
-        * matrix_zhx.py
-    * create_matrices.py
-    * main.py
-    * output.py
-    * parameters.py
-    * program_parser.py
-    * sequence_handling.py
-    * traceback_RNA.py
-* structures tools
-    * VARNAv3-93.jar
-    * find_structures
-        * find_structures.l
-        * find_structures.y
-        * Makefile
-        * README.md
-        * test
-- algo.py
-- README.md
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png)
 ## :computer: How to use the program
@@ -144,3 +104,43 @@ python3 algo.py −i AGCUC -t
 python3 algo.py −i AGCUC --traceback
 ```
 
+![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png)
+## :open_file_folder: Content
+The folder RNA_Program contains : 
+* rapport.pdf
+* references
+    * 1985_Sankoff.pdf
+    * A Dynamic Programming Algorithm for RNA Structure.pdf
+    * complete set of recursion.pdf
+    * HIV-1-RT-ligand RNA pseudoknots.pdf
+    * Improvedfree-energyparametersforpredictionsofRNAduplexstability.pdf
+* results
+    * pseudoknot_example.jpeg
+* seq (*a lot of sequences for testing, they're not essentials*)
+    * seq_PKNOT
+* src
+    * matrices
+        * matrix_vhx.py
+        * matrix_vx.py
+        * matrix_whx.py
+        * matrix_wx.py
+        * matrix_wxi.py
+        * matrix_yhx.py
+        * matrix_zhx.py
+    * create_matrices.py
+    * main.py
+    * output.py
+    * parameters.py
+    * program_parser.py
+    * sequence_handling.py
+    * traceback_RNA.py
+* structures tools
+    * VARNAv3-93.jar
+    * find_structures
+        * find_structures.l
+        * find_structures.y
+        * Makefile
+        * README.md
+        * test
+- algo.py
+- README.md
