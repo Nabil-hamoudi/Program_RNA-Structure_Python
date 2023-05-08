@@ -3,10 +3,10 @@
 *CIESLA Julie, GODET Chloé, GROSJACQUES Marwane, HAMOUDI Nabil*
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png)
-## Presentation
+## 🎓 Presentation
 RNA secondary structure prediction using dynamic programmation from a given sequence of RNA.
 
-## Installation
+## :construction: Installation
 - Python version used : 3.10.10
 - tkinter version 8.6 or newer 
 (you can install it with `pip install tk`). If pip is not installed, you can follow this link : https://pip.pypa.io/en/stable/installation
