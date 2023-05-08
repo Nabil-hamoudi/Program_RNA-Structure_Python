@@ -65,7 +65,7 @@ Two options are available:
 #### Enter the path leading to the fasta file
 
 ```sh
-python3 algo.py path/file
+python3 algo.py -f path/file
 ```
 where *path* is the path leading to the fasta *file*.
 
