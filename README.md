@@ -90,12 +90,12 @@ python3 algo.py --file_input
 
 If you want to save the results, use the flag -s or --save. Then 2 options are available:
 
---  Enter the path to choose where to save the file.
+✨ Enter the path to choose where to save the file.
 ```sh
 python3 algo.py −f C:\xxx\xxxx\yyy.fa -s C:\xxx\xxxxxx\xx\file_name.txt
 python3 algo.py -f -s C:\xxx\xxxxxx\xx\file_name.txt
 ```
--- Do not enter anything, in this case a window will open to invite you to select the location of the backup and the name of the file. 
+✨ Do not enter anything, in this case a window will open to invite you to select the location of the backup and the name of the file. 
 ```sh
 python3 algo.py -f -s
 python3 algo.py −f C:\xxx\xxxx\yyy.fa -s
