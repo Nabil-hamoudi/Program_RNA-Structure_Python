@@ -30,7 +30,7 @@ It is capable of predicting the following structures :
 
 ![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png)
 ## :computer: How to use the program
-The following command lines must be run in a terminal by executing the file `algo.py`.
+The following command lines must be run in a terminal by executing the file [`algo.py`](https://github.com/Nabil-hamoudi/Program_RNA-Structure_Python/blob/main/algo.py).
 
 ```
 algo.py [-h] [-i [SEQUENCE] | -f [FASTA_FILE]] [-s [FILE_PATH]] [-t] [-g [DIRECTORY_PATH]]
